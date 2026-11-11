@@ -14,5 +14,10 @@ exclude = [
   ".git",
   ".github",
   "tests",
-  "docs"
+  "docs",
+  "assets",
+  "examples",
+  "scripts",
+  "CONTRIBUTING.md",
+  "floe.json"
 ]
