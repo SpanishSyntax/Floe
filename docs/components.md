@@ -402,7 +402,7 @@ Multi-column comparative containers and bento showcases. All multi-column layout
 ```typst
 #key-value-grid(
   items: (
-    ("Package Identifier", "@local/floe:0.2.1 (Universal Typst Package)"),
+    ("Package Identifier", "@local/floe:0.2.2 (Universal Typst Package)"),
     ("Row Layout Engine", "#equal-grid with #metadata(\"floe-footer\") slack distribution"),
     ("Diagram Backends", "CeTZ 0.5.2 • Fletcher 0.5.8 • Merman 0.1.0 • Zap 0.5.0"),
   ),
@@ -643,7 +643,7 @@ Display banners, chapter openers, split heroes, KPI stat strips, and structural 
   badge-label: "FINAL",
   title: "System Identification & Spectral Audit",
   subtitle: "Clean executive document masthead with structured metadata strip",
-  metadata: (("Author", "Floe Labs"), ("Status", "Approved"), ("Version", "v0.2.1")),
+  metadata: (("Author", "Floe Labs"), ("Status", "Approved"), ("Version", "v0.2.2")),
 )
 
 #keynote-header(

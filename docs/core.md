@@ -138,7 +138,7 @@ Consistent corner radii (`radii`), border weights (`strokes`), and vertical spac
 
 **Source:** `core/packages.typ`
 
-Importing Floe (`#import "@local/floe:0.2.1": *`) automatically re-exports a curated suite of third-party Typst packages so you never have to manage versioned preamble imports across individual chapters:
+Importing Floe (`#import "@local/floe:0.2.2": *`) automatically re-exports a curated suite of third-party Typst packages so you never have to manage versioned preamble imports across individual chapters:
 
 | Package | Version | Exported Symbols | Purpose |
 | :--- | :--- | :--- | :--- |
@@ -176,7 +176,7 @@ Floe ships with `#ce(spec)`, a zero-dependency pure-Typst parser for chemical fo
 `#ce` pairs naturally with `unify` (`#qty`, `#unit`) for thermodynamics and `physica` (`$pdv(...)$`, `$dd(...)$`) for chemical kinetics:
 
 ```typst
-#import "@local/floe:0.2.1": *
+#import "@local/floe:0.2.2": *
 
 // Standalone formulas and redox stoichiometry
 #ce("H2SO4(aq)")
