@@ -455,9 +455,9 @@ Located in `presets/`:
 
 ## Gallery and Visual Showcase
 
-A comprehensive visual test suite showcasing every primitive, mixin, and component in action is located in [`examples/gallery.typ`](examples/gallery.typ).
+[`examples/gallery.typ`](examples/gallery.typ) is a compact smoke test covering a subset of Floe's components; it is what CI compiles. The exhaustive layer-by-layer catalog (every component, with previews) is the `floe-showcase-vX.Y.Z.pdf` attached to each [GitHub release](https://github.com/SpanishSyntax/Floe/releases), and the per-layer pages in [`docs/`](docs/).
 
-To compile the gallery locally:
+To compile the smoke-test gallery locally:
 
 ```bash
 typst compile --root . examples/gallery.typ examples/gallery.pdf
