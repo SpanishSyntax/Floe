@@ -1,6 +1,6 @@
 [package]
 name = "floe"
-version = "0.2.0"
+version = "0.2.1"
 entrypoint = "lib.typ"
 authors = ["SpanishSyntax <spanishsyntax@pyritelabs.cc>"]
 license = "MIT"
@@ -9,7 +9,7 @@ homepage = "https://github.com/SpanishSyntax/Floe"
 repository = "https://github.com/SpanishSyntax/Floe"
 keywords = ["ui", "components", "design-system", "layout", "textbook", "callout", "tokens"]
 categories = ["components", "layout", "book"]
-compiler = "0.14.0"
+compiler = "0.14.1"
 exclude = [
   ".git",
   ".github",

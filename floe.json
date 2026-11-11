@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "floe",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Universal 5-layer Typst design system: tokenized primitives, equal-height layouts, multi-science chemistry/physics/plotting engines, pedagogical callouts, and master document presets.",
-  "import_statement": "#import \"@local/floe:0.2.0\": *",
+  "import_statement": "#import \"@local/floe:0.2.1\": *",
   "layers": {
     "layer_0_core": {
       "title": "Core Foundation",
@@ -63,7 +63,7 @@
       "components": [
         {
           "name": "badge",
-          "description": "Inline pill/badge chip with semantic variants and exact cap-height bounding so corner placement never depends on ambient paragraph line height.",
+          "description": "Canonical pill/badge chip with locked cap-height-to-baseline vertical metrics. Guarantees identical badge height regardless of ascenders/descenders (\"info\" vs \"warning\") and whether invoked bare inline or corner-anchored inside a card/plaque/hero header.",
           "args": {
             "label": {
               "type": "content | str",
@@ -84,6 +84,11 @@
               "default": "none",
               "required": false
             },
+            "stroke": {
+              "type": "content | str | none",
+              "default": "auto",
+              "required": false
+            },
             "weight": {
               "type": "str",
               "default": "\"bold\"",
@@ -94,14 +99,24 @@
               "default": "7.5pt",
               "required": false
             },
+            "tracking": {
+              "type": "length | fraction",
+              "default": "0.04em",
+              "required": false
+            },
             "radius": {
               "type": "any",
               "default": "radii.sm",
               "required": false
             },
+            "inset": {
+              "type": "array | tuple",
+              "default": "(x: 5.5pt, y: 3.2pt)",
+              "required": false
+            },
             "baseline": {
-              "type": "length | fraction",
-              "default": "0pt",
+              "type": "any",
+              "default": "18%",
               "required": false
             }
           },
@@ -1528,6 +1543,11 @@
               "default": "()",
               "required": false
             },
+            "palette": {
+              "type": "any",
+              "default": "brand-term-palette",
+              "required": false
+            },
             "above": {
               "type": "length | fraction",
               "default": "8pt",
@@ -2240,8 +2260,13 @@
         },
         {
           "name": "eq-legend",
-          "description": "Universal Equation Term Legend Box Accepts either 3-tuples `(color, symbol, description)` or 2-tuples `(symbol, description)` which automatically cycle through `term-palette` (`c-term-1` .. `c-term-6`).",
+          "description": "Universal Equation Term Legend Box Accepts either 3-tuples `(color, symbol, description)` or 2-tuples `(symbol, description)` which automatically cycle through `palette` (defaults to `term-palette`).",
           "args": {
+            "palette": {
+              "type": "any",
+              "default": "term-palette",
+              "required": false
+            },
             "..items": {
               "type": "content | str",
               "required": true
@@ -2263,7 +2288,7 @@
         },
         {
           "name": "formula-breakdown",
-          "description": "Visual Formula Breakdown Canvas Displays equation prominently on a pedestal (supporting `#t1`..`#t6` or `#math-hl` color coding), followed by symbol breakdown cards & numerical sanity check. `symbols` accepts either 3-tuples `($sym$, \"Name\", [Desc])` (auto-colored with `term-palette`) or 4-tuples `(color, $sym$, \"Name\", [Desc])`.",
+          "description": "Visual Formula Breakdown Canvas Displays equation prominently on a pedestal (supporting `#t1`..`#t6` or `#math-hl` color coding), followed by symbol breakdown cards & numerical sanity check. `symbols` accepts either 3-tuples `($sym$, \"Name\", [Desc])` (auto-colored with `palette`) or 4-tuples `(color, $sym$, \"Name\", [Desc])`.",
           "args": {
             "title": {
               "type": "str",
@@ -2288,6 +2313,11 @@
             "symbols": {
               "type": "array | tuple",
               "default": "()",
+              "required": false
+            },
+            "palette": {
+              "type": "any",
+              "default": "term-palette",
               "required": false
             },
             "ascii": {

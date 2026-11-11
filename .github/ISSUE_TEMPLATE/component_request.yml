@@ -1,0 +1,32 @@
+name: Component or Preset Request
+description: Propose a new primitive, semantic component, or document preset
+title: "[Feat]: "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Target Architectural Layer
+      options:
+        - "Layer 0: Core (core/)"
+        - "Layer 1: Primitives (primitives/)"
+        - "Layer 2: Mixins (mixins/)"
+        - "Layer 3: Components (components/)"
+        - "Layer 4: Presets (presets/)"
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Use Case & Pedagogical Motivation
+      description: Why does this belong in Floe, and which lower-layer primitives does it compose?
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed Typst Signature
+      placeholder: "#let my-component(title: \"\", badge-label: none, body) = ..."
+      render: typst
+    validations:
+      required: false

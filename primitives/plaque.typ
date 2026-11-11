@@ -83,21 +83,7 @@
                 gutter: 8pt,
                 align: (top + left, top + right),
                 if tag != none [
-                  #box(
-                    fill: accent,
-                    inset: (x: 5.5pt, y: 3pt),
-                    radius: radii.sm,
-                    baseline: 0pt,
-                    text(
-                      font: fonts.sans,
-                      size: 7.5pt,
-                      weight: "bold",
-                      fill: white,
-                      tracking: 0.06em,
-                      top-edge: "cap-height",
-                      bottom-edge: "bounds",
-                    )[#upper(tag)#if num != none [ #num]]
-                  )
+                  #badge([#upper(tag)#if num != none [ #num]], fill: accent, text-color: white)
                 ] else [],
                 if badge-label != none [
                   #badge(badge-label, variant: badge-variant)
@@ -137,21 +123,7 @@
             gutter: 8pt,
             align: (horizon, horizon, horizon),
             if tag != none [
-              #box(
-                fill: accent,
-                inset: (x: 5.5pt, y: 3pt),
-                radius: radii.sm,
-                baseline: 0pt,
-                text(
-                  font: fonts.sans,
-                  size: 7.5pt,
-                  weight: "bold",
-                  fill: white,
-                  tracking: 0.06em,
-                  top-edge: "cap-height",
-                  bottom-edge: "bounds",
-                )[#upper(tag)#if num != none [ #num]]
-              )
+              #badge([#upper(tag)#if num != none [ #num]], fill: accent, text-color: white)
             ],
             [
               #if title != none [

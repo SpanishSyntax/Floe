@@ -15,7 +15,7 @@ Presets are ready-to-use master document wrappers in `presets/`. Each preset con
 Full single-column publication-grade course reader and textbook companion with an automatic navy cover plaque, table of contents, `1.1` section numbering, and Hydra-powered running chapter/section headers:
 
 ```typst
-#import "@local/floe:0.2.0": *
+#import "@local/floe:0.2.1": *
 
 #show: textbook.with(
   title: "Optimal Control & Dynamic Programming",
@@ -47,7 +47,7 @@ Full single-column publication-grade course reader and textbook companion with a
 Clean sans-serif technical report layout with A4 geometry, hierarchical section numbering, and suppressed running headers on the opening page:
 
 ```typst
-#import "@local/floe:0.2.0": *
+#import "@local/floe:0.2.1": *
 
 #show: report.with(
   title: "Autonomous Spacecraft Attitude Determination & Control",
@@ -81,7 +81,7 @@ Clean sans-serif technical report layout with A4 geometry, hierarchical section 
 16:9 widescreen presentation slide deck with `theme: "dark"` and `theme: "light"` modes, paired with `#keynote-header` and `#equal-grid` split cards:
 
 ```typst
-#import "@local/floe:0.2.0": *
+#import "@local/floe:0.2.1": *
 
 #show: slides.with(
   title: "Convex Optimization in Embedded Control",
@@ -108,7 +108,7 @@ Clean sans-serif technical report layout with A4 geometry, hierarchical section 
 High-density 2-column or 3-column landscape reference sheet with `with-compact-theme` spacing and sticky cyan-underlined section headers for closed-book exam preparation:
 
 ```typst
-#import "@local/floe:0.2.0": *
+#import "@local/floe:0.2.1": *
 
 #show: cheatsheet.with(
   title: "Convex Optimization Quick Reference",
@@ -135,7 +135,7 @@ For $f in C^2(RR^n)$, $x^*$ is a strict local minimizer if $grad f(x^*) = 0$ and
 Executive engineering brief featuring a structured `TO` / `FROM` / `DATE` / `SUBJECT` metadata header plaque and an optional sky-blue `EXECUTIVE SUMMARY` callout:
 
 ```typst
-#import "@local/floe:0.2.0": *
+#import "@local/floe:0.2.1": *
 
 #show: memo.with(
   title: "Real-Time Embedded Solver Selection for GNC",
@@ -165,7 +165,7 @@ Floe's Architecture Decision Record preset (`#show: adr.with(...)`) implements a
 - **`mode: "slides"`**: Configures 16:9 widescreen dark presentation mode (`#0B0F19`), rendering a dark header plaque with status badge, date, deciders, and slide footer.
 
 ```typst
-#import "@local/floe:0.2.0": *
+#import "@local/floe:0.2.1": *
 
 #show: adr.with(
   title: "ADR-004: Event-Driven State-Space Telemetry Architecture",

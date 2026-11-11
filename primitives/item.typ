@@ -3,6 +3,7 @@
 // Atomic Building Blocks: Prominent Top Bean & Title with Full-Width Unpadded Body
 // ============================================================================
 #import "../core/lib.typ": *
+#import "badge.typ": badge
 #import "grid.typ": equal-grid
 
 /// Individual Item Card (Corner-anchored Top Bean, Stacked Title, Full-Width Body, Optional Footer)
@@ -38,30 +39,15 @@
             gutter: 6pt,
             align: (top + left, top + right),
             if label != none [
-              #box(
-                fill: color.lighten(85%),
+              #badge(
+                label,
+                fill: color.lighten(86%),
+                text-color: color,
                 stroke: strokes.hairline + color.lighten(40%),
-                inset: (x: 5.5pt, y: 3pt),
-                radius: radii.sm,
-                baseline: 0pt,
-                text(
-                  font: fonts.sans,
-                  size: 8pt,
-                  weight: "bold",
-                  fill: color,
-                  top-edge: "cap-height",
-                  bottom-edge: "bounds",
-                )[#label]
               )
             ] else [],
             if badge-label != none [
-              #box(
-                fill: slate-200,
-                inset: (x: 5pt, y: 2.5pt),
-                radius: radii.sm,
-                baseline: 0pt,
-                text(font: fonts.sans, size: 7.2pt, weight: "bold", fill: slate-700, top-edge: "cap-height", bottom-edge: "bounds")[#badge-label]
-              )
+              #badge(badge-label, variant: badge-variant)
             ] else [],
           )
         ]
@@ -87,26 +73,18 @@
             gutter: 6pt,
             align: (horizon, horizon, horizon),
             if label != none [
-              #box(
-                fill: color.lighten(85%),
+              #badge(
+                label,
+                fill: color.lighten(86%),
+                text-color: color,
                 stroke: strokes.hairline + color.lighten(40%),
-                inset: (x: 5.5pt, y: 3pt),
-                radius: radii.sm,
-                baseline: 0pt,
-                text(font: fonts.sans, size: 8pt, weight: "bold", fill: color, top-edge: "cap-height", bottom-edge: "bounds")[#label]
               )
             ],
             if title != none [
               #text(font: fonts.sans, size: 8.8pt, weight: "bold", fill: floe-navy)[#title]
             ],
             if badge-label != none [
-              #box(
-                fill: slate-200,
-                inset: (x: 5pt, y: 2.5pt),
-                radius: radii.sm,
-                baseline: 0pt,
-                text(font: fonts.sans, size: 7.2pt, weight: "bold", fill: slate-700, top-edge: "cap-height", bottom-edge: "bounds")[#badge-label]
-              )
+              #badge(badge-label, variant: badge-variant)
             ],
           )
         ]

@@ -16,7 +16,7 @@ jobs:
       - name: Setup Typst
         uses: typst-community/setup-typst@v3
         with:
-          typst-version: "0.14.0"
+          typst-version: "0.14.2"
 
       - name: Compile All Examples
         run: |
@@ -26,3 +26,8 @@ jobs:
           typst compile --root . examples/slides_example.typ /tmp/slides.pdf
           typst compile --root . examples/cheatsheet_example.typ /tmp/cheatsheet.pdf
           typst compile --root . examples/memo_example.typ /tmp/memo.pdf
+
+      - name: Verify Schema Sync (floe.json)
+        run: |
+          python3 scripts/generate_schema.py
+          git diff --exit-code floe.json

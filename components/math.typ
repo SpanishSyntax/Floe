@@ -3,6 +3,7 @@
 // Systems, Control, Matrix Calculus Notation & Semantic Equation Dissection
 // ============================================================================
 #import "../core/lib.typ": *
+#import "../primitives/lib.typ": badge
 
 // ----------------------------------------------------------------------------
 // 1. Canonical Operators & Spaces
@@ -87,8 +88,8 @@
 
 /// Universal Equation Term Legend Box
 /// Accepts either 3-tuples `(color, symbol, description)` or 2-tuples `(symbol, description)`
-/// which automatically cycle through `term-palette` (`c-term-1` .. `c-term-6`).
-#let eq-legend(..items) = {
+/// which automatically cycle through `palette` (defaults to `term-palette`).
+#let eq-legend(palette: term-palette, ..items) = {
   block(
     width: 100%,
     fill: slate-100,
@@ -105,16 +106,15 @@
       gutter: 8pt,
       align: (horizon, horizon),
       ..items.pos().enumerate().map(((idx, it)) => {
-        let col = if it.len() >= 3 { it.at(0) } else { term-palette.at(calc.rem(idx, term-palette.len())) }
+        let col = if it.len() >= 3 { it.at(0) } else { palette.at(calc.rem(idx, palette.len())) }
         let sym = if it.len() >= 3 { it.at(1) } else { it.at(0) }
         let desc = if it.len() >= 3 { it.at(2) } else { it.at(1) }
         (
-          box(
-            fill: col.lighten(86%),
+          badge(
+            sym,
+            fill: col.lighten(88%),
+            text-color: col,
             stroke: strokes.hairline + col.lighten(35%),
-            radius: radii.sm,
-            inset: (x: 5.5pt, y: 2.5pt),
-            text(font: fonts.sans, size: 8pt, weight: "bold", fill: col, top-edge: "cap-height", bottom-edge: "bounds")[#sym]
           ),
           [#desc],
         )
