@@ -1,0 +1,2082 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "floe",
+  "version": "0.1.0",
+  "description": "Tokenized layout primitives, composable show rules, and pedagogical callouts for Typst documents, textbooks, and reports.",
+  "import_statement": "#import \"@local/floe:0.1.0\": *",
+  "layers": {
+    "layer_0_core": {
+      "title": "Core Foundation",
+      "path": "core/lib.typ",
+      "description": "Design tokens, color scales, typography stacks, radii, strokes, and third-party packages.",
+      "tokens": {
+        "colors": [
+          "floe-navy",
+          "floe-cyan",
+          "floe-slate",
+          "floe-muted",
+          "floe-green",
+          "floe-amber",
+          "floe-red",
+          "floe-purple"
+        ],
+        "slate": [
+          "slate-50",
+          "slate-100",
+          "slate-200",
+          "slate-300",
+          "slate-400",
+          "slate-500",
+          "slate-600",
+          "slate-700",
+          "slate-800",
+          "slate-900",
+          "slate-950"
+        ],
+        "fonts": {
+          "sans": "Inter, Liberation Sans, FreeSans",
+          "serif": "New Computer Modern, Linux Libertine, Times New Roman",
+          "display": "Inter Display, Inter",
+          "mono": "Iosevka NF, Source Code Pro, Consolas"
+        },
+        "radii": [
+          "xs",
+          "sm",
+          "md",
+          "lg",
+          "xl",
+          "full"
+        ],
+        "strokes": [
+          "hairline",
+          "thin",
+          "border",
+          "thick",
+          "accent"
+        ]
+      }
+    },
+    "layer_1_primitives": {
+      "title": "Atomic Primitives",
+      "path": "primitives/lib.typ",
+      "description": "Zero-domain structural boxes, plaques, badges, dividers, and steppers.",
+      "components": [
+        {
+          "name": "badge",
+          "description": "Inline pill/badge chip with semantic variants",
+          "args": {
+            "label": {
+              "type": "content | str",
+              "required": true
+            },
+            "variant": {
+              "type": "str",
+              "default": "\"neutral\"",
+              "required": false
+            },
+            "fill": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "text-color": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "weight": {
+              "type": "str",
+              "default": "\"bold\"",
+              "required": false
+            },
+            "size": {
+              "type": "any",
+              "default": "text-scale.xs",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.sm",
+              "required": false
+            }
+          },
+          "file": "primitives/badge.typ"
+        },
+        {
+          "name": "kbd",
+          "description": "Keyboard keycap visualization (e.g. #kbd(\"Ctrl\") + #kbd(\"C\"))",
+          "args": {
+            "key": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "primitives/badge.typ"
+        },
+        {
+          "name": "status-dot",
+          "description": "Status dot indicator (e.g. #status-dot(color: floe-green) Stable)",
+          "args": {
+            "color": {
+              "type": "color",
+              "default": "floe-green",
+              "required": false
+            },
+            "size": {
+              "type": "length | fraction",
+              "default": "5pt",
+              "required": false
+            }
+          },
+          "file": "primitives/badge.typ"
+        },
+        {
+          "name": "card",
+          "description": "Modern Shadcn-Style Card Container Features: Header with title & description, optional top-right badge/icon, comfortable content padding, hairline dividers, and optional footer.",
+          "args": {
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "description": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-variant": {
+              "type": "str",
+              "default": "\"neutral\"",
+              "required": false
+            },
+            "icon": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "footer": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "fill": {
+              "type": "any",
+              "default": "white",
+              "required": false
+            },
+            "border-color": {
+              "type": "color",
+              "default": "slate-200",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.md",
+              "required": false
+            },
+            "inset": {
+              "type": "length | fraction",
+              "default": "12pt",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "1.15em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.15em",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "primitives/card.typ"
+        },
+        {
+          "name": "alert",
+          "description": "Modern Shadcn-Style Alert Callout Features: Full subtle tinted border, white card background with icon chip, bold title on top, and full-width body underneath with NO thick colored left bar.",
+          "args": {
+            "variant": {
+              "type": "str",
+              "default": "\"info\"",
+              "required": false
+            },
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "icon": {
+              "type": "content | str | none",
+              "default": "auto",
+              "required": false
+            },
+            "style": {
+              "type": "str",
+              "default": "\"filled\"",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.md",
+              "required": false
+            },
+            "breakable": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "1.1em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.1em",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "primitives/card.typ"
+        },
+        {
+          "name": "callout-card",
+          "description": "Backwards-compatible callout card (now with refined, modern styling)",
+          "args": {
+            "accent": {
+              "type": "color",
+              "default": "floe-cyan",
+              "required": false
+            },
+            "bg": {
+              "type": "color",
+              "default": "rgb(\"#F8FAFC\")",
+              "required": false
+            },
+            "border-stroke": {
+              "type": "any",
+              "default": "strokes.border",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.base",
+              "required": false
+            },
+            "inset": {
+              "type": "array | tuple",
+              "default": "(x: 12pt, y: 9pt)",
+              "required": false
+            },
+            "breakable": {
+              "type": "bool",
+              "default": "true",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "1.15em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.15em",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "primitives/card.typ"
+        },
+        {
+          "name": "panel",
+          "description": "Structured panel container",
+          "args": {
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "footer": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "accent": {
+              "type": "color",
+              "default": "floe-slate",
+              "required": false
+            },
+            "bg": {
+              "type": "any",
+              "default": "white",
+              "required": false
+            },
+            "stroke": {
+              "type": "color",
+              "default": "strokes.border + slate-200",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.md",
+              "required": false
+            },
+            "inset": {
+              "type": "length | fraction",
+              "default": "12pt",
+              "required": false
+            },
+            "breakable": {
+              "type": "bool",
+              "default": "true",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "primitives/card.typ"
+        },
+        {
+          "name": "divider",
+          "description": "1. Subtle horizontal hairline rule",
+          "args": {
+            "color": {
+              "type": "color",
+              "default": "slate-200",
+              "required": false
+            },
+            "thickness": {
+              "type": "any",
+              "default": "strokes.hairline",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.8em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.8em",
+              "required": false
+            }
+          },
+          "file": "primitives/divider.typ"
+        },
+        {
+          "name": "text-divider",
+          "description": "2. Horizontal separator with centered pure text label (zero box / clean text)",
+          "args": {
+            "label": {
+              "type": "content | str",
+              "required": true
+            },
+            "color": {
+              "type": "color",
+              "default": "slate-200",
+              "required": false
+            },
+            "thickness": {
+              "type": "any",
+              "default": "strokes.hairline",
+              "required": false
+            },
+            "text-color": {
+              "type": "color",
+              "default": "floe-muted",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.9em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.9em",
+              "required": false
+            }
+          },
+          "file": "primitives/divider.typ"
+        },
+        {
+          "name": "chip-divider",
+          "description": "3. Horizontal separator with centered chip pill badge (subtle boxed fill & border)",
+          "args": {
+            "label": {
+              "type": "content | str",
+              "required": true
+            },
+            "color": {
+              "type": "color",
+              "default": "slate-200",
+              "required": false
+            },
+            "thickness": {
+              "type": "any",
+              "default": "strokes.hairline",
+              "required": false
+            },
+            "text-color": {
+              "type": "color",
+              "default": "floe-muted",
+              "required": false
+            },
+            "badge-fill": {
+              "type": "color",
+              "default": "slate-100",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.9em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.9em",
+              "required": false
+            }
+          },
+          "file": "primitives/divider.typ"
+        },
+        {
+          "name": "labeled-divider",
+          "description": "4. Horizontal separator with centered label (pure text by default, or boxed: true)",
+          "args": {
+            "label": {
+              "type": "content | str",
+              "required": true
+            },
+            "color": {
+              "type": "color",
+              "default": "slate-200",
+              "required": false
+            },
+            "thickness": {
+              "type": "any",
+              "default": "strokes.hairline",
+              "required": false
+            },
+            "text-color": {
+              "type": "color",
+              "default": "floe-muted",
+              "required": false
+            },
+            "badge-fill": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "boxed": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.9em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.9em",
+              "required": false
+            }
+          },
+          "file": "primitives/divider.typ"
+        },
+        {
+          "name": "dotted-divider",
+          "description": "3. Dotted divider line",
+          "args": {
+            "color": {
+              "type": "color",
+              "default": "slate-300",
+              "required": false
+            },
+            "thickness": {
+              "type": "length | fraction",
+              "default": "1.0pt",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.8em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.8em",
+              "required": false
+            }
+          },
+          "file": "primitives/divider.typ"
+        },
+        {
+          "name": "dashed-divider",
+          "description": "4. Dashed divider line",
+          "args": {
+            "color": {
+              "type": "color",
+              "default": "slate-300",
+              "required": false
+            },
+            "thickness": {
+              "type": "length | fraction",
+              "default": "0.8pt",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.8em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.8em",
+              "required": false
+            }
+          },
+          "file": "primitives/divider.typ"
+        },
+        {
+          "name": "fade-divider",
+          "description": "5. Gradient fade divider (fades in from left edge, solid in center, fades out on right)",
+          "args": {
+            "color": {
+              "type": "color",
+              "default": "slate-400",
+              "required": false
+            },
+            "thickness": {
+              "type": "any",
+              "default": "strokes.hairline",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.8em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.8em",
+              "required": false
+            }
+          },
+          "file": "primitives/divider.typ"
+        },
+        {
+          "name": "icon-divider",
+          "description": "6. Icon / glyph divider with centered emblem",
+          "args": {
+            "icon": {
+              "type": "str",
+              "default": "\"\u2726\"",
+              "required": false
+            },
+            "color": {
+              "type": "color",
+              "default": "slate-200",
+              "required": false
+            },
+            "icon-color": {
+              "type": "color",
+              "default": "floe-cyan",
+              "required": false
+            },
+            "size": {
+              "type": "length | fraction",
+              "default": "8.5pt",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.9em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.9em",
+              "required": false
+            }
+          },
+          "file": "primitives/divider.typ"
+        },
+        {
+          "name": "gradient-divider",
+          "description": "7. Brand gradient accent rule",
+          "args": {
+            "from-color": {
+              "type": "color",
+              "default": "floe-cyan",
+              "required": false
+            },
+            "to-color": {
+              "type": "color",
+              "default": "floe-navy",
+              "required": false
+            },
+            "thickness": {
+              "type": "length | fraction",
+              "default": "1.5pt",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.9em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.9em",
+              "required": false
+            }
+          },
+          "file": "primitives/divider.typ"
+        },
+        {
+          "name": "item-card",
+          "description": "Individual Item Card (Top Bean & Title, Full-Width Body Underneath)",
+          "args": {
+            "label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "color": {
+              "type": "color",
+              "default": "floe-navy",
+              "required": false
+            },
+            "fill": {
+              "type": "color",
+              "default": "slate-50",
+              "required": false
+            },
+            "stroke": {
+              "type": "color",
+              "default": "slate-200",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.sm",
+              "required": false
+            },
+            "inset": {
+              "type": "array | tuple",
+              "default": "(x: 8pt, y: 6pt)",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "primitives/item.typ"
+        },
+        {
+          "name": "item-grid",
+          "description": "Grid container for item cards",
+          "args": {
+            "columns": {
+              "type": "array | tuple",
+              "default": "(1fr, 1fr)",
+              "required": false
+            },
+            "gutter": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.6em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.6em",
+              "required": false
+            },
+            "..items": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "primitives/item.typ"
+        },
+        {
+          "name": "plaque",
+          "description": "Master Generalized Plaque Primitive Unifies theorems, definitions, lemmas, corollaries, and algorithms into a single atomic primitive.",
+          "args": {
+            "tag": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "num": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-variant": {
+              "type": "str",
+              "default": "\"outline\"",
+              "required": false
+            },
+            "accent": {
+              "type": "color",
+              "default": "floe-navy",
+              "required": false
+            },
+            "header-fill": {
+              "type": "content | str | none",
+              "default": "auto",
+              "required": false
+            },
+            "title-below": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "footer": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "border-color": {
+              "type": "content | str | none",
+              "default": "auto",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.md",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "1.15em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.15em",
+              "required": false
+            },
+            "breakable": {
+              "type": "bool",
+              "default": "true",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "primitives/plaque.typ"
+        },
+        {
+          "name": "stepper",
+          "description": "Clean Aligned Stepper Table Primitive Transforms messy numbered bullets into structured, beautifully aligned workflow rows.",
+          "args": {
+            "steps": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "zebra": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "inset": {
+              "type": "array | tuple",
+              "default": "(x: 6pt, y: 5.5pt)",
+              "required": false
+            },
+            "gutter": {
+              "type": "length | fraction",
+              "default": "6pt",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0.6em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "0.6em",
+              "required": false
+            }
+          },
+          "file": "primitives/stepper.typ"
+        },
+        {
+          "name": "timeline",
+          "description": "Step-by-step numbered pedagogical timeline or algorithm execution pipeline",
+          "args": {
+            "..steps": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "primitives/timeline.typ"
+        }
+      ]
+    },
+    "layer_2_mixins": {
+      "title": "Composable Show Rules",
+      "path": "mixins/lib.typ",
+      "description": "Pure document show rules configuring global typography, math, code blocks, tables, and running chrome.",
+      "components": [
+        {
+          "name": "with-running-chrome",
+          "description": "Opt-in show rule to apply running headers and footers with Hydra introspection",
+          "args": {
+            "header-left": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "header-right": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "footer-note": {
+              "type": "str",
+              "default": "\"Closed-Book Exam Reference (No Calculator \u2022 No Formula Sheet)\"",
+              "required": false
+            },
+            "suppress-pages": {
+              "type": "int",
+              "default": "1",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/chrome.typ"
+        },
+        {
+          "name": "with-code-theme",
+          "description": "Opt-in show rule to apply Floe windowed code block styling",
+          "args": {
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/code.typ"
+        },
+        {
+          "name": "with-compact-theme",
+          "description": "Opt-in show rule to apply compact typography and dense element spacing",
+          "args": {
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/compact.typ"
+        },
+        {
+          "name": "gfm-note",
+          "description": "Direct GFM Alert Primitives",
+          "args": {
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/gfm.typ"
+        },
+        {
+          "name": "gfm-tip",
+          "description": "Floe component `gfm-tip`",
+          "args": {
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/gfm.typ"
+        },
+        {
+          "name": "gfm-important",
+          "description": "Floe component `gfm-important`",
+          "args": {
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/gfm.typ"
+        },
+        {
+          "name": "gfm-warning",
+          "description": "Floe component `gfm-warning`",
+          "args": {
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/gfm.typ"
+        },
+        {
+          "name": "gfm-caution",
+          "description": "Floe component `gfm-caution`",
+          "args": {
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/gfm.typ"
+        },
+        {
+          "name": "with-gfm-theme",
+          "description": "Composable show rule to style quotes and map GFM alert blocks from cmarker / Pandoc",
+          "args": {
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/gfm.typ"
+        },
+        {
+          "name": "with-heading-theme",
+          "description": "Opt-in show rule to style headings with sticky anti-orphan behavior",
+          "args": {
+            "numbering": {
+              "type": "str",
+              "default": "\"1.1\"",
+              "required": false
+            },
+            "section-symbol": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/headings.typ"
+        },
+        {
+          "name": "with-math-theme",
+          "description": "Opt-in show rule to apply engineering matrix delimiters and equation spacing",
+          "args": {
+            "numbering": {
+              "type": "str",
+              "default": "\"(1)\"",
+              "required": false
+            },
+            "delim": {
+              "type": "str",
+              "default": "\"[\", body,",
+              "required": false
+            }
+          },
+          "file": "mixins/math.typ"
+        },
+        {
+          "name": "with-table-theme",
+          "description": "Opt-in show rule to style all native tables with Shadcn styling",
+          "args": {
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "mixins/tables.typ"
+        }
+      ]
+    },
+    "layer_3_components": {
+      "title": "High-Level Pedagogical Components",
+      "path": "components/lib.typ",
+      "description": "Academic callouts, exam trap cards, formula breakdown canvases, layout grids, and headers.",
+      "components": [
+        {
+          "name": "theorem",
+          "description": "David C. Lay Theorem Hero Plaque",
+          "args": {},
+          "file": "components/academic.typ"
+        },
+        {
+          "name": "definition",
+          "description": "Formal Definition Plaque (defaults to title-below for long academic terms)",
+          "args": {},
+          "file": "components/academic.typ"
+        },
+        {
+          "name": "lemma",
+          "description": "Lemma Plaque",
+          "args": {},
+          "file": "components/academic.typ"
+        },
+        {
+          "name": "corollary",
+          "description": "Corollary Plaque",
+          "args": {},
+          "file": "components/academic.typ"
+        },
+        {
+          "name": "algorithm",
+          "description": "Algorithm Plaque",
+          "args": {},
+          "file": "components/academic.typ"
+        },
+        {
+          "name": "proof-sketch",
+          "description": "Proof Sketch Environment with QED Endmarker",
+          "args": {},
+          "file": "components/academic.typ"
+        },
+        {
+          "name": "pitfall",
+          "description": "Closed-Book Exam Trap / Pitfall Callout (Shadcn Danger Alert)",
+          "args": {},
+          "file": "components/alerts.typ"
+        },
+        {
+          "name": "exam-trap",
+          "description": "Floe component `exam-trap`",
+          "args": {},
+          "file": "components/alerts.typ"
+        },
+        {
+          "name": "exam-alert",
+          "description": "Closed-Book Exam Alert / Key Formula Reminder (Amber Alert)",
+          "args": {},
+          "file": "components/alerts.typ"
+        },
+        {
+          "name": "note",
+          "description": "Informational Note (Sky Blue Alert)",
+          "args": {},
+          "file": "components/alerts.typ"
+        },
+        {
+          "name": "tip",
+          "description": "Engineering Pro-Tip / Best Practice (Emerald Green Alert)",
+          "args": {},
+          "file": "components/alerts.typ"
+        },
+        {
+          "name": "warning",
+          "description": "Warning / Saturation Notice (Amber-Orange Alert)",
+          "args": {},
+          "file": "components/alerts.typ"
+        },
+        {
+          "name": "chapter-header",
+          "description": "Chapter Header Banner with syllabus mapping, slide reference, and interactive lab tracking",
+          "args": {
+            "num": {
+              "type": "int",
+              "default": "1",
+              "required": false
+            },
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "eyebrow": {
+              "type": "str",
+              "default": "\"CHAPTER\"",
+              "required": false
+            },
+            "slides-ref": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "reader-ref": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "teardown-ref": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "editorial-header",
+          "description": "Canva / Editorial Magazine Chapter Opener Header",
+          "args": {
+            "num": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "eyebrow": {
+              "type": "str",
+              "default": "\"MODULE OVERVIEW\"",
+              "required": false
+            },
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "read-time": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "authors": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "goals": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "0pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.6em",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "minimal-header",
+          "description": "Minimalist Breadcrumb Header (Clean Editorial Monograph)",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "breadcrumbs": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "date": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.4em",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "section-hero",
+          "description": "Full-Width Hero Section Banner (Dividing Major Topic Shifts)",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "str",
+              "default": "\"DEEP DIVE\"",
+              "required": false
+            },
+            "icon": {
+              "type": "str",
+              "default": "\"\u2726\"",
+              "required": false
+            },
+            "accent": {
+              "type": "color",
+              "default": "floe-navy",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "subchapter-card",
+          "description": "Subchapter syllabus preview card",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "keynote-hero",
+          "description": "Presentation 16:9 keynote hero card",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "tag": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "document-hero",
+          "description": "Executive Document Header Banner (Clean Header for Reports & Memos)",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "metadata": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "accent": {
+              "type": "color",
+              "default": "floe-cyan",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "reader-fig",
+          "description": "High-resolution figure wrapper with automatic path normalization across Snowpack & Lantern",
+          "args": {
+            "path": {
+              "type": "content | str",
+              "required": true
+            },
+            "caption": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "width": {
+              "type": "any",
+              "default": "88%",
+              "required": false
+            },
+            "alt": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "side-by-side",
+          "description": "Side-by-side comparative layout for multi-panel plots, diagrams, or math vs code",
+          "args": {
+            "columns": {
+              "type": "array | tuple",
+              "default": "(1fr, 1fr)",
+              "required": false
+            },
+            "gutter": {
+              "type": "length | fraction",
+              "default": "12pt",
+              "required": false
+            },
+            "..items": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "split-view",
+          "description": "Split Two-Column Layout (Theory vs Implementation, Primal vs Dual) Guarantees equal height across both columns in the comparison row.",
+          "args": {
+            "left": {
+              "type": "content | str",
+              "required": true
+            },
+            "right": {
+              "type": "content | str",
+              "required": true
+            },
+            "fractions": {
+              "type": "array | tuple",
+              "default": "(1fr, 1fr)",
+              "required": false
+            },
+            "gutter": {
+              "type": "length | fraction",
+              "default": "12pt",
+              "required": false
+            },
+            "titles": {
+              "type": "array | tuple",
+              "default": "(none, none)",
+              "required": false
+            },
+            "badges": {
+              "type": "array | tuple",
+              "default": "(none, none)",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "1.1em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.1em",
+              "required": false
+            }
+          },
+          "file": "components/layouts.typ"
+        },
+        {
+          "name": "pro-con",
+          "description": "High-Design Pros vs. Cons (Advantages vs Tradeoffs) Card Enforces equal height between the pros and cons panels.",
+          "args": {
+            "pros": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "cons": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "title": {
+              "type": "str",
+              "default": "\"Architectural Tradeoffs\"",
+              "required": false
+            },
+            "pro-label": {
+              "type": "str",
+              "default": "\"ADVANTAGES\"",
+              "required": false
+            },
+            "con-label": {
+              "type": "str",
+              "default": "\"LIMITATIONS\"",
+              "required": false
+            }
+          },
+          "file": "components/layouts.typ"
+        },
+        {
+          "name": "bento-cell",
+          "description": "Individual Bento Box Cell",
+          "args": {
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-variant": {
+              "type": "str",
+              "default": "\"neutral\"",
+              "required": false
+            },
+            "icon": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "fill": {
+              "type": "any",
+              "default": "white",
+              "required": false
+            },
+            "stroke": {
+              "type": "color",
+              "default": "slate-200",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.md",
+              "required": false
+            },
+            "inset": {
+              "type": "length | fraction",
+              "default": "12pt",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "components/layouts.typ"
+        },
+        {
+          "name": "bento-grid",
+          "description": "Bento Grid (2-column, 3-column, or asymmetric layout)",
+          "args": {
+            "columns": {
+              "type": "array | tuple",
+              "default": "(1fr, 1fr)",
+              "required": false
+            },
+            "gutter": {
+              "type": "length | fraction",
+              "default": "10pt",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "1.1em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.1em",
+              "required": false
+            },
+            "..cells": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/layouts.typ"
+        },
+        {
+          "name": "key-value-grid",
+          "description": "Key-Value Parameter Definition Grid (e.g. Hyperparameters, System Limits)",
+          "args": {
+            "items": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "columns": {
+              "type": "array | tuple",
+              "default": "(auto, 1fr)",
+              "required": false
+            },
+            "gutter": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "zebra": {
+              "type": "bool",
+              "default": "true",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "1.0em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.0em",
+              "required": false
+            }
+          },
+          "file": "components/layouts.typ"
+        },
+        {
+          "name": "feature-grid",
+          "description": "Feature Cards Grid (Canva/Shadcn landing-style component display)",
+          "args": {
+            "columns": {
+              "type": "array | tuple",
+              "default": "(1fr, 1fr, 1fr)",
+              "required": false
+            },
+            "gutter": {
+              "type": "length | fraction",
+              "default": "10pt",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "1.1em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.1em",
+              "required": false
+            },
+            "..items": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/layouts.typ"
+        },
+        {
+          "name": "ddot",
+          "description": "Floe component `ddot`",
+          "args": {
+            "x": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "math-state",
+          "description": "Floe component `math-state`",
+          "args": {
+            "x": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "math-input",
+          "description": "Floe component `math-input`",
+          "args": {
+            "x": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "math-cost",
+          "description": "Floe component `math-cost`",
+          "args": {
+            "x": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "math-sensor",
+          "description": "Floe component `math-sensor`",
+          "args": {
+            "x": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "math-noise",
+          "description": "Floe component `math-noise`",
+          "args": {
+            "x": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "math-est",
+          "description": "Floe component `math-est`",
+          "args": {
+            "x": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "math-annot",
+          "description": "Floe component `math-annot`",
+          "args": {
+            "term": {
+              "type": "content | str",
+              "required": true
+            },
+            "label": {
+              "type": "content | str",
+              "required": true
+            },
+            "color": {
+              "type": "any",
+              "default": "c-state",
+              "required": false
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "math-annot-top",
+          "description": "Floe component `math-annot-top`",
+          "args": {
+            "term": {
+              "type": "content | str",
+              "required": true
+            },
+            "label": {
+              "type": "content | str",
+              "required": true
+            },
+            "color": {
+              "type": "any",
+              "default": "c-state",
+              "required": false
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "eq-legend",
+          "description": "Floe component `eq-legend`",
+          "args": {
+            "..items": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "physical-anchor",
+          "description": "Physical & Control Anchor: Grounding abstract math in physical engineering mechanics Features: Editorial magazine card, emerald theme, system badge, and physical context.",
+          "args": {},
+          "file": "components/pedagogical.typ"
+        },
+        {
+          "name": "worked-example",
+          "description": "Hand-Worked Step-by-Step Numerical Example (Notebook Card)",
+          "args": {},
+          "file": "components/pedagogical.typ"
+        },
+        {
+          "name": "worked",
+          "description": "Floe component `worked`",
+          "args": {},
+          "file": "components/pedagogical.typ"
+        },
+        {
+          "name": "formula-breakdown",
+          "description": "Canva Visual Formula Breakdown Canvas Displays equation prominently on a pedestal, followed by symbol breakdown cards & numerical sanity check.",
+          "args": {
+            "formula": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "symbols": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "ascii": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "arithmetic": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "card-columns": {
+              "type": "array | tuple",
+              "default": "(1fr, 1fr)",
+              "required": false
+            },
+            "breakable": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            }
+          },
+          "file": "components/pedagogical.typ"
+        },
+        {
+          "name": "matlab-box",
+          "description": "MATLAB / Numerical Tooling Card",
+          "args": {},
+          "file": "components/pedagogical.typ"
+        },
+        {
+          "name": "data-table",
+          "description": "Safe, proportional data table with automatic fractional column distribution, zebra striping, centered header text, and semantic table.header repetition.",
+          "args": {
+            "columns": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "headers": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "align": {
+              "type": "content | str | none",
+              "default": "auto",
+              "required": false
+            },
+            "stroke": {
+              "type": "color",
+              "default": "strokes.border + slate-300",
+              "required": false
+            },
+            "inset": {
+              "type": "array | tuple",
+              "default": "(x: 7pt, y: 5.5pt)",
+              "required": false
+            },
+            "fill": {
+              "type": "any",
+              "default": "(_, y",
+              "required": false
+            }
+          },
+          "file": "components/tables.typ"
+        },
+        {
+          "name": "spec-table",
+          "description": "Clean 2-column parameter / specification key-value table",
+          "args": {
+            "columns": {
+              "type": "array | tuple",
+              "default": "(1fr, 2.2fr)",
+              "required": false
+            },
+            "align": {
+              "type": "array | tuple",
+              "default": "(right + horizon, left + horizon)",
+              "required": false
+            },
+            "stroke": {
+              "type": "color",
+              "default": "strokes.border + slate-200",
+              "required": false
+            },
+            "inset": {
+              "type": "array | tuple",
+              "default": "(x: 8pt, y: 5.5pt)",
+              "required": false
+            },
+            "..pairs": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/tables.typ"
+        },
+        {
+          "name": "comparison-table",
+          "description": "Floe component `comparison-table`",
+          "args": {
+            "columns": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "headers": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "..cells": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/tables.typ"
+        }
+      ]
+    },
+    "layer_4_presets": {
+      "title": "Document Presets",
+      "path": "presets/lib.typ",
+      "description": "Ready-to-use master document wrappers configured with appropriate geometry, typography, and headers.",
+      "components": [
+        {
+          "name": "cheatsheet",
+          "description": "High-density multi-column formula cheatsheet / exam revision preset",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"Exam Cheatsheet\"",
+              "required": false
+            },
+            "course-code": {
+              "type": "str",
+              "default": "\"SC42056\"",
+              "required": false
+            },
+            "columns-num": {
+              "type": "int",
+              "default": "3",
+              "required": false
+            },
+            "paper": {
+              "type": "str",
+              "default": "\"a4\"",
+              "required": false
+            },
+            "orientation": {
+              "type": "str",
+              "default": "\"landscape\"",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "presets/cheatsheet.typ"
+        },
+        {
+          "name": "memo",
+          "description": "Executive memo / technical decision brief layout",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"Engineering Decision Memo\"",
+              "required": false
+            },
+            "to": {
+              "type": "str",
+              "default": "\"Systems & Control Board\"",
+              "required": false
+            },
+            "from": {
+              "type": "str",
+              "default": "\"Chief Architect\"",
+              "required": false
+            },
+            "date": {
+              "type": "str",
+              "default": "\"November 2026\"",
+              "required": false
+            },
+            "subject": {
+              "type": "str",
+              "default": "\"Optimization Architecture\"",
+              "required": false
+            },
+            "summary": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "presets/memo.typ"
+        },
+        {
+          "name": "report",
+          "description": "Clean sans-serif engineering report",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"Engineering Report\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "author": {
+              "type": "str",
+              "default": "\"Author\"",
+              "required": false
+            },
+            "date": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "presets/report.typ"
+        },
+        {
+          "name": "slides",
+          "description": "16:9 widescreen presentation slide layout",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"Presentation\"",
+              "required": false
+            },
+            "theme": {
+              "type": "str",
+              "default": "\"dark\"",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "presets/slides.typ"
+        },
+        {
+          "name": "textbook",
+          "description": "Full single-column deep-reader textbook companion layout",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"Course Title\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "str",
+              "default": "\"Comprehensive Companion Reader & Closed-Book Exam Guide\"",
+              "required": false
+            },
+            "course-code": {
+              "type": "str",
+              "default": "\"SC42000\"",
+              "required": false
+            },
+            "institution": {
+              "type": "str",
+              "default": "\"Systems & Control Institute \u2022 Academic Series\"",
+              "required": false
+            },
+            "edition": {
+              "type": "str",
+              "default": "\"Comprehensive Companion Edition\"",
+              "required": false
+            },
+            "cover-page": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "toc": {
+              "type": "bool",
+              "default": "true",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "presets/textbook.typ"
+        }
+      ]
+    }
+  }
+}

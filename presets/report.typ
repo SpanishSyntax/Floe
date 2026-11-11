@@ -11,6 +11,7 @@
   subtitle: "",
   author: "Author",
   date: none,
+  ..sink,
   body,
 ) = {
   set document(title: title, author: author)

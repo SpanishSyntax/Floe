@@ -13,6 +13,7 @@
   date: "November 2026",
   subject: "Optimization Architecture",
   summary: none,
+  ..sink,
   body,
 ) = {
   set document(title: title, author: from)

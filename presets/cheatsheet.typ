@@ -12,6 +12,7 @@
   columns-num: 3,
   paper: "a4",
   orientation: "landscape",
+  ..sink,
   body,
 ) = {
   set document(title: course-code + " — " + title)

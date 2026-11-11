@@ -9,6 +9,7 @@
 #let slides(
   title: "Presentation",
   theme: "dark",
+  ..sink,
   body,
 ) = {
   let is-dark = theme == "dark"

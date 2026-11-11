@@ -14,6 +14,7 @@
   edition: "Comprehensive Companion Edition",
   cover-page: none,
   toc: true,
+  ..sink,
   body,
 ) = {
   set document(title: course-code + " — " + title, author: course-code + " Study Companion")
