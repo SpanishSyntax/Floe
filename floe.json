@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "floe",
   "version": "0.2.2",
-  "description": "Universal 5-layer Typst design system: tokenized primitives, equal-height layouts, multi-science chemistry/physics/plotting engines, pedagogical callouts, and master document presets.",
+  "description": "Universal 5-layer design system: tokenized primitives, equal-height layouts, multi-science chemistry/physics/plotting engines, pedagogical callouts, and master document presets.",
   "import_statement": "#import \"@local/floe:0.2.2\": *",
   "layers": {
     "layer_0_core": {
