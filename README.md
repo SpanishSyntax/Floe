@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Polar bear resting on an ice floe amidst arctic waters" width="100%" />
+  <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/banner.png" alt="Polar bear resting on an ice floe amidst arctic waters" width="100%" />
 </p>
 
 # Floe ❄️
