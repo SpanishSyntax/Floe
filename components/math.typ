@@ -18,64 +18,107 @@
 #let conv    = math.op("conv")
 #let dom     = math.op("dom")
 #let Vol     = math.op("Vol")
-#let span-op = math.op("span")
+#let span    = math.op("span")
 #let col     = math.op("col")
-#let null-op = math.op("null")
+#let row     = math.op("row")
+#let dim     = math.op("dim")
+#let null    = math.op("null")
 #let ker     = math.op("ker")
-#let im-op   = math.op("im")
+#let im      = math.op("im")
 #let Re      = math.op("Re")
 #let Im      = math.op("Im")
+#let grad    = math.op("grad")
+#let div     = math.op("div")
+#let curl    = math.op("curl")
+#let adj     = math.op("adj")
+#let sinc    = math.op("sinc")
+#let Eop     = math.op("EE", limits: false)
+#let Var     = math.op("Var", limits: false)
+#let Cov     = math.op("Cov", limits: false)
+#let ZMWN    = $"ZMWN"$
 #let ddot(x) = math.dot.double(x)
+#let to      = math.arrow.r
+#let implies = math.arrow.r.double
+#let iff     = math.arrow.l.r.double
+#let infinity = math.oo
+#let succcurlyeq = math.succ.eq
+#let ddots   = math.dots.down
+#let tensor  = math.times.o
+#let top     = math.top
 
-// Canonical spaces and relation shorthand
+// Canonical spaces and differentials shorthand
 #let st      = $quad "s.t." quad$
 #let Rn      = $RR^n$
 #let Rm      = $RR^m$
 #let Rp      = $RR^p$
+#let Cn      = $CC^n$
+#let Cm      = $CC^m$
 #let Rnxn    = $RR^(n times n)$
 #let Rnxm    = $RR^(n times m)$
 #let Rpxn    = $RR^(p times n)$
 #let Rpxm    = $RR^(p times m)$
+#let dt      = $d t$
+#let dx      = $d x$
+#let dy      = $d y$
+#let dz      = $d z$
 
 // ----------------------------------------------------------------------------
-// 2. Equation Dissection & Semantic Color Coding
+// 2. Universal Equation Dissection & Term Highlighting (Domain-Agnostic)
 // ----------------------------------------------------------------------------
 
-// Math term semantic color wrappers
-#let math-state(x)   = text(fill: c-state, weight: "bold")[$#x$]
-#let math-input(x)   = text(fill: c-input, weight: "bold")[$#x$]
-#let math-cost(x)    = text(fill: c-cost, weight: "bold")[$#x$]
-#let math-sensor(x)  = text(fill: c-sensor, weight: "bold")[$#x$]
-#let math-noise(x)   = text(fill: c-noise, weight: "bold")[$#x$]
-#let math-est(x)     = text(fill: c-est, weight: "bold")[$#x$]
+/// Highlights any mathematical sub-expression in bold with the specified color token
+#let math-hl(color, expr) = text(fill: color, weight: "bold")[$#expr$]
 
-// Annotated Underbrace / Overbrace helpers with matching label colors
-#let math-annot(term, label, color: c-state) = {
-  $underbrace(#text(fill: color)[$#term$], #text(fill: color, size: text-scale.xs, font: fonts.sans)[#label])$
+/// Domain-agnostic numbered term highlighters matching `term-palette` (`c-term-1` .. `c-term-6`)
+#let t1(expr) = math-hl(c-term-1, expr)
+#let t2(expr) = math-hl(c-term-2, expr)
+#let t3(expr) = math-hl(c-term-3, expr)
+#let t4(expr) = math-hl(c-term-4, expr)
+#let t5(expr) = math-hl(c-term-5, expr)
+#let t6(expr) = math-hl(c-term-6, expr)
+
+/// Annotated Underbrace / Overbrace helpers with matching label colors
+#let math-annot(term, label, color: c-term-1) = {
+  $underbrace(#text(fill: color, weight: "bold")[$#term$], #text(fill: color, size: text-scale.xs, font: fonts.sans, weight: "bold")[#label])$
 }
-#let math-annot-top(term, label, color: c-state) = {
-  $overbrace(#text(fill: color)[$#term$], #text(fill: color, size: text-scale.xs, font: fonts.sans)[#label])$
+#let math-annot-top(term, label, color: c-term-1) = {
+  $overbrace(#text(fill: color, weight: "bold")[$#term$], #text(fill: color, size: text-scale.xs, font: fonts.sans, weight: "bold")[#label])$
 }
 
-// Equation Color Legend Box (Q2 Professor Style)
+/// Universal Equation Term Legend Box
+/// Accepts either 3-tuples `(color, symbol, description)` or 2-tuples `(symbol, description)`
+/// which automatically cycle through `term-palette` (`c-term-1` .. `c-term-6`).
 #let eq-legend(..items) = {
   block(
     width: 100%,
-    fill: slate-50,
+    fill: slate-100,
     stroke: strokes.border + slate-300,
-    radius: radii.base,
-    inset: (x: 10pt, y: 7pt),
-    above: 0.6em,
-    below: 1.0em,
+    radius: radii.md,
+    inset: (x: 10pt, y: 7.5pt),
+    above: 8pt,
+    below: 8pt,
   )[
-    #set text(font: fonts.sans, size: 8.3pt)
+    #set text(font: fonts.sans, size: 8.4pt, fill: slate-800)
+    #set par(justify: false)
     #grid(
       columns: (auto, 1fr),
       gutter: 8pt,
-      ..items.pos().map(it => (
-        [#box(width: 8pt, height: 8pt, fill: it.at(0), radius: radii.sm)],
-        [*#it.at(1):* #h(4pt) #it.at(2)]
-      )).flatten()
+      align: (horizon, horizon),
+      ..items.pos().enumerate().map(((idx, it)) => {
+        let col = if it.len() >= 3 { it.at(0) } else { term-palette.at(calc.rem(idx, term-palette.len())) }
+        let sym = if it.len() >= 3 { it.at(1) } else { it.at(0) }
+        let desc = if it.len() >= 3 { it.at(2) } else { it.at(1) }
+        (
+          box(
+            fill: col.lighten(86%),
+            stroke: strokes.hairline + col.lighten(35%),
+            radius: radii.sm,
+            inset: (x: 5.5pt, y: 2.5pt),
+            text(font: fonts.sans, size: 8pt, weight: "bold", fill: col, top-edge: "cap-height", bottom-edge: "bounds")[#sym]
+          ),
+          [#desc],
+        )
+      }).flatten()
     )
   ]
 }

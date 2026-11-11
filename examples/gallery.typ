@@ -162,12 +162,12 @@ Layer 3 constructs *complete educational artifacts* by composing Layer 1 atoms a
 Composed of: `#plaque` (pedestal container) + `#item-card` (symbol dissections) + verification strip:
 
 #formula-breakdown(
-  formula: $#math-cost[min]_u 1/2 #math-input[u]^T #math-cost[H]_text("qp") #math-input[u] + #math-state[x]_0^T F^T #math-input[u] quad "s.t." quad #math-sensor[G] #math-input[u] <= #math-sensor[W] + S #math-state[x]_0$,
+  formula: $#t3($"min"$)_u 1/2 #t1($u$)^T #t3($H_("qp")$) #t1($u$) + #t2($x_0$)^T F^T #t1($u$) quad "s.t." quad #t4($G$) #t1($u$) <= #t4($W$) + S #t2($x_0$)$,
   symbols: (
-    (c-input, "u", "Decision Vector", [Stacked future control inputs $(u_0, dots, u_(N-1))$]),
-    (c-cost, "H_qp", "Condensed Hessian", [Block diagonal positive-definite matrix $R + Gamma^T Q Gamma$]),
-    (c-state, "x_0", "Current State", [Real-time sensor state measurement from observer ($RR^n$)]),
-    (c-sensor, "G, W", "Constraint Polytopes", [Actuator torque saturation limits and terminal safe invariant set]),
+    ($u$, "Decision Vector", [Stacked future control inputs $(u_0, dots, u_(N-1))$]),
+    ($x_0$, "Current State", [Real-time sensor state measurement from observer ($RR^n$)]),
+    ($H_("qp")$, "Condensed Hessian", [Block diagonal positive-definite matrix $R + Gamma^T Q Gamma$]),
+    ($G, W$, "Constraint Polytopes", [Actuator torque saturation limits and terminal safe invariant set]),
   ),
   arithmetic: [
     For horizon $N = 10$, $n = 4$ states, and $m = 2$ inputs, condensed QP has 20 decision variables, solved in $< 1.8$ ms by `qpOASES`.

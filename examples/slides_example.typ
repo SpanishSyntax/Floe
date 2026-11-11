@@ -5,7 +5,7 @@
   theme: "dark",
 )
 
-#keynote-hero(
+#keynote-header(
   tag: "LECTURE 04",
   title: "Karush-Kuhn-Tucker Conditions",
   subtitle: "Primal optimality, dual feasibility, and complementary slackness",

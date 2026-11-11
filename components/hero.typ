@@ -1,299 +1,970 @@
 // ============================================================================
-// FLOE DESIGN SYSTEM — HERO BANNERS & EDITORIAL HEADERS (components/hero.typ)
-// Chapter Openers, Presentation Cards, Section Heros, Figures & Side-by-Side
+// FLOE DESIGN SYSTEM — HEROES & SECTION HEADERS (components/hero.typ)
+// Complete Suite of 12 Cover Heroes, Chapter Openers, Split/Stat Heroes & Headers
+// All headers follow Floe's corner-anchored bean + stacked title geometry.
 // ============================================================================
 #import "../core/lib.typ": *
-#import "../primitives/lib.typ": badge
+#import "../primitives/lib.typ": badge, equal-grid
 
-// ----------------------------------------------------------------------------
-// 1. Chapter Openers & Course Heros
-// ----------------------------------------------------------------------------
+/// 1. Cover Hero Banner (Full-Width Carded Book / Report / Monograph Masthead)
+#let cover-hero(
+  title: "",
+  subtitle: none,
+  eyebrow: "FLOE ACADEMIC SERIES",
+  badge-label: none,
+  meta: (),
+  fill: floe-navy,
+  accent: floe-cyan,
+  above: 8pt,
+  below: 12pt,
+) = block(
+  width: 100%,
+  fill: fill,
+  radius: radii.lg,
+  inset: 18pt,
+  above: above,
+  below: below,
+  breakable: false,
+)[
+  #set par(justify: false, leading: 0.45em)
+  // Row 1: Corner-anchored Eyebrow & Right Badge
+  #if eyebrow != none or badge-label != none [
+    #block(width: 100%, above: 0pt, below: 0pt)[
+      #grid(
+        columns: (1fr, auto),
+        gutter: 8pt,
+        align: (top + left, top + right),
+        if eyebrow != none [
+          #box(
+            fill: accent.transparentize(82%),
+            stroke: strokes.hairline + accent.transparentize(40%),
+            inset: (x: 6.5pt, y: 3.5pt),
+            radius: radii.sm,
+            baseline: 0pt,
+            text(
+              font: fonts.sans,
+              size: 7.8pt,
+              weight: "bold",
+              fill: accent,
+              tracking: 0.08em,
+              top-edge: "cap-height",
+              bottom-edge: "bounds",
+            )[#upper(eyebrow)]
+          )
+        ] else [],
+        if badge-label != none [
+          #badge(badge-label, fill: white.transparentize(88%), text-color: white)
+        ] else [],
+      )
+    ]
+  ]
+  // Row 2: Display Title
+  #block(width: 100%, above: if eyebrow != none or badge-label != none { 10pt } else { 0pt }, below: 0pt)[
+    #text(
+      font: fonts.sans,
+      size: 20pt,
+      weight: "bold",
+      fill: white,
+      top-edge: "cap-height",
+      bottom-edge: "bounds",
+    )[#title]
+  ]
+  // Row 3: Accent Rule & Subtitle
+  #block(width: 100%, above: 8pt, below: 0pt)[
+    #line(length: 42%, stroke: 2.2pt + accent)
+  ]
+  #if subtitle != none [
+    #block(width: 100%, above: 7pt, below: 0pt)[
+      #text(font: fonts.sans, size: 10.5pt, fill: slate-200)[#subtitle]
+    ]
+  ]
+  // Row 4: Metadata Strip
+  #if meta.len() > 0 [
+    #block(width: 100%, above: 12pt, below: 0pt)[
+      #line(length: 100%, stroke: strokes.hairline + white.transparentize(80%))
+      #v(7pt)
+      #grid(
+        columns: (1fr,) * calc.min(meta.len(), 4),
+        gutter: 10pt,
+        ..meta.map(m => [
+          #text(font: fonts.sans, size: 7pt, weight: "bold", fill: accent, tracking: 0.06em)[#upper(m.at(0))]
+          #block(above: 3pt, below: 0pt, text(font: fonts.sans, size: 8.5pt, fill: slate-100)[#m.at(1)])
+        ])
+      )
+    ]
+  ]
+]
 
-/// Chapter Header Banner with syllabus mapping, slide reference, and interactive lab tracking
+/// 2. Classic Academic Chapter Header Opener
 #let chapter-header(
   num: 1,
   title: "",
   subtitle: none,
   eyebrow: "CHAPTER",
+  badge-label: none,
+  badge-variant: "info",
+  meta: (),
   slides-ref: "",
   reader-ref: "",
+  book-ref: "",
+  exam-focus: "",
+  exam-ref: "",
   teardown-ref: "",
+  pagebreak-before: true,
+  ..sink,
 ) = {
-  pagebreak(weak: true)
-  counter(heading).update((num, 0))
-  block(width: 100%, below: 1.4em)[
-    #block(below: 0.35em)[
-      #text(font: fonts.sans, size: 9.5pt, weight: "bold", fill: floe-cyan, tracking: 0.08em)[
-        #if eyebrow != "" [#upper(eyebrow) #num] else [CHAPTER #num]
+  if pagebreak-before {
+    pagebreak(weak: true)
+  }
+  if type(num) == int {
+    counter(heading).update((num, 0))
+  }
+  let has-legacy-refs = (
+    slides-ref != "" or reader-ref != "" or book-ref != "" or
+    exam-focus != "" or exam-ref != "" or teardown-ref != ""
+  )
+  block(width: 100%, below: 1.3em)[
+    #set par(justify: false, leading: 0.45em)
+    #block(width: 100%, above: 0pt, below: 0pt)[
+      #grid(
+        columns: (1fr, auto),
+        gutter: 8pt,
+        align: (top + left, top + right),
+        box(
+          fill: floe-cyan.lighten(86%),
+          stroke: strokes.hairline + floe-cyan.lighten(40%),
+          inset: (x: 6pt, y: 3pt),
+          radius: radii.sm,
+          baseline: 0pt,
+          text(
+            font: fonts.sans,
+            size: 7.8pt,
+            weight: "bold",
+            fill: floe-navy,
+            tracking: 0.08em,
+            top-edge: "cap-height",
+            bottom-edge: "bounds",
+          )[#if eyebrow != "" [#upper(eyebrow) #num] else [CHAPTER #num]]
+        ),
+        if badge-label != none [
+          #badge(badge-label, variant: badge-variant)
+        ] else [],
+      )
+    ]
+    #block(width: 100%, above: 6.5pt, below: 0pt)[
+      #heading(level: 1, numbering: none)[#num. #title]
+    ]
+    #if subtitle != none [
+      #block(width: 100%, above: 4pt, below: 0pt)[
+        #text(font: fonts.sans, size: 10pt, fill: slate-600)[#subtitle]
       ]
     ]
-    #heading(level: 1, numbering: none)[#num. #title]
-    #if subtitle != none [
-      #v(-0.2em)
-      #text(font: fonts.sans, size: 10.5pt, fill: slate-600)[#subtitle]
+    #block(width: 100%, above: 6pt, below: 0pt)[
+      #line(length: 100%, stroke: 1.5pt + floe-cyan)
     ]
-    #v(0.2em)
-    #line(length: 100%, stroke: 1.5pt + floe-cyan)
-    #v(0.25em)
-    #if slides-ref != "" or reader-ref != "" or teardown-ref != "" [
+    #if meta.len() > 0 or has-legacy-refs [
       #block(
         width: 100%,
-        fill: slate-50,
-        stroke: strokes.border + slate-200,
-        radius: radii.base,
-        inset: (x: 10pt, y: 6pt),
+        fill: slate-100,
+        stroke: strokes.border + slate-300,
+        radius: radii.sm,
+        inset: (x: 10pt, y: 6.5pt),
+        above: 6pt,
+        below: 0pt,
       )[
-        #set text(font: fonts.sans, size: 8.2pt, fill: floe-slate)
-        #if slides-ref != "" [*Official Course Mapping:* #h(4pt) #slides-ref]
-        #if reader-ref != "" [ #h(8pt) | #h(8pt) #reader-ref ]
-        #if teardown-ref != "" [
-          #h(8pt) | #h(8pt) *Interactive Lab:* #teardown-ref
+        #set text(font: fonts.sans, size: 8pt, fill: slate-800)
+        #if meta.len() > 0 [
+          #meta.map(p => [*#p.at(0):* #h(3pt) #p.at(1)]).join([ #h(8pt) • #h(8pt) ])
+        ] else [
+          #if slides-ref != "" [*Module:* #h(3pt) #slides-ref]
+          #if book-ref != "" [ #h(8pt) | #h(8pt) #book-ref ]
+          #if reader-ref != "" [ #h(8pt) | #h(8pt) #reader-ref ]
+          #if exam-focus != "" [ #h(8pt) | #h(8pt) *Focus:* #exam-focus ]
+          #if exam-ref != "" [ #h(8pt) | #h(8pt) *Ref:* #exam-ref ]
+          #if teardown-ref != "" [ #h(8pt) | #h(8pt) *Scope:* #teardown-ref ]
         ]
       ]
     ]
   ]
 }
 
-/// Canva / Editorial Magazine Chapter Opener Header
+/// 3. Editorial Magazine / Module Header with Learning Outcomes Strip
 #let editorial-header(
   num: none,
   eyebrow: "MODULE OVERVIEW",
   title: "",
   subtitle: none,
   read-time: none,
-  authors: (),
   goals: (),
-  above: 0pt,
-  below: 1.6em,
+  above: 8pt,
+  below: 12pt,
 ) = block(
   width: 100%,
+  fill: white,
+  stroke: strokes.border + slate-300,
+  radius: radii.md,
+  clip: true,
   above: above,
   below: below,
 )[
-  #grid(
-    columns: (1fr, auto),
-    align: (left + horizon, right + horizon),
-    [
-      #box(fill: floe-cyan.lighten(85%), inset: (x: 6pt, y: 2.5pt), radius: radii.sm)[
-        #text(font: fonts.sans, size: 7.8pt, weight: "bold", fill: floe-navy, tracking: 0.08em)[
-          #if num != none [CHAPTER #num • ] #upper(eyebrow)
-        ]
-      ]
-    ],
-    if read-time != none [
-      #text(font: fonts.sans, size: 8pt, fill: slate-400)[⏱ #read-time]
+  #set par(justify: false, leading: 0.45em)
+  #block(
+    width: 100%,
+    inset: (x: 11pt, top: 10pt, bottom: 9pt),
+    above: 0pt,
+    below: 0pt,
+  )[
+    #block(width: 100%, above: 0pt, below: 0pt)[
+      #grid(
+        columns: (1fr, auto),
+        gutter: 8pt,
+        align: (top + left, top + right),
+        box(
+          fill: floe-cyan.lighten(85%),
+          stroke: strokes.hairline + floe-cyan.lighten(40%),
+          inset: (x: 6pt, y: 3pt),
+          radius: radii.sm,
+          baseline: 0pt,
+          text(
+            font: fonts.sans,
+            size: 7.5pt,
+            weight: "bold",
+            fill: floe-navy,
+            tracking: 0.06em,
+            top-edge: "cap-height",
+            bottom-edge: "bounds",
+          )[#if num != none [MODULE #num • ]#upper(eyebrow)]
+        ),
+        if read-time != none [
+          #badge(read-time, variant: "neutral")
+        ] else [],
+      )
     ]
-  )
-  #v(4pt)
-  #heading(level: 1, numbering: none)[#title]
-  #if subtitle != none [
-    #v(-0.2em)
-    #text(font: fonts.sans, size: 10.5pt, fill: slate-600)[#subtitle]
+    #block(width: 100%, above: 6.5pt, below: 0pt)[
+      #text(
+        font: fonts.sans,
+        size: 14pt,
+        weight: "bold",
+        fill: floe-navy,
+        top-edge: "cap-height",
+        bottom-edge: "bounds",
+      )[#title]
+    ]
+    #if subtitle != none [
+      #block(width: 100%, above: 4pt, below: 0pt)[
+        #text(font: fonts.sans, size: 9.2pt, fill: slate-600)[#subtitle]
+      ]
+    ]
   ]
-  #v(4pt)
-  #line(length: 100%, stroke: 1.5pt + floe-cyan)
-  #v(2pt)
-
-  // Learning Outcomes / Goals Pill Grid
   #if goals.len() > 0 [
     #block(
       width: 100%,
-      fill: slate-50,
-      stroke: strokes.border + slate-200,
-      radius: radii.base,
-      inset: (x: 10pt, y: 6pt),
+      fill: slate-100,
+      stroke: (top: strokes.hairline + slate-300),
+      inset: (x: 11pt, y: 7.5pt),
+      above: 0pt,
+      below: 0pt,
     )[
       #grid(
         columns: (auto, 1fr),
         gutter: 8pt,
         align: (top, top),
-        text(font: fonts.sans, size: 7.8pt, weight: "bold", fill: floe-navy)[LEARNING GOALS:],
+        text(font: fonts.sans, size: 7.5pt, weight: "bold", fill: floe-navy)[LEARNING GOALS:],
         [
           #set text(font: fonts.sans, size: 8pt, fill: slate-700)
-          #goals.join([ #h(6pt)•#h(6pt) ])
+          #goals.join([ #h(6pt) • #h(6pt) ])
         ]
       )
     ]
   ]
 ]
 
-/// Minimalist Breadcrumb Header (Clean Editorial Monograph)
-#let minimal-header(
-  title: "",
-  breadcrumbs: (),
-  date: none,
-  below: 1.4em,
-) = block(width: 100%, below: below)[
-  #if breadcrumbs.len() > 0 [
-    #text(font: fonts.sans, size: 7.8pt, fill: slate-400, tracking: 0.06em)[
-      #breadcrumbs.join(" / ")
-    ]
-    #v(2pt)
-  ]
-  #heading(level: 1, numbering: none)[#title]
-  #v(2pt)
-  #line(length: 100%, stroke: strokes.hairline + slate-300)
-]
-
-/// Full-Width Hero Section Banner (Dividing Major Topic Shifts)
-#let section-hero(
+/// 4. Dark Navy Banner Header (In-Page Major Part / Topic Transition Card)
+#let banner-header(
   title: "",
   subtitle: none,
-  badge-label: "DEEP DIVE",
-  icon: "✦",
+  tag: "PART OPENER",
+  badge-label: none,
   accent: floe-navy,
+  above: 8pt,
+  below: 8pt,
 ) = block(
   width: 100%,
   fill: accent,
   radius: radii.md,
-  inset: (x: 14pt, y: 12pt),
-  above: 1.6em,
-  below: 1.4em,
+  inset: (x: 11pt, top: 10pt, bottom: 10pt),
+  above: above,
+  below: below,
+  breakable: false,
 )[
-  #grid(
-    columns: (auto, 1fr),
-    gutter: 10pt,
-    align: (horizon, horizon),
-    box(
-      width: 22pt,
-      height: 22pt,
-      fill: white.transparentize(85%),
-      radius: radii.full,
-      align(center + horizon)[#text(size: 11pt, fill: floe-cyan)[#icon]]
-    ),
-    [
-      #text(font: fonts.sans, size: 7.5pt, weight: "bold", fill: floe-cyan, tracking: 0.1em)[#upper(badge-label)]
-      #v(1pt)
-      #text(font: fonts.sans, size: 12.5pt, weight: "bold", fill: white)[#title]
-      #if subtitle != none [
-        #v(1pt)
-        #text(font: fonts.sans, size: 8.5pt, fill: slate-300)[#subtitle]
+  #set par(justify: false, leading: 0.45em)
+  #if tag != none or badge-label != none [
+    #block(width: 100%, above: 0pt, below: 0pt)[
+      #grid(
+        columns: (1fr, auto),
+        gutter: 8pt,
+        align: (top + left, top + right),
+        if tag != none [
+          #box(
+            fill: floe-cyan.transparentize(80%),
+            stroke: strokes.hairline + floe-cyan.transparentize(40%),
+            inset: (x: 5.5pt, y: 3pt),
+            radius: radii.sm,
+            baseline: 0pt,
+            text(
+              font: fonts.sans,
+              size: 7.5pt,
+              weight: "bold",
+              fill: floe-cyan,
+              tracking: 0.08em,
+              top-edge: "cap-height",
+              bottom-edge: "bounds",
+            )[#upper(tag)]
+          )
+        ] else [],
+        if badge-label != none [
+          #badge(badge-label, fill: white.transparentize(86%), text-color: white)
+        ] else [],
+      )
+    ]
+  ]
+  #block(width: 100%, above: if tag != none or badge-label != none { 6pt } else { 0pt }, below: 0pt)[
+    #text(
+      font: fonts.sans,
+      size: 13pt,
+      weight: "bold",
+      fill: white,
+      top-edge: "cap-height",
+      bottom-edge: "bounds",
+    )[#title]
+  ]
+  #if subtitle != none [
+    #block(width: 100%, above: 4pt, below: 0pt)[
+      #text(font: fonts.sans, size: 8.8pt, fill: slate-300)[#subtitle]
+    ]
+  ]
+]
+
+/// 5. Split Hero Card (2-Column Keynote-Style Narrative + Visual Showcase Hero)
+#let split-hero(
+  title: "",
+  subtitle: none,
+  tag: "CORE ARCHITECTURE",
+  badge-label: none,
+  highlights: (),
+  visual: none,
+  fractions: (1.25fr, 1fr),
+  above: 8pt,
+  below: 8pt,
+) = equal-grid(
+  columns: fractions,
+  gutter: 8pt,
+  above: above,
+  below: below,
+  block(
+    width: 100%,
+    fill: floe-navy,
+    radius: radii.md,
+    inset: 11pt,
+  )[
+    #set par(justify: false, leading: 0.45em)
+    #if tag != none or badge-label != none [
+      #block(width: 100%, above: 0pt, below: 0pt)[
+        #grid(
+          columns: (1fr, auto),
+          gutter: 6pt,
+          align: (top + left, top + right),
+          if tag != none [
+            #box(
+              fill: floe-cyan.transparentize(80%),
+              stroke: strokes.hairline + floe-cyan.transparentize(40%),
+              inset: (x: 5.5pt, y: 3pt),
+              radius: radii.sm,
+              baseline: 0pt,
+              text(
+                font: fonts.sans,
+                size: 7.2pt,
+                weight: "bold",
+                fill: floe-cyan,
+                tracking: 0.06em,
+                top-edge: "cap-height",
+                bottom-edge: "bounds",
+              )[#upper(tag)]
+            )
+          ] else [],
+          if badge-label != none [
+            #badge(badge-label, fill: white.transparentize(86%), text-color: white)
+          ] else [],
+        )
       ]
     ]
-  )
-]
+    #block(width: 100%, above: 6pt, below: 0pt)[
+      #text(
+        font: fonts.sans,
+        size: 12.5pt,
+        weight: "bold",
+        fill: white,
+        top-edge: "cap-height",
+        bottom-edge: "bounds",
+      )[#title]
+    ]
+    #if subtitle != none [
+      #block(width: 100%, above: 4pt, below: 0pt)[
+        #text(font: fonts.sans, size: 8.4pt, fill: slate-300)[#subtitle]
+      ]
+    ]
+    #if highlights.len() > 0 [
+      #block(width: 100%, above: 7pt, below: 0pt)[
+        #set text(font: fonts.sans, size: 8pt, fill: slate-100)
+        #list(
+          marker: text(fill: floe-cyan, weight: "bold")[▸],
+          ..highlights
+        )
+      ]
+    ]
+  ],
+  block(
+    width: 100%,
+    fill: slate-100,
+    stroke: strokes.border + slate-300,
+    radius: radii.md,
+    inset: 10pt,
+  )[
+    #set text(fill: slate-800)
+    #metadata("floe-stretch-center")
+    #align(center + horizon)[#visual]
+    #metadata("floe-stretch-center")
+  ],
+)
 
-/// Subchapter syllabus preview card
-#let subchapter-card(
+/// 6. Stat / Specification Hero (Header Banner + Equal-Height Parameter Strip)
+#let stat-hero(
   title: "",
-  body,
+  subtitle: none,
+  tag: "SYSTEM SPECIFICATION",
+  badge-label: none,
+  stats: (),
+  above: 8pt,
+  below: 8pt,
 ) = block(
   width: 100%,
-  fill: slate-100,
-  stroke: (left: strokes.accent + floe-navy),
-  radius: (right: radii.base),
-  inset: (x: 12pt, y: 8pt),
-  above: 1.2em,
-  below: 1.2em,
+  fill: white,
+  stroke: strokes.border + slate-300,
+  radius: radii.md,
+  clip: true,
+  above: above,
+  below: below,
+  breakable: false,
 )[
-  #text(font: fonts.sans, size: 9.5pt, weight: "bold", fill: floe-navy)[#title]
-  #v(0.3em)
-  #set text(font: fonts.sans, size: text-scale.sm, fill: slate-700)
-  #body
+  #set par(justify: false, leading: 0.45em)
+  // Top Dark Header
+  #block(
+    width: 100%,
+    fill: floe-navy,
+    inset: (x: 10pt, top: 9pt, bottom: 9pt),
+    above: 0pt,
+    below: 0pt,
+  )[
+    #if tag != none or badge-label != none [
+      #block(width: 100%, above: 0pt, below: 0pt)[
+        #grid(
+          columns: (1fr, auto),
+          gutter: 8pt,
+          align: (top + left, top + right),
+          if tag != none [
+            #box(
+              fill: floe-cyan.transparentize(80%),
+              stroke: strokes.hairline + floe-cyan.transparentize(40%),
+              inset: (x: 5.5pt, y: 3pt),
+              radius: radii.sm,
+              baseline: 0pt,
+              text(
+                font: fonts.sans,
+                size: 7.2pt,
+                weight: "bold",
+                fill: floe-cyan,
+                tracking: 0.06em,
+                top-edge: "cap-height",
+                bottom-edge: "bounds",
+              )[#upper(tag)]
+            )
+          ] else [],
+          if badge-label != none [
+            #badge(badge-label, fill: white.transparentize(86%), text-color: white)
+          ] else [],
+        )
+      ]
+    ]
+    #block(width: 100%, above: 5.5pt, below: 0pt)[
+      #text(
+        font: fonts.sans,
+        size: 11.5pt,
+        weight: "bold",
+        fill: white,
+        top-edge: "cap-height",
+        bottom-edge: "bounds",
+      )[#title]
+    ]
+    #if subtitle != none [
+      #block(width: 100%, above: 3.5pt, below: 0pt)[
+        #text(font: fonts.sans, size: 8.2pt, fill: slate-300)[#subtitle]
+      ]
+    ]
+  ]
+  // Bottom Specification Strip
+  #if stats.len() > 0 [
+    #block(width: 100%, fill: slate-100, inset: 8pt, above: 0pt, below: 0pt)[
+      #equal-grid(
+        columns: (1fr,) * stats.len(),
+        gutter: 8pt,
+        above: 0pt,
+        below: 0pt,
+        ..stats.enumerate().map(((idx, st)) => {
+          let col = term-palette.at(calc.rem(idx, term-palette.len()))
+          block(
+            width: 100%,
+            fill: white,
+            stroke: strokes.hairline + slate-300,
+            radius: radii.sm,
+            inset: 8pt,
+          )[
+            #set par(justify: false, leading: 0.45em)
+            #block(width: 100%, above: 0pt, below: 0pt)[
+              #box(
+                fill: col.lighten(88%),
+                stroke: strokes.hairline + col.lighten(35%),
+                inset: (x: 5pt, y: 2.5pt),
+                radius: radii.sm,
+                baseline: 0pt,
+                text(font: fonts.sans, size: 7.2pt, weight: "bold", fill: col, top-edge: "cap-height", bottom-edge: "bounds")[#upper(st.at(0))]
+              )
+            ]
+            #block(width: 100%, above: 5pt, below: 0pt)[
+              #text(font: fonts.sans, size: 11pt, weight: "bold", fill: floe-navy, top-edge: "cap-height", bottom-edge: "bounds")[#st.at(1)]
+            ]
+            #if st.len() >= 3 [
+              #block(width: 100%, above: 3.5pt, below: 0pt)[
+                #text(font: fonts.sans, size: 7.8pt, fill: slate-600)[#st.at(2)]
+              ]
+            ]
+          ]
+        })
+      )
+    ]
+  ]
 ]
 
-/// Presentation 16:9 keynote hero card
-#let keynote-hero(
+/// 7. Clean In-Page Section Header (Corner-Anchored Beans + Title + Accent Rule)
+#let section-header(
+  title: "",
+  subtitle: none,
+  tag: none,
+  badge-label: none,
+  badge-variant: "info",
+  accent: floe-cyan,
+  above: 10pt,
+  below: 8pt,
+  ..sink,
+) = {
+  let resolved-tag = if tag != none { tag } else if "badge-label" in sink.named() { none } else { "SECTION" }
+  block(
+    width: 100%,
+    above: above,
+    below: below,
+    breakable: false,
+  )[
+    #set par(justify: false, leading: 0.45em)
+    #if resolved-tag != none or badge-label != none [
+      #block(width: 100%, above: 0pt, below: 0pt)[
+        #grid(
+          columns: (1fr, auto),
+          gutter: 8pt,
+          align: (top + left, top + right),
+          if resolved-tag != none [
+            #box(
+              fill: floe-navy,
+              inset: (x: 5.5pt, y: 3pt),
+              radius: radii.sm,
+              baseline: 0pt,
+              text(
+                font: fonts.sans,
+                size: 7.2pt,
+                weight: "bold",
+                fill: white,
+                tracking: 0.06em,
+                top-edge: "cap-height",
+                bottom-edge: "bounds",
+              )[#upper(resolved-tag)]
+            )
+          ] else [],
+          if badge-label != none [
+            #badge(badge-label, variant: badge-variant)
+          ] else [],
+        )
+      ]
+    ]
+    #block(width: 100%, above: 5.5pt, below: 0pt)[
+      #text(
+        font: fonts.sans,
+        size: 12pt,
+        weight: "bold",
+        fill: floe-navy,
+        top-edge: "cap-height",
+        bottom-edge: "bounds",
+      )[#title]
+    ]
+    #if subtitle != none [
+      #block(width: 100%, above: 3.5pt, below: 0pt)[
+        #text(font: fonts.sans, size: 8.6pt, fill: slate-600)[#subtitle]
+      ]
+    ]
+    #block(width: 100%, above: 5pt, below: 0pt)[
+      #line(length: 100%, stroke: 1.2pt + accent)
+    ]
+  ]
+}
+
+/// 8. Subchapter Lead-In Card (Left-Accented Scope & Topic Card)
+#let subchapter-card(
+  title: "",
+  tag: none,
+  badge-label: none,
+  badge-variant: "neutral",
+  accent: floe-navy,
+  above: 8pt,
+  below: 8pt,
+  body,
+) = {
+  let has-beans = (tag != none) or (badge-label != none)
+  block(
+    width: 100%,
+    fill: slate-100,
+    stroke: (
+      left: strokes.accent + accent,
+      top: strokes.hairline + slate-300,
+      right: strokes.hairline + slate-300,
+      bottom: strokes.hairline + slate-300,
+    ),
+    radius: (right: radii.md, left: radii.sm),
+    inset: (x: 10pt, top: 9pt, bottom: 9pt),
+    above: above,
+    below: below,
+  )[
+    #set par(justify: false, leading: 0.45em)
+    #if has-beans [
+      #block(width: 100%, above: 0pt, below: 0pt)[
+        #grid(
+          columns: (1fr, auto),
+          gutter: 8pt,
+          align: (top + left, top + right),
+          if tag != none [
+            #box(
+              fill: accent,
+              inset: (x: 5.5pt, y: 3pt),
+              radius: radii.sm,
+              baseline: 0pt,
+              text(
+                font: fonts.sans,
+                size: 7.2pt,
+                weight: "bold",
+                fill: white,
+                tracking: 0.06em,
+                top-edge: "cap-height",
+                bottom-edge: "bounds",
+              )[#upper(tag)]
+            )
+          ] else [],
+          if badge-label != none [
+            #badge(badge-label, variant: badge-variant)
+          ] else [],
+        )
+      ]
+    ]
+    #if title != "" [
+      #block(width: 100%, above: if has-beans { 5.5pt } else { 0pt }, below: 0pt)[
+        #text(
+          font: fonts.sans,
+          size: 9.8pt,
+          weight: "bold",
+          fill: floe-navy,
+          top-edge: "cap-height",
+          bottom-edge: "bounds",
+        )[#title]
+      ]
+    ]
+    #block(width: 100%, above: 4.5pt, below: 0pt)[
+      #set text(font: fonts.sans, size: text-scale.sm, fill: slate-700)
+      #body
+    ]
+  ]
+}
+
+/// 9. Minimalist Breadcrumb Header (Clean Editorial Monograph)
+#let minimal-header(
+  title: "",
+  subtitle: none,
+  breadcrumbs: (),
+  date: none,
+  above: 8pt,
+  below: 10pt,
+) = block(width: 100%, above: above, below: below)[
+  #set par(justify: false, leading: 0.45em)
+  #if breadcrumbs.len() > 0 or date != none [
+    #block(width: 100%, above: 0pt, below: 0pt)[
+      #grid(
+        columns: (1fr, auto),
+        gutter: 8pt,
+        align: (top + left, top + right),
+        if breadcrumbs.len() > 0 [
+          #text(
+            font: fonts.sans,
+            size: 7.5pt,
+            weight: "bold",
+            fill: slate-500,
+            tracking: 0.06em,
+            top-edge: "cap-height",
+            bottom-edge: "bounds",
+          )[#breadcrumbs.map(b => upper(b)).join("  /  ")]
+        ] else [],
+        if date != none [
+          #badge(date, variant: "neutral")
+        ] else [],
+      )
+    ]
+  ]
+  #block(width: 100%, above: if breadcrumbs.len() > 0 or date != none { 5.5pt } else { 0pt }, below: 0pt)[
+    #text(
+      font: fonts.sans,
+      size: 13pt,
+      weight: "bold",
+      fill: floe-navy,
+      top-edge: "cap-height",
+      bottom-edge: "bounds",
+    )[#title]
+  ]
+  #if subtitle != none [
+    #block(width: 100%, above: 3.5pt, below: 0pt)[
+      #text(font: fonts.sans, size: 8.8pt, fill: slate-600)[#subtitle]
+    ]
+  ]
+  #block(width: 100%, above: 5pt, below: 0pt)[
+    #line(length: 100%, stroke: strokes.border + slate-300)
+  ]
+]
+
+/// 10. Executive Document Header Banner (Masthead for Reports & Memos)
+#let document-header(
   title: "",
   subtitle: "",
   tag: none,
+  badge-label: none,
+  badge-variant: "info",
+  metadata: (),
+  accent: floe-cyan,
+  above: 8pt,
+  below: 12pt,
+) = block(
+  width: 100%,
+  fill: white,
+  stroke: strokes.border + slate-300,
+  radius: radii.md,
+  clip: true,
+  above: above,
+  below: below,
+)[
+  #set par(justify: false, leading: 0.45em)
+  #block(width: 100%, height: 3pt, fill: accent, above: 0pt, below: 0pt)
+  #block(width: 100%, inset: (x: 11pt, top: 9pt, bottom: 9pt), above: 0pt, below: 0pt)[
+    #if tag != none or badge-label != none [
+      #block(width: 100%, above: 0pt, below: 0pt)[
+        #grid(
+          columns: (1fr, auto),
+          gutter: 8pt,
+          align: (top + left, top + right),
+          if tag != none [
+            #badge(tag, variant: "dark")
+          ] else [],
+          if badge-label != none [
+            #badge(badge-label, variant: badge-variant)
+          ] else [],
+        )
+      ]
+    ]
+    #block(width: 100%, above: if tag != none or badge-label != none { 5.5pt } else { 0pt }, below: 0pt)[
+      #text(
+        font: fonts.sans,
+        size: 15pt,
+        weight: "bold",
+        fill: floe-navy,
+        top-edge: "cap-height",
+        bottom-edge: "bounds",
+      )[#title]
+    ]
+    #if subtitle != "" and subtitle != none [
+      #block(width: 100%, above: 4pt, below: 0pt)[
+        #text(font: fonts.sans, size: 9.2pt, fill: floe-muted)[#subtitle]
+      ]
+    ]
+  ]
+  #if metadata.len() > 0 [
+    #block(
+      width: 100%,
+      fill: slate-100,
+      stroke: (top: strokes.hairline + slate-300),
+      inset: (x: 11pt, y: 7.5pt),
+      above: 0pt,
+      below: 0pt,
+    )[
+      #grid(
+        columns: (1fr,) * calc.min(metadata.len(), 4),
+        gutter: 10pt,
+        ..metadata.map(item => [
+          #text(font: fonts.sans, size: 7pt, weight: "bold", fill: floe-muted, tracking: 0.05em)[#upper(item.at(0))]
+          #block(above: 2.5pt, below: 0pt, text(font: fonts.sans, size: 8.4pt, weight: "bold", fill: slate-800)[#item.at(1)])
+        ])
+      )
+    ]
+  ]
+]
+
+/// 11. Appendix Header Banner with Alphanumeric Numbering
+#let appendix-header(
+  letter: "A",
+  title: "",
+  subtitle: none,
+  badge-label: none,
+  slides-ref: "",
+  reader-ref: "",
+  teardown-ref: "",
+  pagebreak-before: true,
+  ..sink,
+) = {
+  if pagebreak-before {
+    pagebreak(weak: true)
+  }
+  block(width: 100%, below: 1.3em)[
+    #set par(justify: false, leading: 0.45em)
+    #block(width: 100%, above: 0pt, below: 0pt)[
+      #grid(
+        columns: (1fr, auto),
+        gutter: 8pt,
+        align: (top + left, top + right),
+        box(
+          fill: floe-purple.lighten(88%),
+          stroke: strokes.hairline + floe-purple.lighten(40%),
+          inset: (x: 6pt, y: 3pt),
+          radius: radii.sm,
+          baseline: 0pt,
+          text(
+            font: fonts.sans,
+            size: 7.8pt,
+            weight: "bold",
+            fill: floe-purple,
+            tracking: 0.08em,
+            top-edge: "cap-height",
+            bottom-edge: "bounds",
+          )[APPENDIX #upper(letter)]
+        ),
+        if badge-label != none [
+          #badge(badge-label, variant: "purple")
+        ] else [],
+      )
+    ]
+    #block(width: 100%, above: 6.5pt, below: 0pt)[
+      #if pagebreak-before [
+        #heading(level: 1, numbering: none)[Appendix #letter. #title]
+      ] else [
+        #text(font: fonts.sans, size: 15pt, weight: "bold", fill: floe-navy, top-edge: "cap-height", bottom-edge: "bounds")[Appendix #letter. #title]
+      ]
+    ]
+    #if subtitle != none [
+      #block(width: 100%, above: 4pt, below: 0pt)[
+        #text(font: fonts.sans, size: 10pt, fill: slate-600)[#subtitle]
+      ]
+    ]
+    #block(width: 100%, above: 6pt, below: 0pt)[
+      #line(length: 100%, stroke: 1.5pt + floe-purple)
+    ]
+    #if slides-ref != "" or reader-ref != "" or teardown-ref != "" [
+      #block(
+        width: 100%,
+        fill: slate-100,
+        stroke: strokes.border + slate-300,
+        radius: radii.sm,
+        inset: (x: 10pt, y: 6.5pt),
+        above: 6pt,
+        below: 0pt,
+      )[
+        #set text(font: fonts.sans, size: 8pt, fill: slate-800)
+        #if slides-ref != "" [*Reference:* #h(4pt) #slides-ref]
+        #if reader-ref != "" [ #h(8pt) | #h(8pt) #reader-ref ]
+        #if teardown-ref != "" [ #h(8pt) | #h(8pt) *Scope:* #teardown-ref ]
+      ]
+    ]
+  ]
+}
+
+/// 12. Presentation 16:9 Keynote Header Card
+#let keynote-header(
+  title: "",
+  subtitle: "",
+  tag: none,
+  badge-label: none,
+  above: 8pt,
+  below: 8pt,
 ) = block(
   width: 100%,
   fill: floe-navy,
   radius: radii.md,
-  inset: (x: 20pt, y: 22pt),
-  above: 1em,
-  below: 1em,
+  inset: (x: 14pt, top: 12pt, bottom: 12pt),
+  above: above,
+  below: below,
+  breakable: false,
 )[
-  #if tag != none [
-    #text(font: fonts.sans, size: 8.5pt, weight: "bold", fill: floe-cyan, tracking: 0.12em)[#upper(tag)]
-    #v(0.4em)
+  #set par(justify: false, leading: 0.45em)
+  #if tag != none or badge-label != none [
+    #block(width: 100%, above: 0pt, below: 0pt)[
+      #grid(
+        columns: (1fr, auto),
+        gutter: 8pt,
+        align: (top + left, top + right),
+        if tag != none [
+          #box(
+            fill: floe-cyan.transparentize(80%),
+            stroke: strokes.hairline + floe-cyan.transparentize(40%),
+            inset: (x: 6pt, y: 3pt),
+            radius: radii.sm,
+            baseline: 0pt,
+            text(
+              font: fonts.sans,
+              size: 7.8pt,
+              weight: "bold",
+              fill: floe-cyan,
+              tracking: 0.08em,
+              top-edge: "cap-height",
+              bottom-edge: "bounds",
+            )[#upper(tag)]
+          )
+        ] else [],
+        if badge-label != none [
+          #badge(badge-label, fill: white.transparentize(86%), text-color: white)
+        ] else [],
+      )
+    ]
   ]
-  #text(font: fonts.sans, size: 20pt, weight: "bold", fill: white)[#title]
-  #if subtitle != "" [
-    #v(0.3em)
-    #text(font: fonts.sans, size: 11pt, fill: slate-300)[#subtitle]
+  #block(width: 100%, above: if tag != none or badge-label != none { 7pt } else { 0pt }, below: 0pt)[
+    #text(
+      font: fonts.sans,
+      size: 16pt,
+      weight: "bold",
+      fill: white,
+      top-edge: "cap-height",
+      bottom-edge: "bounds",
+    )[#title]
+  ]
+  #if subtitle != "" and subtitle != none [
+    #block(width: 100%, above: 4.5pt, below: 0pt)[
+      #text(font: fonts.sans, size: 9.8pt, fill: slate-300)[#subtitle]
+    ]
   ]
 ]
-
-/// Executive Document Header Banner (Clean Header for Reports & Memos)
-#let document-hero(
-  title: "",
-  subtitle: "",
-  metadata: (),
-  accent: floe-cyan,
-) = block(
-  width: 100%,
-  below: 1.5em,
-)[
-  #line(length: 100%, stroke: 2.5pt + accent)
-  #v(0.4em)
-  #text(font: fonts.sans, size: 20pt, weight: "bold", fill: floe-navy)[#title]
-  #if subtitle != "" [
-    #v(0.2em)
-    #text(font: fonts.sans, size: 11pt, fill: floe-muted)[#subtitle]
-  ]
-  #if metadata.len() > 0 [
-    #v(0.6em)
-    #grid(
-      columns: (1fr,) * calc.min(metadata.len(), 4),
-      gutter: 10pt,
-      ..metadata.map(item => [
-        #text(font: fonts.sans, size: text-scale.xs, weight: "bold", fill: floe-muted)[#upper(item.at(0))] \
-        #text(font: fonts.sans, size: text-scale.sm, fill: slate-800)[#item.at(1)]
-      ])
-    )
-  ]
-  #v(0.4em)
-  #line(length: 100%, stroke: strokes.hairline + slate-200)
-]
-
-// ----------------------------------------------------------------------------
-// 2. Figures & Graphic Layouts
-// ----------------------------------------------------------------------------
-
-/// High-resolution figure wrapper with automatic path normalization across Snowpack & Lantern
-#let reader-fig(
-  path,
-  caption: none,
-  width: 88%,
-  alt: none,
-) = {
-  let img-path = path
-  if type(path) == str {
-    if path.starts-with("/reader/figures/") {
-      img-path = "figures/" + path.slice("/reader/figures/".len())
-    } else if path.starts-with("/site/content/figures/") {
-      img-path = "../site/content/figures/" + path.slice("/site/content/figures/".len())
-    } else if path.starts-with("../figures/") {
-      img-path = "figures/" + path.slice("../figures/".len())
-    }
-  }
-
-  figure(
-    block(
-      width: 100%,
-      inset: (y: 4pt),
-      align(center, if type(img-path) == str {
-        image(img-path, width: width, alt: alt)
-      } else {
-        img-path
-      }),
-    ),
-    caption: caption,
-  )
-}
-
-/// Side-by-side comparative layout for multi-panel plots, diagrams, or math vs code
-#let side-by-side(
-  columns: (1fr, 1fr),
-  gutter: 12pt,
-  ..items,
-) = {
-  grid(
-    columns: columns,
-    gutter: gutter,
-    align: top,
-    ..items.pos()
-  )
-}

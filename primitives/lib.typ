@@ -3,8 +3,10 @@
 // Layer 1: Zero-Domain Hardware (Boxes, Borders, Layout Geometry, Badges)
 // ============================================================================
 
-#import "card.typ": card, alert, callout-card, panel
+#import "grid.typ": equal-grid, stretch-cell
+#import "card.typ": card, alert
 #import "plaque.typ": plaque
+#import "figure.typ": figure-card, figure-grid
 #import "stepper.typ": stepper
 #import "item.typ": item-card, item-grid
 #import "badge.typ": badge, kbd, status-dot
@@ -12,7 +14,6 @@
   divider,
   text-divider,
   chip-divider,
-  labeled-divider,
   dotted-divider,
   dashed-divider,
   fade-divider,

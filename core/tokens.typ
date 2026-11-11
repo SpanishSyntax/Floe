@@ -36,13 +36,15 @@
   neutral: (bg: slate-50,       border: slate-300,  text: slate-800),
 )
 
-// 4. Q2 Professor Semantic Equation Color Roles
-#let c-state   = rgb("#0284C7")  // Sky Blue: Internal dynamics, state vector x, autonomous drift
-#let c-input   = rgb("#DC2626")  // Crimson Red: Actuator authority, control input u, constraints
-#let c-cost    = rgb("#D97706")  // Amber: Cost weights Q/R, Lagrange multipliers \lambda, slack
-#let c-sensor  = rgb("#059669")  // Emerald Green: Measurements y, sensors, reference target
-#let c-noise   = rgb("#7C3AED")  // Royal Purple: Disturbance w, sensor noise v, duals \mu
-#let c-est     = rgb("#DB2777")  // Deep Pink: Estimated states \hat{x}, residuals, bounds
+// 4. Universal Equation & Term Dissection Palette (Domain-Agnostic)
+#let c-term-1  = rgb("#0284C7")  // Term 1 (Sky Blue)
+#let c-term-2  = rgb("#7C3AED")  // Term 2 (Royal Purple)
+#let c-term-3  = rgb("#D97706")  // Term 3 (Warm Amber)
+#let c-term-4  = rgb("#059669")  // Term 4 (Emerald Green)
+#let c-term-5  = rgb("#DC2626")  // Term 5 (Crimson Red)
+#let c-term-6  = rgb("#DB2777")  // Term 6 (Deep Rose)
+
+#let term-palette = (c-term-1, c-term-2, c-term-3, c-term-4, c-term-5, c-term-6)
 
 // 5. Cross-Platform Typography Stacks
 #let fonts = (

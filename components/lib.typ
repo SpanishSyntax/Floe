@@ -1,12 +1,75 @@
 // ============================================================================
 // FLOE DESIGN SYSTEM — HIGH-LEVEL COMPONENTS (components/lib.typ)
-// Layer 3: Academic Plaques, Alerts, Pedagogical Canvases, Layouts & Heros
+// Layer 3: Academic Plaques, Alerts, Pedagogical Canvases, Layouts & Headers
+// Zero duplicate aliases — every component has a single canonical name.
 // ============================================================================
 
-#import "academic.typ": theorem, definition, lemma, corollary, proof-sketch, algorithm
-#import "alerts.typ": pitfall, exam-trap, exam-alert, note, tip, warning
-#import "pedagogical.typ": physical-anchor, worked-example, worked, matlab-box, formula-breakdown, cutting-board, anatomy
-#import "layouts.typ": split-view, pro-con, bento-grid, bento-cell, feature-grid, key-value-grid
-#import "tables.typ": data-table, spec-table, comparison-table, badge-yes, badge-no, badge-opt
-#import "hero.typ": chapter-header, subchapter-card, keynote-hero, document-hero, editorial-header, minimal-header, section-hero, reader-fig, side-by-side
+// 1. Academic Plaques & Proofs
+#import "academic.typ": (
+  theorem,
+  definition,
+  lemma,
+  corollary,
+  algorithm,
+  proof,
+)
+
+// 2. Semantic Alerts & Exam Traps
+#import "alerts.typ": (
+  pitfall,
+  exam-alert,
+  note,
+  tip,
+  warning,
+)
+
+// 3. Pedagogical Canvases & Worked Examples
+#import "pedagogical.typ": (
+  formula-breakdown,
+  derivation-stepper,
+  physical-anchor,
+  worked-example,
+)
+
+// 4. Composite Grids & Layouts
+#import "layouts.typ": (
+  split-view,
+  pro-con,
+  bento-grid,
+  bento-cell,
+  feature-grid,
+  key-value-grid,
+  duality-grid,
+)
+
+// 5. Adaptive Tables
+#import "tables.typ": (
+  data-table,
+  spec-table,
+  comparison-table,
+  badge-yes,
+  badge-no,
+  badge-opt,
+)
+
+// 6. Editorial Heroes & Section Headers
+#import "hero.typ": (
+  cover-hero,
+  chapter-header,
+  editorial-header,
+  banner-header,
+  split-hero,
+  stat-hero,
+  section-header,
+  subchapter-card,
+  minimal-header,
+  document-header,
+  appendix-header,
+  keynote-header,
+)
+
+// 7. Science, Chemistry & Native Vector Plots
+#import "science.typ": plot-2d, reaction
+
+// 8. Math Operators & Micro-Typography
 #import "math.typ": *

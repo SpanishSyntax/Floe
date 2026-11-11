@@ -12,7 +12,7 @@
   course-code: "SC42000",
   institution: "Systems & Control Institute • Academic Series",
   edition: "Comprehensive Companion Edition",
-  cover-page: none,
+  cover-page: auto,
   toc: true,
   ..sink,
   body,
@@ -51,7 +51,41 @@
   )
 
   // Cover Page
-  if cover-page != none {
+  if cover-page == auto {
+    page(header: none, footer: none)[
+      #v(2.0cm)
+      #block(
+        width: 100%,
+        fill: floe-navy,
+        radius: radii.lg,
+        inset: (x: 24pt, y: 28pt),
+      )[
+        #if institution != none [
+          #text(font: fonts.sans, size: 10pt, weight: "bold", fill: floe-cyan, tracking: 0.12em)[
+            #upper(institution)
+          ]
+          #v(0.4cm)
+        ]
+        #text(font: fonts.sans, size: 26pt, weight: "bold", fill: white)[
+          #if course-code != none [#course-code: ]#title
+        ]
+        #if subtitle != none [
+          #v(0.35cm)
+          #line(length: 45%, stroke: 2.5pt + floe-cyan)
+          #v(0.35cm)
+          #text(font: fonts.sans, size: 12pt, fill: slate-200)[
+            #subtitle
+          ]
+        ]
+        #if edition != none [
+          #v(0.4cm)
+          #text(font: fonts.sans, size: 9pt, fill: floe-muted)[
+            #edition
+          ]
+        ]
+      ]
+    ]
+  } else if cover-page != none {
     cover-page
   }
 

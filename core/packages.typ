@@ -26,3 +26,6 @@
 
 // 8. Dynamic Heading Breadcrumbs & Running Headers (Hydra)
 #import "@preview/hydra:0.6.1": hydra
+
+// 9. Electrical & Control Circuit Schematics (Zap)
+#import "@preview/zap:0.5.0"

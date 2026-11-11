@@ -7,7 +7,7 @@
   date: "November 2026",
 )
 
-#document-hero(
+#document-header(
   title: "Flight Software Architecture Benchmark",
   subtitle: "Hardware-in-the-loop numerical evaluation on ARM Cortex-M7",
   metadata: (

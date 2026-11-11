@@ -11,85 +11,149 @@
 #let card(
   title: none,
   description: none,
+  tag: none,
+  tag-variant: "dark",
   badge-label: none,
   badge-variant: "neutral",
   icon: none,
+  inline-header: false,
   footer: none,
   fill: white,
   border-color: slate-200,
   radius: radii.md,
   inset: 12pt,
-  above: 1.15em,
-  below: 1.15em,
-  body,
-) = block(
-  width: 100%,
-  fill: fill,
-  stroke: strokes.border + border-color,
-  radius: radius,
-  clip: true,
-  above: above,
-  below: below,
+  above: 8pt,
+  below: 8pt,
   breakable: true,
-)[
-  // Card Header
-  #if title != none or description != none or badge-label != none or icon != none [
-    #block(
-      width: 100%,
-      stroke: (bottom: strokes.hairline + slate-100),
-      inset: (x: inset, top: inset, bottom: if description != none { 8pt } else { 6pt }),
-      above: 0pt,
-      below: 0pt,
-    )[
-      #grid(
-        columns: (auto, 1fr, auto),
-        gutter: 8pt,
-        align: (horizon, horizon, horizon),
-        if icon != none [
-          #box(
-            fill: slate-100,
-            radius: radii.sm,
-            inset: 4pt,
-            align(center + horizon)[#icon]
-          )
-        ],
-        [
-          #if title != none [
-            #block(text(font: fonts.sans, size: 10.5pt, weight: "bold", fill: slate-900)[#title])
-          ]
-          #if description != none [
-            #v(1pt)
-            #block(text(font: fonts.sans, size: text-scale.xs, fill: slate-500)[#description])
-          ]
-        ],
-        if badge-label != none [
-          #badge(badge-label, variant: badge-variant)
-        ]
-      )
-    ]
-  ]
-  #block(
+  body,
+) = {
+  let has-beans = (tag != none) or (badge-label != none) or (icon != none)
+  block(
     width: 100%,
-    inset: (x: inset, top: if title != none { 8pt } else { inset }, bottom: if footer != none { 8pt } else { inset }),
-    above: 0pt,
-    below: 0pt,
+    fill: fill,
+    stroke: strokes.border + border-color,
+    radius: radius,
+    clip: true,
+    above: above,
+    below: below,
+    breakable: breakable,
   )[
-    #body
-  ]
-  #if footer != none [
+    // Card Header
+    #if title != none or description != none or has-beans [
+      #block(
+        width: 100%,
+        stroke: (bottom: strokes.hairline + slate-200),
+        inset: (x: 9pt, top: 9pt, bottom: 8.5pt),
+        above: 0pt,
+        below: 0pt,
+      )[
+        #set par(justify: false, leading: 0.45em)
+        #if not inline-header [
+          // Row 1: Corner-anchored Left Bean / Icon & Right Bean
+          #if has-beans [
+            #block(width: 100%, above: 0pt, below: 0pt)[
+              #grid(
+                columns: (1fr, auto),
+                gutter: 8pt,
+                align: (top + left, top + right),
+                if tag != none [
+                  #badge(tag, variant: tag-variant)
+                ] else if icon != none [
+                  #box(
+                    fill: slate-100,
+                    radius: radii.sm,
+                    inset: (x: 5pt, y: 3pt),
+                    baseline: 0pt,
+                    text(size: 8.5pt, top-edge: "cap-height", bottom-edge: "bounds")[#icon]
+                  )
+                ] else [],
+                if badge-label != none [
+                  #badge(badge-label, variant: badge-variant)
+                ] else [],
+              )
+            ]
+          ]
+          // Row 2: Full-width Title
+          #if title != none [
+            #block(width: 100%, above: if has-beans { 5.5pt } else { 0pt }, below: 0pt)[
+              #text(
+                font: fonts.sans,
+                size: 10pt,
+                weight: "bold",
+                fill: slate-900,
+                top-edge: "cap-height",
+                bottom-edge: "bounds",
+              )[#title]
+            ]
+          ]
+          // Row 3: Full-width Description
+          #if description != none [
+            #block(width: 100%, above: if title != none or has-beans { 3.5pt } else { 0pt }, below: 0pt)[
+              #text(
+                font: fonts.sans,
+                size: 8pt,
+                fill: slate-500,
+                top-edge: "cap-height",
+                bottom-edge: "bounds",
+              )[#description]
+            ]
+          ]
+        ] else [
+          // Explicit Inline Header Override
+          #grid(
+            columns: (auto, 1fr, auto),
+            gutter: 8pt,
+            align: (horizon, horizon, horizon),
+            if tag != none [
+              #badge(tag, variant: tag-variant)
+            ] else if icon != none [
+              #box(
+                fill: slate-100,
+                radius: radii.sm,
+                inset: 4pt,
+                align(center + horizon)[#icon]
+              )
+            ],
+            [
+              #if title != none [
+                #block(text(font: fonts.sans, size: 10pt, weight: "bold", fill: slate-900)[#title])
+              ]
+              #if description != none [
+                #block(above: 3pt, below: 0pt, text(font: fonts.sans, size: text-scale.xs, fill: slate-500)[#description])
+              ]
+            ],
+            if badge-label != none [
+              #badge(badge-label, variant: badge-variant)
+            ]
+          )
+        ]
+      ]
+    ]
     #block(
       width: 100%,
-      fill: slate-50,
-      stroke: (top: strokes.hairline + slate-100),
-      inset: (x: inset, y: 7pt),
+      inset: (x: inset, top: if title != none or has-beans { 9pt } else { inset }, bottom: if footer != none { 9pt } else { inset }),
       above: 0pt,
       below: 0pt,
     )[
-      #set text(font: fonts.sans, size: text-scale.xs, fill: slate-500)
-      #footer
+      #set text(fill: slate-800)
+      #body
+    ]
+    #metadata("floe-footer")
+    #if footer != none [
+      #block(
+        width: 100%,
+        fill: slate-100,
+        stroke: (top: strokes.hairline + slate-200),
+        inset: (x: inset, y: 7pt),
+        above: 0pt,
+        below: 0pt,
+      )[
+        #set text(font: fonts.sans, size: text-scale.xs, fill: slate-600)
+        #footer
+      ]
     ]
   ]
-]
+}
 
 /// Modern Shadcn-Style Alert Callout
 /// Features: Full subtle tinted border, white card background with icon chip,
@@ -101,8 +165,8 @@
   style: "filled",
   radius: radii.md,
   breakable: false,
-  above: 1.1em,
-  below: 1.1em,
+  above: 8pt,
+  below: 8pt,
   body,
 ) = {
   let v-conf = (
@@ -180,6 +244,7 @@
   )[
     #if title != none [
       #block(below: 4pt)[
+        #set par(justify: false)
         #grid(
           columns: (auto, 1fr),
           gutter: 7pt,
@@ -193,57 +258,9 @@
       #h(6pt)
     ]
     #block(width: 100%)[
+      #set par(justify: false)
       #set text(fill: slate-800, size: text-scale.base)
       #body
     ]
   ]
 }
-
-/// Backwards-compatible callout card (now with refined, modern styling)
-#let callout-card(
-  accent: floe-cyan,
-  bg: rgb("#F8FAFC"),
-  border-stroke: strokes.border,
-  radius: radii.base,
-  inset: (x: 12pt, y: 9pt),
-  breakable: true,
-  above: 1.15em,
-  below: 1.15em,
-  body,
-) = block(
-  width: 100%,
-  breakable: breakable,
-  fill: bg,
-  stroke: (
-    left: 2.5pt + accent,
-    rest: border-stroke + slate-200,
-  ),
-  radius: (right: radius),
-  inset: inset,
-  above: above,
-  below: below,
-)[
-  #set par(justify: true)
-  #body
-]
-
-/// Structured panel container
-#let panel(
-  title: none,
-  footer: none,
-  accent: floe-slate,
-  bg: white,
-  stroke: strokes.border + slate-200,
-  radius: radii.md,
-  inset: 12pt,
-  breakable: true,
-  body,
-) = card(
-  title: title,
-  footer: footer,
-  fill: bg,
-  border-color: slate-200,
-  radius: radius,
-  inset: inset,
-  body,
-)

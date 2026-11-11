@@ -21,13 +21,18 @@
   #table(
     columns: (auto, auto, 1fr),
     stroke: none,
-    fill: (_, y) => if zebra and calc.even(y) { rgb("#F8FAFC") } else { none },
+    fill: (_, y) => if zebra and calc.even(y) { slate-100 } else { none },
     inset: inset,
     align: (horizon + center, horizon + left, horizon + left),
     ..steps.enumerate().map(((idx, s)) => {
-      let num-label = if s.len() >= 1 and s.at(0) != auto { str(s.at(0)) } else { str(idx + 1) }
-      let step-title = if s.len() >= 2 { s.at(1) } else { none }
-      let step-body = if s.len() >= 3 { s.at(2) } else { none }
+      let (num-label, step-title, step-body) = if s.len() == 2 {
+        (str(idx + 1), s.at(0), s.at(1))
+      } else {
+        let nl = if s.len() >= 1 and s.at(0) != auto { [#s.at(0)] } else { str(idx + 1) }
+        let st = if s.len() >= 2 { s.at(1) } else { none }
+        let sb = if s.len() >= 3 { s.at(2) } else { none }
+        (nl, st, sb)
+      }
 
       (
         // Col 1: Step Number Badge

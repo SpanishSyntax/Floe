@@ -22,7 +22,7 @@
   (title, body)
 }
 
-/// David C. Lay Theorem Hero Plaque
+/// Formal Academic Theorem Plaque
 #let theorem(..args) = {
   let (title, body) = _parse-args(args)
   let name = if "name" in args.named() { args.named().name } else { none }
@@ -56,7 +56,7 @@
   )
 }
 
-/// Formal Definition Plaque (defaults to title-below for long academic terms)
+/// Formal Definition Plaque
 #let definition(..args) = {
   let (title, body) = _parse-args(args)
   let num = if "num" in args.named() { args.named().num } else { none }
@@ -79,7 +79,7 @@
   )
 }
 
-/// Lemma Plaque
+/// Supporting Lemma Plaque
 #let lemma(..args) = {
   let (title, body) = _parse-args(args)
   let num = if "num" in args.named() { args.named().num } else { none }
@@ -97,7 +97,7 @@
   )
 }
 
-/// Corollary Plaque
+/// Deductive Corollary Plaque
 #let corollary(..args) = {
   let (title, body) = _parse-args(args)
   let title-below = if "title-below" in args.named() { args.named().title-below } else { false }
@@ -113,7 +113,7 @@
   )
 }
 
-/// Algorithm Plaque
+/// Algorithm Pseudocode Plaque
 #let algorithm(..args) = {
   let (title, body) = _parse-args(args)
   let num = if "num" in args.named() { args.named().num } else { none }
@@ -131,24 +131,35 @@
   )
 }
 
-/// Proof Sketch Environment with QED Endmarker
-#let proof-sketch(..args) = {
-  let (title, body) = _parse-args(args)
+/// Canonical Mathematical Proof Environment with `sketch: false` Flag and QED Endmarker
+#let proof(
+  title: none,
+  sketch: false,
+  qed: true,
+  ..args,
+) = {
+  let (parsed-title, body) = _parse-args(args, default-title: title)
+  let is-sketch = if "sketch" in args.named() { args.named().sketch } else { sketch }
+  let show-qed = if "qed" in args.named() { args.named().qed } else { qed }
+  let label-text = if is-sketch { "PROOF SKETCH" } else { "PROOF" }
 
   block(
     width: 100%,
     breakable: true,
-    stroke: (left: 2pt + slate-300),
+    stroke: (left: 2pt + if is-sketch { slate-300 } else { slate-400 }),
     inset: (left: 12pt, y: 6pt),
     above: 1.0em,
     below: 1.0em,
   )[
-    #text(font: fonts.sans, size: text-scale.xs, weight: "bold", fill: slate-500, tracking: 0.06em)[
-      PROOF SKETCH #if title != none [— #title]
+    #block(below: 0.35em, sticky: true)[
+      #text(font: fonts.sans, size: text-scale.xs, weight: "bold", fill: if is-sketch { slate-500 } else { floe-navy }, tracking: 0.06em)[
+        #label-text #if parsed-title != none [— #parsed-title]
+      ]
     ]
-    #v(0.3em)
     #set text(size: text-scale.base)
     #body
-    #h(1fr) $square.stroked$
+    #if show-qed [
+      #h(1fr) #text(fill: if is-sketch { slate-400 } else { slate-700 })[$square.stroked$]
+    ]
   ]
 }

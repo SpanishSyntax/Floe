@@ -4,9 +4,18 @@
 // ============================================================================
 #import "../core/lib.typ": *
 
-/// Opt-in show rule to apply Floe windowed code block styling
+/// Opt-in show rule to apply Floe windowed code block styling (and native Mermaid rendering)
 #let with-code-theme(body) = {
   show raw.where(block: true): it => {
+    if it.lang == "mermaid" {
+      return align(center)[
+        #block(
+          width: 100%,
+          inset: (y: 4pt),
+          mermaid(it.text, width: 88%, error-mode: "placeholder")
+        )
+      ]
+    }
     let lang-tag = if it.lang != none { upper(it.lang) } else { "CODE" }
 
     block(

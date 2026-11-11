@@ -1,10 +1,10 @@
 [package]
 name = "floe"
-version = "0.1.0"
+version = "0.2.0"
 entrypoint = "lib.typ"
 authors = ["SpanishSyntax <spanishsyntax@pyritelabs.cc>"]
 license = "MIT"
-description = "Tokenized layout primitives, composable show rules, and pedagogical callouts for Typst documents, textbooks, and reports."
+description = "Universal 5-layer Typst design system: tokenized primitives, equal-height layouts, multi-science chemistry/physics/plotting engines, pedagogical callouts, and master document presets."
 homepage = "https://github.com/SpanishSyntax/Floe"
 repository = "https://github.com/SpanishSyntax/Floe"
 keywords = ["ui", "components", "design-system", "layout", "textbook", "callout", "tokens"]

@@ -3,68 +3,142 @@
 // Atomic Building Blocks: Prominent Top Bean & Title with Full-Width Unpadded Body
 // ============================================================================
 #import "../core/lib.typ": *
+#import "grid.typ": equal-grid
 
-/// Individual Item Card (Top Bean & Title, Full-Width Body Underneath)
+/// Individual Item Card (Corner-anchored Top Bean, Stacked Title, Full-Width Body, Optional Footer)
 #let item-card(
   label: none,
+  badge-label: none,
+  badge-variant: "neutral",
   title: none,
+  inline-header: false,
+  footer: none,
   color: floe-navy,
-  fill: slate-50,
-  stroke: slate-200,
+  fill: slate-100,
+  stroke: slate-300,
   radius: radii.sm,
-  inset: (x: 8pt, y: 6pt),
+  inset: 8pt,
   body,
-) = block(
-  width: 100%,
-  fill: fill,
-  stroke: strokes.hairline + stroke,
-  radius: radius,
-  inset: inset,
-)[
-  // Top Row: Bean & Title
-  #if label != none or title != none [
-    #block(below: 4pt)[
-      #grid(
-        columns: (auto, 1fr),
-        gutter: 6pt,
-        align: (horizon, horizon),
-        if label != none [
-          #box(
-            fill: color.lighten(85%),
-            stroke: strokes.hairline + color.lighten(40%),
-            inset: (x: 5.5pt, y: 2.2pt),
-            radius: radii.sm,
-            text(font: fonts.sans, size: 8.5pt, weight: "bold", fill: color)[#label]
+) = {
+  let has-beans = (label != none) or (badge-label != none)
+  block(
+    width: 100%,
+    fill: fill,
+    stroke: strokes.hairline + stroke,
+    radius: radius,
+    inset: inset,
+  )[
+    #set par(justify: false, leading: 0.45em)
+    #if not inline-header [
+      // Row 1: Corner-anchored Bean Row
+      #if has-beans [
+        #block(width: 100%, above: 0pt, below: 0pt)[
+          #grid(
+            columns: (1fr, auto),
+            gutter: 6pt,
+            align: (top + left, top + right),
+            if label != none [
+              #box(
+                fill: color.lighten(85%),
+                stroke: strokes.hairline + color.lighten(40%),
+                inset: (x: 5.5pt, y: 3pt),
+                radius: radii.sm,
+                baseline: 0pt,
+                text(
+                  font: fonts.sans,
+                  size: 8pt,
+                  weight: "bold",
+                  fill: color,
+                  top-edge: "cap-height",
+                  bottom-edge: "bounds",
+                )[#label]
+              )
+            ] else [],
+            if badge-label != none [
+              #box(
+                fill: slate-200,
+                inset: (x: 5pt, y: 2.5pt),
+                radius: radii.sm,
+                baseline: 0pt,
+                text(font: fonts.sans, size: 7.2pt, weight: "bold", fill: slate-700, top-edge: "cap-height", bottom-edge: "bounds")[#badge-label]
+              )
+            ] else [],
           )
-        ],
-        if title != none [
-          #text(font: fonts.sans, size: 8.8pt, weight: "bold", fill: floe-navy)[#title]
-        ],
-      )
+        ]
+      ]
+      // Row 2: Full-width Title
+      #if title != none [
+        #block(width: 100%, above: if has-beans { 5pt } else { 0pt }, below: 0pt)[
+          #text(
+            font: fonts.sans,
+            size: 8.8pt,
+            weight: "bold",
+            fill: floe-navy,
+            top-edge: "cap-height",
+            bottom-edge: "bounds",
+          )[#title]
+        ]
+      ]
+    ] else [
+      #if has-beans or title != none [
+        #block(width: 100%, above: 0pt, below: 0pt)[
+          #grid(
+            columns: (auto, 1fr, auto),
+            gutter: 6pt,
+            align: (horizon, horizon, horizon),
+            if label != none [
+              #box(
+                fill: color.lighten(85%),
+                stroke: strokes.hairline + color.lighten(40%),
+                inset: (x: 5.5pt, y: 3pt),
+                radius: radii.sm,
+                baseline: 0pt,
+                text(font: fonts.sans, size: 8pt, weight: "bold", fill: color, top-edge: "cap-height", bottom-edge: "bounds")[#label]
+              )
+            ],
+            if title != none [
+              #text(font: fonts.sans, size: 8.8pt, weight: "bold", fill: floe-navy)[#title]
+            ],
+            if badge-label != none [
+              #box(
+                fill: slate-200,
+                inset: (x: 5pt, y: 2.5pt),
+                radius: radii.sm,
+                baseline: 0pt,
+                text(font: fonts.sans, size: 7.2pt, weight: "bold", fill: slate-700, top-edge: "cap-height", bottom-edge: "bounds")[#badge-label]
+              )
+            ],
+          )
+        ]
+      ]
+    ]
+    // Full-width Body
+    #block(width: 100%, above: if has-beans or title != none { 4.5pt } else { 0pt }, below: 0pt)[
+      #set text(size: text-scale.base, fill: slate-700)
+      #body
+    ]
+    #metadata("floe-footer")
+    #if footer != none [
+      #v(4pt)
+      #line(length: 100%, stroke: strokes.hairline + slate-300)
+      #v(3pt)
+      #text(font: fonts.sans, size: 7.5pt, fill: slate-600)[#footer]
     ]
   ]
-  // Full-width unpadded body
-  #block(width: 100%)[
-    #set text(size: text-scale.base, fill: slate-700)
-    #body
-  ]
-]
+}
 
-/// Grid container for item cards
+/// Equal-Height Grid Container for Any Items (item-card, card, figure-card, blocks)
+/// Automatically equalizes heights across every row natively.
 #let item-grid(
   columns: (1fr, 1fr),
   gutter: 8pt,
-  above: 0.6em,
-  below: 0.6em,
+  above: 8pt,
+  below: 8pt,
   ..items,
-) = block(
-  width: 100%,
+) = equal-grid(
+  columns: columns,
+  gutter: gutter,
   above: above,
   below: below,
-)[
-  #grid(
-    columns: columns,
-    gutter: gutter,
-    ..items.pos()
-  )
-]
+  ..items.pos(),
+)

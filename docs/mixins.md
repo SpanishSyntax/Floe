@@ -4,11 +4,42 @@
 
 ---
 
-Mixins are **pure `#show` rules** that format standard Typst and Markdown syntax into Floe themes without requiring authors to wrap content in custom functions.
+Mixins are **pure `#show` rules** that format standard Typst and Markdown syntax into Floe themes without requiring authors to wrap content in custom functions. Every mixin can be applied independently via `#show: with-...` or composed together inside a document preset.
 
 ---
 
-## Headings & Counters
+## Running Chrome
+
+**Submodule:** `mixins/chrome.typ`
+
+`with-running-chrome` configures dynamic page headers and footers with automatic [Hydra](https://typst.app/universe/package/hydra) chapter/section introspection and single-line clipping:
+
+```typst
+#show: with-running-chrome.with(
+  header-left: none,
+  header-right: none,
+  footer-note: "Closed-Book Exam Reference • Systems & Control Series",
+  suppress-pages: 1,
+)
+```
+
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `header-left` | `none` | Custom left header content; falls back to `hydra(1)` (current level-1 heading) when `none` |
+| `header-right` | `none` | Custom right header content; falls back to `hydra(2)` (current level-2 heading) when `none` |
+| `footer-note` | `"Closed-Book Exam Reference..."` | Left-aligned footer text paired with `Page N` on the right |
+| `suppress-pages` | `1` | Number of initial pages (e.g., cover page and TOC) where running headers and footers are suppressed |
+
+- **Single-Line Clipping**: Wraps header slots in `box(width: 100%, clip: true)` so long section titles or inline code never wrap onto a second line or collide with the hairline divider rule.
+- **Dynamic Breadcrumbs**: Automatically queries `hydra(1)` and `hydra(2)` when explicit header strings are omitted.
+
+---
+
+## Headings and Counters
+
+**Submodule:** `mixins/headings.typ`
+
+`with-heading-theme` styles level-1 through level-3 headings with crisp sans-serif typography, hierarchical numbering, and anti-orphan page-break protection:
 
 ```typst
 #show: with-heading-theme.with(
@@ -17,74 +48,138 @@ Mixins are **pure `#show` rules** that format standard Typst and Markdown syntax
 )
 ```
 
-- **Clean Numbering**: Automatically formats level-1 headings as `1. Title` and level-2 headings as `1.1 Title`.
-- **Anti-Orphan Behavior**: Headings are declared with `sticky: true`, preventing headings from being separated from their introductory paragraphs across page breaks.
-- **Counter Synchronization**: Seamlessly cooperates with `#chapter-header(num: X)`.
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `numbering` | `"1.1"` | Heading numbering pattern passed to `set heading(numbering: ...)` |
+| `section-symbol` | `false` | When `true`, prefixes level-2 headings with a cyan `§` section glyph |
+
+- **Typographic Hierarchy**: Formats level-1 headings at `17pt` bold `floe-navy`, level-2 headings at `12pt` bold `floe-navy`, and level-3 headings at `10.5pt` bold `floe-slate`.
+- **Anti-Orphan Protection**: Declares all headings with `block(sticky: true)` so a heading is never stranded at the bottom of a page without its following paragraph.
+- **Chapter Header Synchronization**: Cooperates seamlessly with `#chapter-header(num: N)` from Layer 3.
 
 ---
 
-## Running Chrome & Breadcrumbs
+## Math and Matrices
 
-```typst
-#show: with-running-chrome.with(
-  header-left: [Course Code • Title],
-  header-right: context hydra(2),
-  footer-note: [Systems & Control Series],
-  suppress-pages: 2,
-)
-```
+**Submodule:** `mixins/math.typ`
 
-- **Single-Line Clipping**: Enforces `box(width: 100%, clip: true)`, preventing long headings or inline backtick code from wrapping over the hairline divider rule.
-- **Dynamic Breadcrumbs**: Integrates with [Hydra](https://typst.app/universe/package/hydra) to automatically display current chapter and section names.
-- **Page Suppression**: Silences headers and footers on cover pages and tables of contents.
-
----
-
-## Code Blocks
-
-```typst
-#show: with-code-theme
-
-```rust
-// Floe terminal code block with automatic syntax highlighting and language badge
-pub fn compute_feedback_gain(r: &Matrix, b: &Matrix, p: &Matrix, a: &Matrix) -> Matrix {
-    (r + b.t() * p * b).inverse() * b.t() * p * a
-}
-```
-```
-
-![Code Theme in Action](assets/examples/code_block.png)
-
----
-
-## Math & Matrix Formatting
+`with-math-theme` configures engineering matrix delimiters, equation numbering, and display block spacing:
 
 ```typst
 #show: with-math-theme.with(
-  delim: "[",
   numbering: "(1)",
+  delim: "[",
 )
 ```
 
-- Automatically configures matrices (`math.mat`) and vectors (`math.vec`) to use engineering bracket delimiters (`[...]`) instead of parentheses.
-- Sets equation numbering and vertical equation block margins.
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `numbering` | `"(1)"` | Equation numbering format (`none` to disable numbering in slides or cheatsheets) |
+| `delim` | `"["` | Default delimiter for `math.mat` and `math.vec` (`"["` for square brackets, `"("` for parentheses) |
+
+- **Square Bracket Matrices**: Automatically sets `math.mat(delim: "[")` and `math.vec(delim: "[")` so state-space matrices and vectors render with standard engineering brackets.
+- **Balanced Vertical Rhythm**: Configures block equations (`math.equation.where(block: true)`) with `0.9em` vertical margins.
+
+---
+
+## Code Blocks and Mermaid
+
+**Submodule:** `mixins/code.typ`
+
+`with-code-theme` transforms raw fenced code blocks, inline backtick code, and native Mermaid diagrams via a single `#show` rule:
+
+- **macOS Terminal Code Windows**: Standard fenced code blocks (` ```lang `) are rendered inside a dark slate window (`#0F172A`) complete with a header bar (`#1E293B`), red/amber/green window control dots, and a monospace uppercase language badge (`RUST`, `PYTHON`, `TYPST`, etc.).
+- **Native Mermaid Diagram Interception**: Fenced code blocks tagged with ` ```mermaid ` are automatically intercepted before terminal rendering and compiled into crisp native vector diagrams via `@preview/merman` (`mermaid(it.text, width: 88%, error-mode: "placeholder")`).
+- **Inline Code Pills**: Inline raw spans (`` `code` ``) receive a `slate-100` background box with a subtle `slate-200` hairline border and rounded corners.
+
+````typst
+#show: with-code-theme
+
+```rust
+// Floe terminal code block with macOS window dots and language badge
+pub fn compute_kalman_gain(p: &Matrix, c: &Matrix, r: &Matrix) -> Matrix {
+    p * c.t() * (c * p * c.t() + r).inverse()
+}
+```
+
+```mermaid
+graph LR
+    A[Reference r] --> B(Controller K)
+    B --> C[Plant G]
+    C --> D[Output y]
+    D --> B
+```
+````
+
+![Code Blocks and Native Mermaid](assets/examples/code_block.png)
+
+---
+
+## Table Styling
+
+**Submodule:** `mixins/tables.typ`
+
+`with-table-theme` styles native Typst `#table(...)` elements and Markdown tables converted via Pandoc or `cmarker` without requiring `#data-table`:
+
+```typst
+#show: with-table-theme
+
+#table(
+  columns: (auto, 1fr, auto),
+  [Method], [Convergence Rate], [Complexity],
+  [Gradient Descent], [Linear $O(1 slash k)$], [$O(n)$ per step],
+  [Newton-Raphson], [Quadratic $O(epsilon^(2^k))$], [$O(n^3)$ per step],
+  [BFGS Quasi-Newton], [Superlinear], [$O(n^2)$ per step],
+)
+```
+
+- **Header & Zebra Striping**: Styles row `y == 0` with a `slate-200` header fill and bold `floe-navy` text, while alternating body rows between `white` and `slate-100`.
+- **Sans-Serif Tabular Alignment**: Applies `8.6pt` sans-serif typography (`fonts.sans`) with non-justified left alignment inside cells for clean numerical scanning.
 
 ---
 
 ## GitHub-Flavored Markdown Callouts
 
+**Submodule:** `mixins/gfm.typ`
+
+`with-gfm-theme` styles standard Typst `#quote` blocks as editorial pull quotes with a `2.5pt` cyan left accent bar and italic serif typography, while providing direct GFM callout helpers (`#gfm-note`, `#gfm-tip`, `#gfm-important`, `#gfm-warning`, `#gfm-caution`) for Markdown interoperability (`cmarker` / Pandoc pipelines):
+
+| Helper Function | Underlying Mapping | Semantic Style |
+| :--- | :--- | :--- |
+| `#gfm-note[...]` | `#note[...]` | Sky blue `"info"` alert card |
+| `#gfm-tip[...]` | `#tip[...]` | Emerald green `"success"` alert card |
+| `#gfm-important[...]` | `#alert(variant: "tip", title: "IMPORTANT")[...]` | Purple `"tip"` alert card |
+| `#gfm-warning[...]` | `#warning[...]` | Amber `"warning"` alert card |
+| `#gfm-caution[...]` | `#pitfall(title: "CAUTION")[...]` | Crimson `"danger"` alert card |
+
 ```typst
 #show: with-gfm-theme
+
+#quote[
+  Feedback is the central mechanism by which uncertain dynamical systems achieve precision in the presence of disturbances.
+]
+
+#gfm-note[First-order methods achieve sublinear convergence rate on general convex objectives.]
+#gfm-tip[Preconditioning decision variables accelerates active-set identification.]
+#gfm-important[Ensure observability rank condition holds before synthesizing the Luenberger gain.]
+#gfm-warning[Actuator torque limit triggers integrator anti-windup clamping.]
+#gfm-caution[Unmodeled time delay degrades phase margin and can destabilize high-gain loops.]
 ```
 
-When importing Markdown converted via Pandoc or `cmarker`, standard GitHub blockquotes (`> [!NOTE]`, `> [!WARNING]`, `> [!TIP]`) are automatically rendered as Floe alert cards.
+![GFM Alerts](assets/examples/gfm_alerts.png)
 
-You can also use direct GFM helpers:
+---
+
+## Compact Mode
+
+**Submodule:** `mixins/compact.typ`
+
+`with-compact-theme` tightens base typography, paragraph leading, and block spacing for high-density layouts such as closed-book exam cheatsheets and reference cards:
 
 ```typst
-#gfm-note[First-order methods achieve sublinear convergence rate.]
-#gfm-tip[Preconditioning decision variables accelerates active set detection.]
-#gfm-warning[Torque limit triggers integrator anti-windup clamping.]
+#show: with-compact-theme
 ```
 
-![GFM Alerts](assets/examples/alerts.png)
+- Sets base font size to `8.5pt`.
+- Reduces paragraph leading to `0.48em` and paragraph spacing to `0.65em`.
+- Compresses default vertical block margins (`above` and `below`) to `0.55em`.

@@ -8,3 +8,4 @@
 #import "slides.typ": slides
 #import "cheatsheet.typ": cheatsheet
 #import "memo.typ": memo
+#import "adr.typ": adr

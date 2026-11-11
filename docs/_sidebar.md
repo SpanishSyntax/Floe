@@ -5,30 +5,39 @@
   - [Architecture](getting-started.md#architecture)
 
 - **Layer 0: Core Foundation**
-  - [Tokens & Metrics](core.md)
+  - [Design Tokens](core.md#design-tokens)
+  - [Typography and Scales](core.md#typography-and-scales)
+  - [Backend Packages](core.md#backend-packages)
+  - [Chemical Formula Parser](core.md#chemical-formula-parser)
 
 - **Layer 1: Atomic Primitives**
-  - [Cards & Panels](primitives.md#cards--panels)
-  - [Plaques](primitives.md#plaques)
-  - [Steppers & Timelines](primitives.md#steppers--timelines)
-  - [Badges & Keycaps](primitives.md#badges--keycaps)
-  - [Dividers](primitives.md#dividers)
+  - [Equal-Height Row Engine](primitives.md#equal-height-row-engine)
+  - [Cards and Alerts](primitives.md#cards-and-alerts)
+  - [Academic Plaques](primitives.md#academic-plaques)
+  - [Figures and Media Grids](primitives.md#figures-and-media-grids)
+  - [Item Cards and Grids](primitives.md#item-cards-and-grids)
+  - [Steppers and Timelines](primitives.md#steppers-and-timelines)
+  - [Badges and Keycaps](primitives.md#badges-and-keycaps)
+  - [Section Dividers](primitives.md#section-dividers)
 
 - **Layer 2: Composable Mixins**
-  - [Show Rules Overview](mixins.md)
-  - [Headings & Counters](mixins.md#headings--counters)
-  - [Running Chrome](mixins.md#running-chrome--breadcrumbs)
-  - [Code Blocks](mixins.md#code-blocks)
-  - [Math & Matrices](mixins.md#math--matrix-formatting)
-  - [GFM Callouts](mixins.md#github-flavored-markdown-callouts)
+  - [Running Chrome](mixins.md#running-chrome)
+  - [Headings and Counters](mixins.md#headings-and-counters)
+  - [Math and Matrices](mixins.md#math-and-matrices)
+  - [Code Blocks and Mermaid](mixins.md#code-blocks-and-mermaid)
+  - [Table Styling](mixins.md#table-styling)
+  - [GitHub-Flavored Markdown Callouts](mixins.md#github-flavored-markdown-callouts)
+  - [Compact Mode](mixins.md#compact-mode)
 
-- **Layer 3: Components**
-  - [Academic Plaques](components.md#academic-plaques)
-  - [Exam Traps & Alerts](components.md#exam-traps--alerts)
-  - [Formula Breakdown Canvas](components.md#formula-breakdown-canvas)
-  - [Adaptive Layouts & Bento](components.md#adaptive-layouts--bento)
-  - [Adaptive Tables](components.md#adaptive-tables)
-  - [Hero & Section Headers](components.md#hero--section-headers)
+- **Layer 3: High-Level Components**
+  - [Academic Callouts](components.md#academic-callouts)
+  - [Exam Traps and Alerts](components.md#exam-traps-and-alerts)
+  - [Pedagogical Explainers](components.md#pedagogical-explainers)
+  - [Scientific Plotting and Chemistry](components.md#scientific-plotting-and-chemistry)
+  - [Composite Layouts](components.md#composite-layouts)
+  - [Rounded Tables](components.md#rounded-tables)
+  - [Chapter and Slide Heroes](components.md#chapter-and-slide-heroes)
+  - [Equation Color Helpers](components.md#equation-color-helpers)
 
 - **Layer 4: Document Presets**
   - [Textbook Companion](presets.md#textbook-companion)
@@ -36,3 +45,4 @@
   - [Presentation Slides](presets.md#presentation-slides)
   - [Formula Cheatsheet](presets.md#formula-cheatsheet)
   - [Decision Memo](presets.md#decision-memo)
+  - [Architecture Decision Records](presets.md#architecture-decision-records)

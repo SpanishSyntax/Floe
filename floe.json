@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "floe",
-  "version": "0.1.0",
-  "description": "Tokenized layout primitives, composable show rules, and pedagogical callouts for Typst documents, textbooks, and reports.",
-  "import_statement": "#import \"@local/floe:0.1.0\": *",
+  "version": "0.2.0",
+  "description": "Universal 5-layer Typst design system: tokenized primitives, equal-height layouts, multi-science chemistry/physics/plotting engines, pedagogical callouts, and master document presets.",
+  "import_statement": "#import \"@local/floe:0.2.0\": *",
   "layers": {
     "layer_0_core": {
       "title": "Core Foundation",
@@ -63,7 +63,7 @@
       "components": [
         {
           "name": "badge",
-          "description": "Inline pill/badge chip with semantic variants",
+          "description": "Inline pill/badge chip with semantic variants and exact cap-height bounding so corner placement never depends on ambient paragraph line height.",
           "args": {
             "label": {
               "type": "content | str",
@@ -90,13 +90,18 @@
               "required": false
             },
             "size": {
-              "type": "any",
-              "default": "text-scale.xs",
+              "type": "length | fraction",
+              "default": "7.5pt",
               "required": false
             },
             "radius": {
               "type": "any",
               "default": "radii.sm",
+              "required": false
+            },
+            "baseline": {
+              "type": "length | fraction",
+              "default": "0pt",
               "required": false
             }
           },
@@ -144,6 +149,16 @@
               "default": "none",
               "required": false
             },
+            "tag": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "tag-variant": {
+              "type": "str",
+              "default": "\"dark\"",
+              "required": false
+            },
             "badge-label": {
               "type": "content | str | none",
               "default": "none",
@@ -157,6 +172,11 @@
             "icon": {
               "type": "content | str | none",
               "default": "none",
+              "required": false
+            },
+            "inline-header": {
+              "type": "bool",
+              "default": "false",
               "required": false
             },
             "footer": {
@@ -186,12 +206,17 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "1.15em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "1.15em",
+              "default": "8pt",
+              "required": false
+            },
+            "breakable": {
+              "type": "bool",
+              "default": "true",
               "required": false
             },
             "body": {
@@ -237,114 +262,12 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "1.1em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "1.1em",
-              "required": false
-            },
-            "body": {
-              "type": "content",
-              "required": true
-            }
-          },
-          "file": "primitives/card.typ"
-        },
-        {
-          "name": "callout-card",
-          "description": "Backwards-compatible callout card (now with refined, modern styling)",
-          "args": {
-            "accent": {
-              "type": "color",
-              "default": "floe-cyan",
-              "required": false
-            },
-            "bg": {
-              "type": "color",
-              "default": "rgb(\"#F8FAFC\")",
-              "required": false
-            },
-            "border-stroke": {
-              "type": "any",
-              "default": "strokes.border",
-              "required": false
-            },
-            "radius": {
-              "type": "any",
-              "default": "radii.base",
-              "required": false
-            },
-            "inset": {
-              "type": "array | tuple",
-              "default": "(x: 12pt, y: 9pt)",
-              "required": false
-            },
-            "breakable": {
-              "type": "bool",
-              "default": "true",
-              "required": false
-            },
-            "above": {
-              "type": "length | fraction",
-              "default": "1.15em",
-              "required": false
-            },
-            "below": {
-              "type": "length | fraction",
-              "default": "1.15em",
-              "required": false
-            },
-            "body": {
-              "type": "content",
-              "required": true
-            }
-          },
-          "file": "primitives/card.typ"
-        },
-        {
-          "name": "panel",
-          "description": "Structured panel container",
-          "args": {
-            "title": {
-              "type": "content | str | none",
-              "default": "none",
-              "required": false
-            },
-            "footer": {
-              "type": "content | str | none",
-              "default": "none",
-              "required": false
-            },
-            "accent": {
-              "type": "color",
-              "default": "floe-slate",
-              "required": false
-            },
-            "bg": {
-              "type": "any",
-              "default": "white",
-              "required": false
-            },
-            "stroke": {
-              "type": "color",
-              "default": "strokes.border + slate-200",
-              "required": false
-            },
-            "radius": {
-              "type": "any",
-              "default": "radii.md",
-              "required": false
-            },
-            "inset": {
-              "type": "length | fraction",
-              "default": "12pt",
-              "required": false
-            },
-            "breakable": {
-              "type": "bool",
-              "default": "true",
+              "default": "8pt",
               "required": false
             },
             "body": {
@@ -360,7 +283,7 @@
           "args": {
             "color": {
               "type": "color",
-              "default": "slate-200",
+              "default": "slate-300",
               "required": false
             },
             "thickness": {
@@ -370,12 +293,12 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "0.8em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "0.8em",
+              "default": "8pt",
               "required": false
             }
           },
@@ -391,7 +314,7 @@
             },
             "color": {
               "type": "color",
-              "default": "slate-200",
+              "default": "slate-300",
               "required": false
             },
             "thickness": {
@@ -401,17 +324,17 @@
             },
             "text-color": {
               "type": "color",
-              "default": "floe-muted",
+              "default": "floe-slate",
               "required": false
             },
             "above": {
               "type": "length | fraction",
-              "default": "0.9em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "0.9em",
+              "default": "8pt",
               "required": false
             }
           },
@@ -419,7 +342,7 @@
         },
         {
           "name": "chip-divider",
-          "description": "3. Horizontal separator with centered chip pill badge (subtle boxed fill & border)",
+          "description": "3. Horizontal separator with centered pill chip badge (rounded pill with tinted fill & border)",
           "args": {
             "label": {
               "type": "content | str",
@@ -427,7 +350,7 @@
             },
             "color": {
               "type": "color",
-              "default": "slate-200",
+              "default": "slate-300",
               "required": false
             },
             "thickness": {
@@ -437,7 +360,7 @@
             },
             "text-color": {
               "type": "color",
-              "default": "floe-muted",
+              "default": "floe-navy",
               "required": false
             },
             "badge-fill": {
@@ -447,58 +370,12 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "0.9em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "0.9em",
-              "required": false
-            }
-          },
-          "file": "primitives/divider.typ"
-        },
-        {
-          "name": "labeled-divider",
-          "description": "4. Horizontal separator with centered label (pure text by default, or boxed: true)",
-          "args": {
-            "label": {
-              "type": "content | str",
-              "required": true
-            },
-            "color": {
-              "type": "color",
-              "default": "slate-200",
-              "required": false
-            },
-            "thickness": {
-              "type": "any",
-              "default": "strokes.hairline",
-              "required": false
-            },
-            "text-color": {
-              "type": "color",
-              "default": "floe-muted",
-              "required": false
-            },
-            "badge-fill": {
-              "type": "content | str | none",
-              "default": "none",
-              "required": false
-            },
-            "boxed": {
-              "type": "bool",
-              "default": "false",
-              "required": false
-            },
-            "above": {
-              "type": "length | fraction",
-              "default": "0.9em",
-              "required": false
-            },
-            "below": {
-              "type": "length | fraction",
-              "default": "0.9em",
+              "default": "8pt",
               "required": false
             }
           },
@@ -506,7 +383,7 @@
         },
         {
           "name": "dotted-divider",
-          "description": "3. Dotted divider line",
+          "description": "4. Dotted divider line",
           "args": {
             "color": {
               "type": "color",
@@ -520,12 +397,12 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "0.8em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "0.8em",
+              "default": "8pt",
               "required": false
             }
           },
@@ -533,7 +410,7 @@
         },
         {
           "name": "dashed-divider",
-          "description": "4. Dashed divider line",
+          "description": "5. Dashed divider line",
           "args": {
             "color": {
               "type": "color",
@@ -547,12 +424,12 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "0.8em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "0.8em",
+              "default": "8pt",
               "required": false
             }
           },
@@ -560,7 +437,7 @@
         },
         {
           "name": "fade-divider",
-          "description": "5. Gradient fade divider (fades in from left edge, solid in center, fades out on right)",
+          "description": "6. Gradient fade divider (fades in from left edge, solid in center, fades out on right)",
           "args": {
             "color": {
               "type": "color",
@@ -569,17 +446,17 @@
             },
             "thickness": {
               "type": "any",
-              "default": "strokes.hairline",
+              "default": "strokes.border",
               "required": false
             },
             "above": {
               "type": "length | fraction",
-              "default": "0.8em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "0.8em",
+              "default": "8pt",
               "required": false
             }
           },
@@ -587,7 +464,7 @@
         },
         {
           "name": "icon-divider",
-          "description": "6. Icon / glyph divider with centered emblem",
+          "description": "7. Icon / glyph divider with centered emblem",
           "args": {
             "icon": {
               "type": "str",
@@ -596,7 +473,7 @@
             },
             "color": {
               "type": "color",
-              "default": "slate-200",
+              "default": "slate-300",
               "required": false
             },
             "icon-color": {
@@ -611,12 +488,12 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "0.9em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "0.9em",
+              "default": "8pt",
               "required": false
             }
           },
@@ -624,7 +501,7 @@
         },
         {
           "name": "gradient-divider",
-          "description": "7. Brand gradient accent rule",
+          "description": "8. Brand gradient accent rule",
           "args": {
             "from-color": {
               "type": "color",
@@ -643,54 +520,104 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "0.9em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "0.9em",
+              "default": "8pt",
               "required": false
             }
           },
           "file": "primitives/divider.typ"
         },
         {
-          "name": "item-card",
-          "description": "Individual Item Card (Top Bean & Title, Full-Width Body Underneath)",
+          "name": "figure-card",
+          "description": "Framed Visual Container (Image / Plot / Diagram Card) Modes: - Pure framed box: `#figure-card[ ... ]` (when title & footer are omitted) - Titled & captioned media card: `#figure-card(title: \"...\", footer: \"...\")[ ... ]`",
           "args": {
-            "label": {
-              "type": "content | str | none",
-              "default": "none",
-              "required": false
-            },
             "title": {
               "type": "content | str | none",
               "default": "none",
               "required": false
             },
-            "color": {
-              "type": "color",
-              "default": "floe-navy",
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "tag": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "tag-variant": {
+              "type": "str",
+              "default": "\"dark\"",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-variant": {
+              "type": "str",
+              "default": "\"neutral\"",
+              "required": false
+            },
+            "inline-header": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "caption": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "footer": {
+              "type": "content | str | none",
+              "default": "none",
               "required": false
             },
             "fill": {
-              "type": "color",
-              "default": "slate-50",
+              "type": "any",
+              "default": "white",
               "required": false
             },
-            "stroke": {
+            "canvas-fill": {
               "type": "color",
-              "default": "slate-200",
+              "default": "rgb(\"#F8FAFC\")",
+              "required": false
+            },
+            "border-color": {
+              "type": "color",
+              "default": "slate-300",
               "required": false
             },
             "radius": {
               "type": "any",
-              "default": "radii.sm",
+              "default": "radii.md",
               "required": false
             },
             "inset": {
               "type": "array | tuple",
-              "default": "(x: 8pt, y: 6pt)",
+              "default": "(x: 12pt, y: 10pt)",
+              "required": false
+            },
+            "img-width": {
+              "type": "any",
+              "default": "90%",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
               "required": false
             },
             "body": {
@@ -698,11 +625,82 @@
               "required": true
             }
           },
-          "file": "primitives/item.typ"
+          "file": "primitives/figure.typ"
         },
         {
-          "name": "item-grid",
-          "description": "Grid container for item cards",
+          "name": "figure-grid",
+          "description": "Equal-Height Multi-Panel Figure / Media Grid Arranges arbitrary visual cards, plots, diagrams, or images in rows of equal height, with optional shared master title and footer caption.",
+          "args": {
+            "columns": {
+              "type": "array | tuple",
+              "default": "(1fr, 1fr)",
+              "required": false
+            },
+            "gutter": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "footer": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "caption": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "..items": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "primitives/figure.typ"
+        },
+        {
+          "name": "stretch-cell",
+          "description": "Reconstructs any top-level block at target height `h` while preserving its background fill, stroke, radius, inset, and clip settings, and distributing any vertical `slack` across internal stretch markers so footers stay bottom-aligned.",
+          "args": {
+            "c": {
+              "type": "content | str",
+              "required": true
+            },
+            "h": {
+              "type": "content | str",
+              "required": true
+            },
+            "slack": {
+              "type": "length | fraction",
+              "default": "0pt",
+              "required": false
+            }
+          },
+          "file": "primitives/grid.typ"
+        },
+        {
+          "name": "equal-grid",
+          "description": "Parent-driven Equal-Height Row Grid Automatically ensures all children in the same row grow to match the height of the tallest sibling in that row without per-child configuration, and renders all rows in a single unified grid so row-gutter and column-gutter match exactly.",
           "args": {
             "columns": {
               "type": "array | tuple",
@@ -716,12 +714,109 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "0.6em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "0.6em",
+              "default": "8pt",
+              "required": false
+            },
+            "..items": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "primitives/grid.typ"
+        },
+        {
+          "name": "item-card",
+          "description": "Individual Item Card (Corner-anchored Top Bean, Stacked Title, Full-Width Body, Optional Footer)",
+          "args": {
+            "label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-variant": {
+              "type": "str",
+              "default": "\"neutral\"",
+              "required": false
+            },
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "inline-header": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "footer": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "color": {
+              "type": "color",
+              "default": "floe-navy",
+              "required": false
+            },
+            "fill": {
+              "type": "color",
+              "default": "slate-100",
+              "required": false
+            },
+            "stroke": {
+              "type": "color",
+              "default": "slate-300",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.sm",
+              "required": false
+            },
+            "inset": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "primitives/item.typ"
+        },
+        {
+          "name": "item-grid",
+          "description": "Equal-Height Grid Container for Any Items (item-card, card, figure-card, blocks) Automatically equalizes heights across every row natively.",
+          "args": {
+            "columns": {
+              "type": "array | tuple",
+              "default": "(1fr, 1fr)",
+              "required": false
+            },
+            "gutter": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
               "required": false
             },
             "..items": {
@@ -777,6 +872,11 @@
             },
             "title-below": {
               "type": "bool",
+              "default": "true",
+              "required": false
+            },
+            "inline-header": {
+              "type": "bool",
               "default": "false",
               "required": false
             },
@@ -797,12 +897,12 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "1.15em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "1.15em",
+              "default": "8pt",
               "required": false
             },
             "breakable": {
@@ -905,7 +1005,7 @@
         },
         {
           "name": "with-code-theme",
-          "description": "Opt-in show rule to apply Floe windowed code block styling",
+          "description": "Opt-in show rule to apply Floe windowed code block styling (and native Mermaid rendering)",
           "args": {
             "body": {
               "type": "content",
@@ -1031,7 +1131,7 @@
         },
         {
           "name": "with-table-theme",
-          "description": "Opt-in show rule to style all native tables with Shadcn styling",
+          "description": "Opt-in show rule to style all native tables with crisp sans-serif text and high-contrast zebra striping",
           "args": {
             "body": {
               "type": "content",
@@ -1049,49 +1149,59 @@
       "components": [
         {
           "name": "theorem",
-          "description": "David C. Lay Theorem Hero Plaque",
+          "description": "Formal Academic Theorem Plaque",
           "args": {},
           "file": "components/academic.typ"
         },
         {
           "name": "definition",
-          "description": "Formal Definition Plaque (defaults to title-below for long academic terms)",
+          "description": "Formal Definition Plaque",
           "args": {},
           "file": "components/academic.typ"
         },
         {
           "name": "lemma",
-          "description": "Lemma Plaque",
+          "description": "Supporting Lemma Plaque",
           "args": {},
           "file": "components/academic.typ"
         },
         {
           "name": "corollary",
-          "description": "Corollary Plaque",
+          "description": "Deductive Corollary Plaque",
           "args": {},
           "file": "components/academic.typ"
         },
         {
           "name": "algorithm",
-          "description": "Algorithm Plaque",
+          "description": "Algorithm Pseudocode Plaque",
           "args": {},
           "file": "components/academic.typ"
         },
         {
-          "name": "proof-sketch",
-          "description": "Proof Sketch Environment with QED Endmarker",
-          "args": {},
+          "name": "proof",
+          "description": "Canonical Mathematical Proof Environment with `sketch: false` Flag and QED Endmarker",
+          "args": {
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "sketch": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "qed": {
+              "type": "bool",
+              "default": "true",
+              "required": false
+            }
+          },
           "file": "components/academic.typ"
         },
         {
           "name": "pitfall",
-          "description": "Closed-Book Exam Trap / Pitfall Callout (Shadcn Danger Alert)",
-          "args": {},
-          "file": "components/alerts.typ"
-        },
-        {
-          "name": "exam-trap",
-          "description": "Floe component `exam-trap`",
+          "description": "Closed-Book Exam Trap / Pitfall Callout (Shadcn Danger Alert with mistake vs correct chips)",
           "args": {},
           "file": "components/alerts.typ"
         },
@@ -1120,8 +1230,60 @@
           "file": "components/alerts.typ"
         },
         {
+          "name": "cover-hero",
+          "description": "1. Cover Hero Banner (Full-Width Carded Book / Report / Monograph Masthead)",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "eyebrow": {
+              "type": "str",
+              "default": "\"FLOE ACADEMIC SERIES\"",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "meta": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "fill": {
+              "type": "color",
+              "default": "floe-navy",
+              "required": false
+            },
+            "accent": {
+              "type": "color",
+              "default": "floe-cyan",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "12pt",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
           "name": "chapter-header",
-          "description": "Chapter Header Banner with syllabus mapping, slide reference, and interactive lab tracking",
+          "description": "2. Classic Academic Chapter Header Opener",
           "args": {
             "num": {
               "type": "int",
@@ -1143,6 +1305,21 @@
               "default": "\"CHAPTER\"",
               "required": false
             },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-variant": {
+              "type": "str",
+              "default": "\"info\"",
+              "required": false
+            },
+            "meta": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
             "slides-ref": {
               "type": "str",
               "default": "\"\"",
@@ -1153,9 +1330,29 @@
               "default": "\"\"",
               "required": false
             },
+            "book-ref": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "exam-focus": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "exam-ref": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
             "teardown-ref": {
               "type": "str",
               "default": "\"\"",
+              "required": false
+            },
+            "pagebreak-before": {
+              "type": "bool",
+              "default": "true",
               "required": false
             }
           },
@@ -1163,7 +1360,7 @@
         },
         {
           "name": "editorial-header",
-          "description": "Canva / Editorial Magazine Chapter Opener Header",
+          "description": "3. Editorial Magazine / Module Header with Learning Outcomes Strip",
           "args": {
             "num": {
               "type": "content | str | none",
@@ -1190,11 +1387,6 @@
               "default": "none",
               "required": false
             },
-            "authors": {
-              "type": "array | tuple",
-              "default": "()",
-              "required": false
-            },
             "goals": {
               "type": "array | tuple",
               "default": "()",
@@ -1202,24 +1394,258 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "0pt",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "1.6em",
+              "default": "12pt",
               "required": false
             }
           },
           "file": "components/hero.typ"
         },
         {
-          "name": "minimal-header",
-          "description": "Minimalist Breadcrumb Header (Clean Editorial Monograph)",
+          "name": "banner-header",
+          "description": "4. Dark Navy Banner Header (In-Page Major Part / Topic Transition Card)",
           "args": {
             "title": {
               "type": "str",
               "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "tag": {
+              "type": "str",
+              "default": "\"PART OPENER\"",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "accent": {
+              "type": "color",
+              "default": "floe-navy",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "split-hero",
+          "description": "5. Split Hero Card (2-Column Keynote-Style Narrative + Visual Showcase Hero)",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "tag": {
+              "type": "str",
+              "default": "\"CORE ARCHITECTURE\"",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "highlights": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "visual": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "fractions": {
+              "type": "array | tuple",
+              "default": "(1.25fr, 1fr)",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "stat-hero",
+          "description": "6. Stat / Specification Hero (Header Banner + Equal-Height Parameter Strip)",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "tag": {
+              "type": "str",
+              "default": "\"SYSTEM SPECIFICATION\"",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "stats": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "section-header",
+          "description": "7. Clean In-Page Section Header (Corner-Anchored Beans + Title + Accent Rule)",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "tag": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-variant": {
+              "type": "str",
+              "default": "\"info\"",
+              "required": false
+            },
+            "accent": {
+              "type": "color",
+              "default": "floe-cyan",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "10pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "subchapter-card",
+          "description": "8. Subchapter Lead-In Card (Left-Accented Scope & Topic Card)",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "tag": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-variant": {
+              "type": "str",
+              "default": "\"neutral\"",
+              "required": false
+            },
+            "accent": {
+              "type": "color",
+              "default": "floe-navy",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "minimal-header",
+          "description": "9. Minimalist Breadcrumb Header (Clean Editorial Monograph)",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
               "required": false
             },
             "breadcrumbs": {
@@ -1232,65 +1658,22 @@
               "default": "none",
               "required": false
             },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
             "below": {
               "type": "length | fraction",
-              "default": "1.4em",
+              "default": "10pt",
               "required": false
             }
           },
           "file": "components/hero.typ"
         },
         {
-          "name": "section-hero",
-          "description": "Full-Width Hero Section Banner (Dividing Major Topic Shifts)",
-          "args": {
-            "title": {
-              "type": "str",
-              "default": "\"\"",
-              "required": false
-            },
-            "subtitle": {
-              "type": "content | str | none",
-              "default": "none",
-              "required": false
-            },
-            "badge-label": {
-              "type": "str",
-              "default": "\"DEEP DIVE\"",
-              "required": false
-            },
-            "icon": {
-              "type": "str",
-              "default": "\"\u2726\"",
-              "required": false
-            },
-            "accent": {
-              "type": "color",
-              "default": "floe-navy",
-              "required": false
-            }
-          },
-          "file": "components/hero.typ"
-        },
-        {
-          "name": "subchapter-card",
-          "description": "Subchapter syllabus preview card",
-          "args": {
-            "title": {
-              "type": "str",
-              "default": "\"\"",
-              "required": false
-            },
-            "body": {
-              "type": "content",
-              "required": true
-            }
-          },
-          "file": "components/hero.typ"
-        },
-        {
-          "name": "keynote-hero",
-          "description": "Presentation 16:9 keynote hero card",
+          "name": "document-header",
+          "description": "10. Executive Document Header Banner (Masthead for Reports & Memos)",
           "args": {
             "title": {
               "type": "str",
@@ -1306,22 +1689,15 @@
               "type": "content | str | none",
               "default": "none",
               "required": false
-            }
-          },
-          "file": "components/hero.typ"
-        },
-        {
-          "name": "document-hero",
-          "description": "Executive Document Header Banner (Clean Header for Reports & Memos)",
-          "args": {
-            "title": {
-              "type": "str",
-              "default": "\"\"",
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
               "required": false
             },
-            "subtitle": {
+            "badge-variant": {
               "type": "str",
-              "default": "\"\"",
+              "default": "\"info\"",
               "required": false
             },
             "metadata": {
@@ -1333,60 +1709,107 @@
               "type": "color",
               "default": "floe-cyan",
               "required": false
-            }
-          },
-          "file": "components/hero.typ"
-        },
-        {
-          "name": "reader-fig",
-          "description": "High-resolution figure wrapper with automatic path normalization across Snowpack & Lantern",
-          "args": {
-            "path": {
-              "type": "content | str",
-              "required": true
             },
-            "caption": {
-              "type": "content | str | none",
-              "default": "none",
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
               "required": false
             },
-            "width": {
-              "type": "any",
-              "default": "88%",
-              "required": false
-            },
-            "alt": {
-              "type": "content | str | none",
-              "default": "none",
-              "required": false
-            }
-          },
-          "file": "components/hero.typ"
-        },
-        {
-          "name": "side-by-side",
-          "description": "Side-by-side comparative layout for multi-panel plots, diagrams, or math vs code",
-          "args": {
-            "columns": {
-              "type": "array | tuple",
-              "default": "(1fr, 1fr)",
-              "required": false
-            },
-            "gutter": {
+            "below": {
               "type": "length | fraction",
               "default": "12pt",
               "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "appendix-header",
+          "description": "11. Appendix Header Banner with Alphanumeric Numbering",
+          "args": {
+            "letter": {
+              "type": "str",
+              "default": "\"A\"",
+              "required": false
             },
-            "..items": {
-              "type": "content | str",
-              "required": true
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "slides-ref": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "reader-ref": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "teardown-ref": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "pagebreak-before": {
+              "type": "bool",
+              "default": "true",
+              "required": false
+            }
+          },
+          "file": "components/hero.typ"
+        },
+        {
+          "name": "keynote-header",
+          "description": "12. Presentation 16:9 Keynote Header Card",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "subtitle": {
+              "type": "str",
+              "default": "\"\"",
+              "required": false
+            },
+            "tag": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
             }
           },
           "file": "components/hero.typ"
         },
         {
           "name": "split-view",
-          "description": "Split Two-Column Layout (Theory vs Implementation, Primal vs Dual) Guarantees equal height across both columns in the comparison row.",
+          "description": "Split Two-Column Layout (Theory vs Implementation, Primal vs Dual) Guarantees equal height across both columns natively via #equal-grid.",
           "args": {
             "left": {
               "type": "content | str",
@@ -1403,7 +1826,7 @@
             },
             "gutter": {
               "type": "length | fraction",
-              "default": "12pt",
+              "default": "8pt",
               "required": false
             },
             "titles": {
@@ -1418,12 +1841,12 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "1.1em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "1.1em",
+              "default": "8pt",
               "required": false
             }
           },
@@ -1431,7 +1854,7 @@
         },
         {
           "name": "pro-con",
-          "description": "High-Design Pros vs. Cons (Advantages vs Tradeoffs) Card Enforces equal height between the pros and cons panels.",
+          "description": "Pros vs. Cons (Advantages vs Limitations) Tradeoff Canvas Enforces equal height between the pros and cons panels natively via #equal-grid.",
           "args": {
             "pros": {
               "type": "array | tuple",
@@ -1463,7 +1886,7 @@
         },
         {
           "name": "bento-cell",
-          "description": "Individual Bento Box Cell",
+          "description": "Individual Bento Box Cell (No height argument needed \u2014 parent grid stretches it!)",
           "args": {
             "title": {
               "type": "content | str | none",
@@ -1473,6 +1896,16 @@
             "subtitle": {
               "type": "content | str | none",
               "default": "none",
+              "required": false
+            },
+            "tag": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "tag-variant": {
+              "type": "str",
+              "default": "\"dark\"",
               "required": false
             },
             "badge-label": {
@@ -1486,6 +1919,16 @@
               "required": false
             },
             "icon": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "inline-header": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "footer": {
               "type": "content | str | none",
               "default": "none",
               "required": false
@@ -1507,7 +1950,7 @@
             },
             "inset": {
               "type": "length | fraction",
-              "default": "12pt",
+              "default": "9pt",
               "required": false
             },
             "body": {
@@ -1519,7 +1962,7 @@
         },
         {
           "name": "bento-grid",
-          "description": "Bento Grid (2-column, 3-column, or asymmetric layout)",
+          "description": "Bento Grid (2-column, 3-column, or custom fractional layout) All cells in the same row automatically stretch to equal height!",
           "args": {
             "columns": {
               "type": "array | tuple",
@@ -1528,17 +1971,17 @@
             },
             "gutter": {
               "type": "length | fraction",
-              "default": "10pt",
+              "default": "8pt",
               "required": false
             },
             "above": {
               "type": "length | fraction",
-              "default": "1.1em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "1.1em",
+              "default": "8pt",
               "required": false
             },
             "..cells": {
@@ -1550,7 +1993,7 @@
         },
         {
           "name": "key-value-grid",
-          "description": "Key-Value Parameter Definition Grid (e.g. Hyperparameters, System Limits)",
+          "description": "Key-Value Parameter Definition Grid",
           "args": {
             "items": {
               "type": "array | tuple",
@@ -1574,12 +2017,12 @@
             },
             "above": {
               "type": "length | fraction",
-              "default": "1.0em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "1.0em",
+              "default": "8pt",
               "required": false
             }
           },
@@ -1587,7 +2030,7 @@
         },
         {
           "name": "feature-grid",
-          "description": "Feature Cards Grid (Canva/Shadcn landing-style component display)",
+          "description": "Feature Cards Grid (Equal-height rows guaranteed via #equal-grid)",
           "args": {
             "columns": {
               "type": "array | tuple",
@@ -1596,22 +2039,69 @@
             },
             "gutter": {
               "type": "length | fraction",
-              "default": "10pt",
+              "default": "8pt",
               "required": false
             },
             "above": {
               "type": "length | fraction",
-              "default": "1.1em",
+              "default": "8pt",
               "required": false
             },
             "below": {
               "type": "length | fraction",
-              "default": "1.1em",
+              "default": "8pt",
               "required": false
             },
             "..items": {
               "type": "content | str",
               "required": true
+            }
+          },
+          "file": "components/layouts.typ"
+        },
+        {
+          "name": "duality-grid",
+          "description": "Duality & Mathematical Analogy Grid Mirrored comparative layout mapping dual concepts side-by-side with color badges.",
+          "args": {
+            "left-title": {
+              "type": "str",
+              "default": "\"Primal Space\"",
+              "required": false
+            },
+            "right-title": {
+              "type": "str",
+              "default": "\"Dual Space\"",
+              "required": false
+            },
+            "left-badge": {
+              "type": "str",
+              "default": "\"PRIMAL\"",
+              "required": false
+            },
+            "right-badge": {
+              "type": "str",
+              "default": "\"DUAL\"",
+              "required": false
+            },
+            "inline-header": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "rows": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
             }
           },
           "file": "components/layouts.typ"
@@ -1628,10 +2118,14 @@
           "file": "components/math.typ"
         },
         {
-          "name": "math-state",
-          "description": "Floe component `math-state`",
+          "name": "math-hl",
+          "description": "Highlights any mathematical sub-expression in bold with the specified color token",
           "args": {
-            "x": {
+            "color": {
+              "type": "content | str",
+              "required": true
+            },
+            "expr": {
               "type": "content | str",
               "required": true
             }
@@ -1639,10 +2133,10 @@
           "file": "components/math.typ"
         },
         {
-          "name": "math-input",
-          "description": "Floe component `math-input`",
+          "name": "t1",
+          "description": "Domain-agnostic numbered term highlighters matching `term-palette` (`c-term-1` .. `c-term-6`)",
           "args": {
-            "x": {
+            "expr": {
               "type": "content | str",
               "required": true
             }
@@ -1650,10 +2144,10 @@
           "file": "components/math.typ"
         },
         {
-          "name": "math-cost",
-          "description": "Floe component `math-cost`",
+          "name": "t2",
+          "description": "Floe component `t2`",
           "args": {
-            "x": {
+            "expr": {
               "type": "content | str",
               "required": true
             }
@@ -1661,10 +2155,10 @@
           "file": "components/math.typ"
         },
         {
-          "name": "math-sensor",
-          "description": "Floe component `math-sensor`",
+          "name": "t3",
+          "description": "Floe component `t3`",
           "args": {
-            "x": {
+            "expr": {
               "type": "content | str",
               "required": true
             }
@@ -1672,10 +2166,10 @@
           "file": "components/math.typ"
         },
         {
-          "name": "math-noise",
-          "description": "Floe component `math-noise`",
+          "name": "t4",
+          "description": "Floe component `t4`",
           "args": {
-            "x": {
+            "expr": {
               "type": "content | str",
               "required": true
             }
@@ -1683,10 +2177,21 @@
           "file": "components/math.typ"
         },
         {
-          "name": "math-est",
-          "description": "Floe component `math-est`",
+          "name": "t5",
+          "description": "Floe component `t5`",
           "args": {
-            "x": {
+            "expr": {
+              "type": "content | str",
+              "required": true
+            }
+          },
+          "file": "components/math.typ"
+        },
+        {
+          "name": "t6",
+          "description": "Floe component `t6`",
+          "args": {
+            "expr": {
               "type": "content | str",
               "required": true
             }
@@ -1695,7 +2200,7 @@
         },
         {
           "name": "math-annot",
-          "description": "Floe component `math-annot`",
+          "description": "Annotated Underbrace / Overbrace helpers with matching label colors",
           "args": {
             "term": {
               "type": "content | str",
@@ -1707,7 +2212,7 @@
             },
             "color": {
               "type": "any",
-              "default": "c-state",
+              "default": "c-term-1",
               "required": false
             }
           },
@@ -1727,7 +2232,7 @@
             },
             "color": {
               "type": "any",
-              "default": "c-state",
+              "default": "c-term-1",
               "required": false
             }
           },
@@ -1735,7 +2240,7 @@
         },
         {
           "name": "eq-legend",
-          "description": "Floe component `eq-legend`",
+          "description": "Universal Equation Term Legend Box Accepts either 3-tuples `(color, symbol, description)` or 2-tuples `(symbol, description)` which automatically cycle through `term-palette` (`c-term-1` .. `c-term-6`).",
           "args": {
             "..items": {
               "type": "content | str",
@@ -1746,26 +2251,35 @@
         },
         {
           "name": "physical-anchor",
-          "description": "Physical & Control Anchor: Grounding abstract math in physical engineering mechanics Features: Editorial magazine card, emerald theme, system badge, and physical context.",
+          "description": "Physical / Scientific Anchor: Grounding abstract math in physical, chemical, or engineering intuition",
           "args": {},
           "file": "components/pedagogical.typ"
         },
         {
           "name": "worked-example",
-          "description": "Hand-Worked Step-by-Step Numerical Example (Notebook Card)",
-          "args": {},
-          "file": "components/pedagogical.typ"
-        },
-        {
-          "name": "worked",
-          "description": "Floe component `worked`",
+          "description": "Hand-Worked Step-by-Step Numerical Example",
           "args": {},
           "file": "components/pedagogical.typ"
         },
         {
           "name": "formula-breakdown",
-          "description": "Canva Visual Formula Breakdown Canvas Displays equation prominently on a pedestal, followed by symbol breakdown cards & numerical sanity check.",
+          "description": "Visual Formula Breakdown Canvas Displays equation prominently on a pedestal (supporting `#t1`..`#t6` or `#math-hl` color coding), followed by symbol breakdown cards & numerical sanity check. `symbols` accepts either 3-tuples `($sym$, \"Name\", [Desc])` (auto-colored with `term-palette`) or 4-tuples `(color, $sym$, \"Name\", [Desc])`.",
           "args": {
+            "title": {
+              "type": "str",
+              "default": "\"Symbol-by-Symbol Mechanics\"",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "inline-header": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
             "formula": {
               "type": "content | str | none",
               "default": "none",
@@ -1800,14 +2314,193 @@
           "file": "components/pedagogical.typ"
         },
         {
-          "name": "matlab-box",
-          "description": "MATLAB / Numerical Tooling Card",
-          "args": {},
+          "name": "derivation-stepper",
+          "description": "Mathematical Derivation Stepper: Step-by-step mathematical reasoning pipeline",
+          "args": {
+            "steps": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "title": {
+              "type": "str",
+              "default": "\"Step-by-Step Mathematical Mechanics\"",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "inline-header": {
+              "type": "bool",
+              "default": "false",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            }
+          },
           "file": "components/pedagogical.typ"
         },
         {
+          "name": "plot-2d",
+          "description": "Native CeTZ 2D Vector Function & Data Series Plotter Plots analytic functions `fn: x => ...` and/or discrete `(x, y)` data series with automatic y-range scaling, gridlines, ticks, axis labels, and legend.",
+          "args": {
+            "domain": {
+              "type": "array | tuple",
+              "default": "(0, 10)",
+              "required": false
+            },
+            "yrange": {
+              "type": "content | str | none",
+              "default": "auto",
+              "required": false
+            },
+            "functions": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "series": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "xlabel": {
+              "type": "any",
+              "default": "$x$",
+              "required": false
+            },
+            "ylabel": {
+              "type": "any",
+              "default": "$y$",
+              "required": false
+            },
+            "width": {
+              "type": "int",
+              "default": "11",
+              "required": false
+            },
+            "height": {
+              "type": "any",
+              "default": "5.0",
+              "required": false
+            },
+            "samples": {
+              "type": "int",
+              "default": "120",
+              "required": false
+            },
+            "show-grid": {
+              "type": "bool",
+              "default": "true",
+              "required": false
+            },
+            "xticks": {
+              "type": "int",
+              "default": "5",
+              "required": false
+            },
+            "yticks": {
+              "type": "int",
+              "default": "4",
+              "required": false
+            },
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "subtitle": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "badge-label": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "footer": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            }
+          },
+          "file": "components/science.typ"
+        },
+        {
+          "name": "reaction",
+          "description": "Chemical Reaction & Thermodynamic Equilibrium Block Formats stoichiometric reactions via `#ce(...)` with optional enthalpy (delta-h), Gibbs free energy (delta-g), equilibrium constant, or reaction conditions.",
+          "args": {
+            "spec": {
+              "type": "content | str",
+              "required": true
+            },
+            "title": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "delta-h": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "delta-g": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "keq": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "conditions": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "num": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "1.0em",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "1.0em",
+              "required": false
+            }
+          },
+          "file": "components/science.typ"
+        },
+        {
           "name": "data-table",
-          "description": "Safe, proportional data table with automatic fractional column distribution, zebra striping, centered header text, and semantic table.header repetition.",
+          "description": "Safe, proportional data table with rounded card frame, crisp sans-serif typography, non-justified cells, bumped zebra striping (slate-200 header / slate-100 even rows), and semantic table.header repetition.",
           "args": {
             "columns": {
               "type": "content | str | none",
@@ -1825,13 +2518,28 @@
               "required": false
             },
             "stroke": {
-              "type": "color",
-              "default": "strokes.border + slate-300",
+              "type": "content | str | none",
+              "default": "auto",
               "required": false
             },
             "inset": {
               "type": "array | tuple",
-              "default": "(x: 7pt, y: 5.5pt)",
+              "default": "(x: 8.5pt, y: 6.5pt)",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.md",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
               "required": false
             },
             "fill": {
@@ -1844,11 +2552,11 @@
         },
         {
           "name": "spec-table",
-          "description": "Clean 2-column parameter / specification key-value table",
+          "description": "Clean 2-column parameter / specification key-value table with rounded corners and zebra rows",
           "args": {
             "columns": {
               "type": "array | tuple",
-              "default": "(1fr, 2.2fr)",
+              "default": "(1fr, 2.3fr)",
               "required": false
             },
             "align": {
@@ -1857,13 +2565,28 @@
               "required": false
             },
             "stroke": {
-              "type": "color",
-              "default": "strokes.border + slate-200",
+              "type": "content | str | none",
+              "default": "auto",
               "required": false
             },
             "inset": {
               "type": "array | tuple",
-              "default": "(x: 8pt, y: 5.5pt)",
+              "default": "(x: 9pt, y: 6.5pt)",
+              "required": false
+            },
+            "radius": {
+              "type": "any",
+              "default": "radii.md",
+              "required": false
+            },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
               "required": false
             },
             "..pairs": {
@@ -1887,6 +2610,16 @@
               "default": "()",
               "required": false
             },
+            "above": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
+            "below": {
+              "type": "length | fraction",
+              "default": "8pt",
+              "required": false
+            },
             "..cells": {
               "type": "content | str",
               "required": true
@@ -1901,6 +2634,47 @@
       "path": "presets/lib.typ",
       "description": "Ready-to-use master document wrappers configured with appropriate geometry, typography, and headers.",
       "components": [
+        {
+          "name": "adr",
+          "description": "Architecture Decision Record Layout Modes: \"document\" (A4 executive technical memo) or \"slides\" (16:9 presentation)",
+          "args": {
+            "title": {
+              "type": "str",
+              "default": "\"ADR: Architecture Decision Record\"",
+              "required": false
+            },
+            "status": {
+              "type": "str",
+              "default": "\"accepted\"",
+              "required": false
+            },
+            "// \"proposed\" | \"accepted\" | \"rejected\" | \"deprecated\" | \"superseded\" date": {
+              "type": "str",
+              "default": "\"2026-11\"",
+              "required": false
+            },
+            "deciders": {
+              "type": "array | tuple",
+              "default": "()",
+              "required": false
+            },
+            "mode": {
+              "type": "str",
+              "default": "\"document\"",
+              "required": false
+            },
+            "// \"document\" | \"slides\" summary": {
+              "type": "content | str | none",
+              "default": "none",
+              "required": false
+            },
+            "body": {
+              "type": "content",
+              "required": true
+            }
+          },
+          "file": "presets/adr.typ"
+        },
         {
           "name": "cheatsheet",
           "description": "High-density multi-column formula cheatsheet / exam revision preset",
@@ -2061,7 +2835,7 @@
             },
             "cover-page": {
               "type": "content | str | none",
-              "default": "none",
+              "default": "auto",
               "required": false
             },
             "toc": {

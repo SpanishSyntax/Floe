@@ -8,35 +8,35 @@
 
 ### Typst Universe
 
-Import Floe directly in any Typst document:
+Import Floe directly in any Typst document from Typst Universe:
 
 ```typst
-#import "@preview/floe:0.1.0": *
+#import "@preview/floe:0.2.0": *
 ```
 
 ### Local Development
 
-To link Floe into your local Typst package store:
+To link Floe into your local Typst package store for offline development or custom modifications:
 
 ```bash
 mkdir -p ~/.local/share/typst/packages/local/floe
-ln -s /path/to/Floe ~/.local/share/typst/packages/local/floe/0.1.0
+ln -s /path/to/Floe ~/.local/share/typst/packages/local/floe/0.2.0
 ```
 
-Then import the local package:
+Then import the local package in your `.typ` files:
 
 ```typst
-#import "@local/floe:0.1.0": *
+#import "@local/floe:0.2.0": *
 ```
 
 ---
 
 ## Quick Start
 
-Create a `main.typ` document with a textbook layout, chapter opener, theorem, and exam pitfall:
+Create a `main.typ` document with a textbook layout, chapter opener, theorem plaque, and exam pitfall:
 
 ```typst
-#import "@preview/floe:0.1.0": *
+#import "@local/floe:0.2.0": *
 
 #show: textbook.with(
   title: "Optimal Control & Dynamic Programming",
@@ -68,13 +68,13 @@ Create a `main.typ` document with a textbook layout, chapter opener, theorem, an
   mistake: [$nabla f(x^*) = 0 arrow.double x^*$ is a local minimum],
   correct: [Check $nabla f(x^*) = 0$ AND $nabla^2 f(x^*) succ.eq 0$ (SONC)],
 )[
-  $nabla f(x) = 0$ identifies stationary points, not minimizers. Saddle points and local maximizers also satisfy FONC.
+  The condition $nabla f(x) = 0$ identifies stationary points, not minimizers. Saddle points and local maximizers also satisfy FONC.
 ]
 ```
 
 ![Rendered Quick Start Output](assets/examples/theorem.png)
 
-Compile with:
+Compile the document using the Typst CLI or Snowpack:
 
 ```bash
 typst compile main.typ output.pdf
@@ -84,26 +84,66 @@ typst compile main.typ output.pdf
 
 ## Architecture
 
-Floe is structured into four decoupled layers. You can use high-level presets (`textbook`, `report`, `slides`), cherry-pick individual components (`theorem`, `formula-breakdown`, `data-table`), or compose pure layout atoms (`card`, `plaque`, `stepper`) with zero external side effects:
+Floe is structured into five decoupled layers. You can use full document presets (`textbook`, `report`, `slides`, `cheatsheet`, `memo`, `adr`), cherry-pick high-level components (`theorem`, `formula-breakdown`, `sci-plot`, `data-table`), or compose pure layout atoms (`equal-row`, `card`, `plaque`, `stepper`) with zero external side effects:
 
-```
+```text
 Floe/
-├── core/                      # Tokens, metrics, palettes & package bindings
-├── primitives/                # Zero-domain layout geometry, cards, badges, steppers
-├── mixins/                    # Pure show rules: headings, chrome, code, math, tables
-├── components/                # Academic plaques, alerts, formula breakdown, layouts, tables
-└── presets/                   # Master document templates: textbook, report, slides, memo
+├── core/                      # Layer 0: Tokens, scales, palettes, package bindings & #ce
+│   ├── lib.typ
+│   ├── tokens.typ
+│   ├── packages.typ
+│   └── chemistry.typ
+├── primitives/                # Layer 1: Zero-domain layout geometry, cards, badges, steppers
+│   ├── lib.typ
+│   ├── layout.typ
+│   ├── cards.typ
+│   ├── plaques.typ
+│   ├── figures.typ
+│   ├── items.typ
+│   ├── steppers.typ
+│   ├── badges.typ
+│   └── dividers.typ
+├── mixins/                    # Layer 2: Pure show rules for chrome, headings, math, code, tables
+│   ├── lib.typ
+│   ├── chrome.typ
+│   ├── headings.typ
+│   ├── math.typ
+│   ├── code.typ
+│   ├── tables.typ
+│   ├── callouts.typ
+│   └── compact.typ
+├── components/                # Layer 3: Academic callouts, explainers, plotting, layouts, tables
+│   ├── lib.typ
+│   ├── academic.typ
+│   ├── alerts.typ
+│   ├── pedagogical.typ
+│   ├── scientific.typ
+│   ├── layouts.typ
+│   ├── tables.typ
+│   ├── headers.typ
+│   └── math-colors.typ
+└── presets/                   # Layer 4: Master document templates
+    ├── lib.typ
+    ├── textbook.typ
+    ├── report.typ
+    ├── slides.typ
+    ├── cheatsheet.typ
+    ├── memo.typ
+    └── adr.typ
 ```
 
-Every module exposes a `lib.typ` entrypoint, allowing either whole-library or layer-specific imports:
+### Granular Layer Imports
+
+Every directory exposes a `lib.typ` entrypoint, allowing either whole-library or layer-specific imports:
 
 ```typst
-// Import the entire library
-#import "@preview/floe:0.1.0": *
+// Import the entire Floe design system
+#import "@local/floe:0.2.0": *
 
-// Or import only specific layers:
-#import "@preview/floe:0.1.0/primitives": card, badge, stepper
-#import "@preview/floe:0.1.0/mixins": with-heading-theme, with-code-theme
-#import "@preview/floe:0.1.0/components": theorem, definition, pitfall
-#import "@preview/floe:0.1.0/presets": textbook, report
+// Or import only specific layers into an existing template:
+#import "@local/floe:0.2.0/core/lib.typ": floe-cyan, floe-navy, ce
+#import "@local/floe:0.2.0/primitives/lib.typ": card, badge, stepper, equal-row
+#import "@local/floe:0.2.0/mixins/lib.typ": with-heading-theme, with-code-theme
+#import "@local/floe:0.2.0/components/lib.typ": theorem, definition, pitfall, formula-breakdown
+#import "@local/floe:0.2.0/presets/lib.typ": textbook, report, slides
 ```

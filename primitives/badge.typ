@@ -4,15 +4,17 @@
 // ============================================================================
 #import "../core/lib.typ": *
 
-/// Inline pill/badge chip with semantic variants
+/// Inline pill/badge chip with semantic variants and exact cap-height bounding
+/// so corner placement never depends on ambient paragraph line height.
 #let badge(
   label,
   variant: "neutral",
   fill: none,
   text-color: none,
   weight: "bold",
-  size: text-scale.xs,
+  size: 7.5pt,
   radius: radii.sm,
+  baseline: 0pt,
 ) = {
   let v-map = (
     "info":    (bg: rgb("#E0F2FE"), fg: rgb("#0369A1")),
@@ -20,7 +22,8 @@
     "warning": (bg: rgb("#FEF3C7"), fg: rgb("#B45309")),
     "danger":  (bg: rgb("#FEE2E2"), fg: rgb("#B91C1C")),
     "purple":  (bg: rgb("#EDE9FE"), fg: rgb("#6D28D9")),
-    "neutral": (bg: slate-100,      fg: slate-700),
+    "dark":    (bg: slate-800,      fg: white),
+    "neutral": (bg: slate-200,      fg: slate-800),
     "outline": (bg: white,          fg: slate-700),
   )
 
@@ -33,9 +36,16 @@
     fill: final-fill,
     stroke: stroke,
     radius: radius,
-    inset: (x: 5pt, y: 2.2pt),
-    baseline: 14%,
-  )[#text(font: fonts.sans, size: size, weight: weight, fill: final-color)[#label]]
+    inset: (x: 5.5pt, y: 3pt),
+    baseline: baseline,
+  )[#text(
+    font: fonts.sans,
+    size: size,
+    weight: weight,
+    fill: final-color,
+    top-edge: "cap-height",
+    bottom-edge: "bounds",
+  )[#label]]
 }
 
 /// Keyboard keycap visualization (e.g. #kbd("Ctrl") + #kbd("C"))

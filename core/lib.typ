@@ -5,3 +5,4 @@
 
 #import "tokens.typ": *
 #import "packages.typ": *
+#import "chemistry.typ": *

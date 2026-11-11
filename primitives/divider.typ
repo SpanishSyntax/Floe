@@ -1,16 +1,17 @@
 // ============================================================================
 // FLOE DESIGN SYSTEM — DIVIDERS (primitives/divider.typ)
-// Subtle Themed Separators, Labeled Chips, Dotted, Faded & Icon Breakers
+// Subtle Themed Separators, Pill Chips, Dotted, Dashed, Faded & Icon Breakers
 // ============================================================================
 #import "../core/lib.typ": *
 
 /// 1. Subtle horizontal hairline rule
 #let divider(
-  color: slate-200,
+  color: slate-300,
   thickness: strokes.hairline,
-  above: 0.8em,
-  below: 0.8em,
+  above: 8pt,
+  below: 8pt,
 ) = block(
+  width: 100%,
   above: above,
   below: below,
   line(length: 100%, stroke: thickness + color),
@@ -19,11 +20,11 @@
 /// 2. Horizontal separator with centered pure text label (zero box / clean text)
 #let text-divider(
   label,
-  color: slate-200,
+  color: slate-300,
   thickness: strokes.hairline,
-  text-color: floe-muted,
-  above: 0.9em,
-  below: 0.9em,
+  text-color: floe-slate,
+  above: 8pt,
+  below: 8pt,
 ) = block(
   width: 100%,
   above: above,
@@ -39,15 +40,15 @@
   )
 ]
 
-/// 3. Horizontal separator with centered chip pill badge (subtle boxed fill & border)
+/// 3. Horizontal separator with centered pill chip badge (rounded pill with tinted fill & border)
 #let chip-divider(
   label,
-  color: slate-200,
+  color: slate-300,
   thickness: strokes.hairline,
-  text-color: floe-muted,
+  text-color: floe-navy,
   badge-fill: slate-100,
-  above: 0.9em,
-  below: 0.9em,
+  above: 8pt,
+  below: 8pt,
 ) = block(
   width: 100%,
   above: above,
@@ -60,54 +61,21 @@
     line(length: 100%, stroke: thickness + color),
     box(
       fill: badge-fill,
-      stroke: strokes.hairline + color,
-      radius: radii.sm,
-      inset: (x: 6.5pt, y: 2.5pt),
-      text(font: fonts.sans, size: text-scale.xs, weight: "bold", fill: text-color)[#label]
+      stroke: strokes.border + color,
+      radius: radii.full,
+      inset: (x: 8pt, y: 2.8pt),
+      text(font: fonts.sans, size: text-scale.xs, weight: "bold", fill: text-color, tracking: 0.04em)[#label]
     ),
     line(length: 100%, stroke: thickness + color),
   )
 ]
 
-/// 4. Horizontal separator with centered label (pure text by default, or boxed: true)
-#let labeled-divider(
-  label,
-  color: slate-200,
-  thickness: strokes.hairline,
-  text-color: floe-muted,
-  badge-fill: none,
-  boxed: false,
-  above: 0.9em,
-  below: 0.9em,
-) = {
-  if boxed or badge-fill != none {
-    chip-divider(
-      label,
-      color: color,
-      thickness: thickness,
-      text-color: text-color,
-      badge-fill: if badge-fill != none { badge-fill } else { slate-100 },
-      above: above,
-      below: below,
-    )
-  } else {
-    text-divider(
-      label,
-      color: color,
-      thickness: thickness,
-      text-color: text-color,
-      above: above,
-      below: below,
-    )
-  }
-}
-
-/// 3. Dotted divider line
+/// 4. Dotted divider line
 #let dotted-divider(
   color: slate-300,
   thickness: 1.0pt,
-  above: 0.8em,
-  below: 0.8em,
+  above: 8pt,
+  below: 8pt,
 ) = block(
   width: 100%,
   above: above,
@@ -115,12 +83,12 @@
   line(length: 100%, stroke: (paint: color, thickness: thickness, dash: "dotted")),
 )
 
-/// 4. Dashed divider line
+/// 5. Dashed divider line
 #let dashed-divider(
   color: slate-300,
   thickness: 0.8pt,
-  above: 0.8em,
-  below: 0.8em,
+  above: 8pt,
+  below: 8pt,
 ) = block(
   width: 100%,
   above: above,
@@ -128,12 +96,12 @@
   line(length: 100%, stroke: (paint: color, thickness: thickness, dash: "dashed")),
 )
 
-/// 5. Gradient fade divider (fades in from left edge, solid in center, fades out on right)
+/// 6. Gradient fade divider (fades in from left edge, solid in center, fades out on right)
 #let fade-divider(
   color: slate-400,
-  thickness: strokes.hairline,
-  above: 0.8em,
-  below: 0.8em,
+  thickness: strokes.border,
+  above: 8pt,
+  below: 8pt,
 ) = block(
   width: 100%,
   above: above,
@@ -148,14 +116,14 @@
   ),
 )
 
-/// 6. Icon / glyph divider with centered emblem
+/// 7. Icon / glyph divider with centered emblem
 #let icon-divider(
   icon: "✦",
-  color: slate-200,
+  color: slate-300,
   icon-color: floe-cyan,
   size: 8.5pt,
-  above: 0.9em,
-  below: 0.9em,
+  above: 8pt,
+  below: 8pt,
 ) = block(
   width: 100%,
   above: above,
@@ -171,13 +139,13 @@
   )
 ]
 
-/// 7. Brand gradient accent rule
+/// 8. Brand gradient accent rule
 #let gradient-divider(
   from-color: floe-cyan,
   to-color: floe-navy,
   thickness: 1.5pt,
-  above: 0.9em,
-  below: 0.9em,
+  above: 8pt,
+  below: 8pt,
 ) = block(
   width: 100%,
   above: above,

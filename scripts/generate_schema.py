@@ -22,12 +22,12 @@ def parse_typst_toml() -> dict[str, str]:
     """Parse Floe package metadata from typst.toml."""
     manifest_path = ROOT_DIR / "typst.toml"
     if not manifest_path.is_file():
-        return {"name": "floe", "version": "0.1.0", "description": "Floe Design System"}
+        return {"name": "floe", "version": "0.2.0", "description": "Floe Design System"}
     with manifest_path.open("rb") as f:
         data = tomllib.load(f).get("package", {})
     return {
         "name": data.get("name", "floe"),
-        "version": data.get("version", "0.1.0"),
+        "version": data.get("version", "0.2.0"),
         "description": data.get("description", "Floe Design System"),
     }
 

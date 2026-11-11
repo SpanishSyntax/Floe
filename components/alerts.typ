@@ -24,7 +24,7 @@
   ]
 ]
 
-/// Closed-Book Exam Trap / Pitfall Callout (Shadcn Danger Alert)
+/// Closed-Book Exam Trap / Pitfall Callout (Shadcn Danger Alert with mistake vs correct chips)
 #let pitfall(..args) = {
   let (title, body) = _parse-args(args)
   let mistake = if "mistake" in args.named() { args.named().mistake } else { none }
@@ -80,7 +80,6 @@
     ]
   ]
 }
-#let exam-trap(..args) = pitfall(..args)
 
 /// Closed-Book Exam Alert / Key Formula Reminder (Amber Alert)
 #let exam-alert(..args) = {
