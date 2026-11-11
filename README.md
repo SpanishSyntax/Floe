@@ -28,7 +28,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#theorem(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/theorem.png" alt="Theorem Plaque" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/theorem.png" alt="Theorem Plaque" width="100%" />
       </td>
     </tr>
     <tr>
@@ -36,7 +36,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#pitfall(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/pitfall.png" alt="Exam Pitfall Callout" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/pitfall.png" alt="Exam Pitfall Callout" width="100%" />
       </td>
     </tr>
     <tr>
@@ -44,7 +44,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#formula-breakdown(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/formula_breakdown.png" alt="Formula Breakdown Canvas" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/formula_breakdown.png" alt="Formula Breakdown Canvas" width="100%" />
       </td>
     </tr>
     <tr>
@@ -52,7 +52,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#derivation-stepper(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/derivation_stepper.png" alt="Derivation Stepper" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/derivation_stepper.png" alt="Derivation Stepper" width="100%" />
       </td>
     </tr>
     <tr>
@@ -60,7 +60,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#plot-2d(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/plot_2d.png" alt="Native 2D Function and Scatter Plotter" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/plot_2d.png" alt="Native 2D Function and Scatter Plotter" width="100%" />
       </td>
     </tr>
     <tr>
@@ -68,7 +68,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#reaction(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/reaction.png" alt="Chemical Reaction and Thermodynamic Data Block" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/reaction.png" alt="Chemical Reaction and Thermodynamic Data Block" width="100%" />
       </td>
     </tr>
     <tr>
@@ -76,7 +76,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/primitives"><code>#figure-grid(...)</code><br><br><code>#figure-card(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/figure_card.png" alt="Framed Figure Grid and Cards" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/figure_card.png" alt="Framed Figure Grid and Cards" width="100%" />
       </td>
     </tr>
     <tr>
@@ -84,7 +84,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/primitives"><code>#equal-grid(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/equal_grid.png" alt="Parent-Driven Equal-Height Row Engine" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/equal_grid.png" alt="Parent-Driven Equal-Height Row Engine" width="100%" />
       </td>
     </tr>
     <tr>
@@ -92,7 +92,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#duality-grid(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/duality_grid.png" alt="Primal-Dual Duality Grid" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/duality_grid.png" alt="Primal-Dual Duality Grid" width="100%" />
       </td>
     </tr>
     <tr>
@@ -100,7 +100,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#pro-con(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/pro_con.png" alt="Pro-Con Tradeoffs" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/pro_con.png" alt="Pro-Con Tradeoffs" width="100%" />
       </td>
     </tr>
     <tr>
@@ -108,7 +108,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#data-table(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/tables.png" alt="Adaptive Data Table" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/tables.png" alt="Adaptive Data Table" width="100%" />
       </td>
     </tr>
     <tr>
@@ -116,7 +116,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#comparison-table(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/comparison_table.png" alt="Feature Comparison Matrix" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/comparison_table.png" alt="Feature Comparison Matrix" width="100%" />
       </td>
     </tr>
     <tr>
@@ -124,7 +124,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/primitives"><code>#divider(...)</code><br><br><code>#chip-divider(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/divider.png" alt="Horizontal Dividers" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/divider.png" alt="Horizontal Dividers" width="100%" />
       </td>
     </tr>
     <tr>
@@ -132,7 +132,7 @@ Floe provides modular structural primitives, equal-height row engines, composabl
         <a href="https://spanishsyntax.github.io/Floe/#/presets"><code>#adr(...)</code></a>
       </td>
       <td valign="middle" align="center">
-        <img src="assets/examples/preset_adr_doc.png" alt="Architecture Decision Record Preset" width="100%" />
+        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/main/assets/examples/preset_adr_doc.png" alt="Architecture Decision Record Preset" width="100%" />
       </td>
     </tr>
   </tbody>
@@ -211,7 +211,7 @@ ln -s /path/to/Floe ~/.local/share/typst/packages/local/floe/0.2.1
 Then import the local package:
 
 ```typst
-#import "@local/floe:0.2.1": *
+#import "@preview/floe:0.2.1": *
 ```
 
 ---
