@@ -1,0 +1,18 @@
+# Build outputs
+*.pdf
+examples/*.png
+result
+result-*
+
+# Allow documentation and package preview images
+!assets/*.png
+!assets/**/*.png
+!docs/assets/**/*.png
+!thumbnail.png
+
+# Typst package & cache
+.snowpack/
+*.typ.lock
+
+# Environment
+.direnv/

@@ -1,0 +1,28 @@
+name: Typst Compilation Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v3
+        with:
+          typst-version: "0.14.0"
+
+      - name: Compile All Examples
+        run: |
+          typst compile --root . examples/gallery.typ /tmp/gallery.pdf
+          typst compile --root . examples/textbook_example.typ /tmp/textbook.pdf
+          typst compile --root . examples/report_example.typ /tmp/report.pdf
+          typst compile --root . examples/slides_example.typ /tmp/slides.pdf
+          typst compile --root . examples/cheatsheet_example.typ /tmp/cheatsheet.pdf
+          typst compile --root . examples/memo_example.typ /tmp/memo.pdf
