@@ -1,0 +1,39 @@
+name: Visual or Layout Bug Report
+description: Report a layout glitch, spacing regression, or Typst compilation error in Floe
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Affected Layer
+      options:
+        - "Layer 0: Core (core/)"
+        - "Layer 1: Primitives (primitives/)"
+        - "Layer 2: Mixins (mixins/)"
+        - "Layer 3: Components (components/)"
+        - "Layer 4: Presets (presets/)"
+    validations:
+      required: true
+  - type: input
+    id: component
+    attributes:
+      label: Component / Function Name
+      placeholder: "e.g., #plaque, #formula-breakdown, #badge"
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal Typst Reproduction
+      description: Paste a minimal snippet reproducing the issue
+      render: typst
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs. Actual Visual Behavior
+      description: Describe the alignment, spacing, or compilation issue (attach a screenshot if possible)
+    validations:
+      required: true

@@ -40,21 +40,7 @@
             columns: (1fr, auto),
             gutter: 8pt,
             align: (top + left, top + right),
-            box(
-              fill: floe-green,
-              inset: (x: 5.5pt, y: 3pt),
-              radius: radii.sm,
-              baseline: 0pt,
-              text(
-                font: fonts.sans,
-                size: 7.5pt,
-                weight: "bold",
-                fill: white,
-                tracking: 0.06em,
-                top-edge: "cap-height",
-                bottom-edge: "bounds",
-              )[#upper(domain)]
-            ),
+            badge(upper(domain), fill: floe-green, text-color: white),
             if system != none [
               #badge(system, variant: "outline")
             ] else [],
@@ -77,21 +63,7 @@
           columns: (auto, 1fr, auto),
           gutter: 8pt,
           align: (horizon, horizon, horizon),
-          box(
-            fill: floe-green,
-            inset: (x: 5.5pt, y: 3pt),
-            radius: radii.sm,
-            baseline: 0pt,
-            text(
-              font: fonts.sans,
-              size: 7.5pt,
-              weight: "bold",
-              fill: white,
-              tracking: 0.06em,
-              top-edge: "cap-height",
-              bottom-edge: "bounds",
-            )[#upper(domain)]
-          ),
+          badge(upper(domain), fill: floe-green, text-color: white),
           if title != none [
             #text(font: fonts.sans, size: 9.5pt, weight: "bold", fill: floe-navy)[#title]
           ],
@@ -150,21 +122,7 @@
             columns: (1fr, auto),
             gutter: 8pt,
             align: (top + left, top + right),
-            box(
-              fill: floe-amber,
-              inset: (x: 5.5pt, y: 3pt),
-              radius: radii.sm,
-              baseline: 0pt,
-              text(
-                font: fonts.sans,
-                size: 7.5pt,
-                weight: "bold",
-                fill: white,
-                tracking: 0.06em,
-                top-edge: "cap-height",
-                bottom-edge: "bounds",
-              )[WORKED NUMERICAL EXAMPLE]
-            ),
+            badge("WORKED NUMERICAL EXAMPLE", fill: floe-amber, text-color: white),
             if badge-label != none [
               #badge(badge-label, variant: "warning")
             ] else [],
@@ -187,21 +145,7 @@
           columns: (auto, 1fr, auto),
           gutter: 8pt,
           align: (horizon, horizon, horizon),
-          box(
-            fill: floe-amber,
-            inset: (x: 5.5pt, y: 3pt),
-            radius: radii.sm,
-            baseline: 0pt,
-            text(
-              font: fonts.sans,
-              size: 7.5pt,
-              weight: "bold",
-              fill: white,
-              tracking: 0.06em,
-              top-edge: "cap-height",
-              bottom-edge: "bounds",
-            )[WORKED NUMERICAL EXAMPLE]
-          ),
+          badge("WORKED NUMERICAL EXAMPLE", fill: floe-amber, text-color: white),
           if title != none [
             #text(font: fonts.sans, size: 9.6pt, weight: "bold", fill: floe-navy)[#title]
           ],
@@ -241,9 +185,9 @@
   ]
 }
 
-#let _parse-symbol-tuple(idx, s) = {
+#let _parse-symbol-tuple(idx, s, palette: term-palette) = {
   let is-colored = (type(s.at(0)) == color)
-  let s-color = if is-colored { s.at(0) } else { term-palette.at(calc.rem(idx, term-palette.len())) }
+  let s-color = if is-colored { s.at(0) } else { palette.at(calc.rem(idx, palette.len())) }
   let s-label = if is-colored { s.at(1) } else { s.at(0) }
   let s-name  = if is-colored { s.at(2) } else { s.at(1) }
   let s-desc  = if is-colored {
@@ -265,20 +209,11 @@
   #set par(justify: false, leading: 0.45em)
   // Row 1: Corner-anchored Symbol Bean
   #block(width: 100%, above: 0pt, below: 0pt)[
-    #box(
+    #badge(
+      s-label,
       fill: s-color.lighten(88%),
+      text-color: s-color,
       stroke: strokes.hairline + s-color.lighten(35%),
-      inset: (x: 5.5pt, y: 3pt),
-      radius: radii.sm,
-      baseline: 0pt,
-      text(
-        font: fonts.sans,
-        size: 8.2pt,
-        weight: "bold",
-        fill: s-color,
-        top-edge: "cap-height",
-        bottom-edge: "bounds",
-      )[#s-label]
     )
   ]
   // Row 2: Full-width Term Name
@@ -304,7 +239,7 @@
 /// Visual Formula Breakdown Canvas
 /// Displays equation prominently on a pedestal (supporting `#t1`..`#t6` or `#math-hl` color coding),
 /// followed by symbol breakdown cards & numerical sanity check.
-/// `symbols` accepts either 3-tuples `($sym$, "Name", [Desc])` (auto-colored with `term-palette`)
+/// `symbols` accepts either 3-tuples `($sym$, "Name", [Desc])` (auto-colored with `palette`)
 /// or 4-tuples `(color, $sym$, "Name", [Desc])`.
 #let formula-breakdown(
   title: "Symbol-by-Symbol Mechanics",
@@ -312,6 +247,7 @@
   inline-header: false,
   formula: none,
   symbols: (),
+  palette: term-palette,
   ascii: "",
   arithmetic: none,
   card-columns: (1fr, 1fr),
@@ -347,21 +283,7 @@
             columns: (1fr, auto),
             gutter: 8pt,
             align: (top + left, top + right),
-            box(
-              fill: slate-800,
-              inset: (x: 5.5pt, y: 3pt),
-              radius: radii.sm,
-              baseline: 0pt,
-              text(
-                font: fonts.sans,
-                size: 7.5pt,
-                weight: "bold",
-                fill: white,
-                tracking: 0.06em,
-                top-edge: "cap-height",
-                bottom-edge: "bounds",
-              )[FORMULA BREAKDOWN]
-            ),
+            badge("FORMULA BREAKDOWN", variant: "dark"),
             if badge-label != none [
               #badge(badge-label, variant: "info")
             ] else [],
@@ -384,21 +306,7 @@
           columns: (auto, 1fr, auto),
           gutter: 8pt,
           align: (horizon, horizon, horizon),
-          box(
-            fill: slate-800,
-            inset: (x: 5.5pt, y: 3pt),
-            radius: radii.sm,
-            baseline: 0pt,
-            text(
-              font: fonts.sans,
-              size: 7.5pt,
-              weight: "bold",
-              fill: white,
-              tracking: 0.06em,
-              top-edge: "cap-height",
-              bottom-edge: "bounds",
-            )[FORMULA BREAKDOWN]
-          ),
+          badge("FORMULA BREAKDOWN", variant: "dark"),
           text(font: fonts.sans, size: 9pt, weight: "bold", fill: floe-navy)[#title],
           if badge-label != none [
             #badge(badge-label, variant: "info")
@@ -450,7 +358,7 @@
           let ncols = card-columns.len()
           let gutter = 8pt
           let col-w = (size.width - gutter * (ncols - 1)) / ncols
-          let parsed-symbols = symbols.enumerate().map(((idx, s)) => _parse-symbol-tuple(idx, s))
+          let parsed-symbols = symbols.enumerate().map(((idx, s)) => _parse-symbol-tuple(idx, s, palette: palette))
           let chunks = ()
           let curr = ()
           for ps in parsed-symbols {
@@ -558,21 +466,7 @@
           columns: (1fr, auto),
           gutter: 8pt,
           align: (top + left, top + right),
-          box(
-            fill: floe-navy,
-            inset: (x: 5.5pt, y: 3pt),
-            radius: radii.sm,
-            baseline: 0pt,
-            text(
-              font: fonts.sans,
-              size: 7.5pt,
-              weight: "bold",
-              fill: white,
-              tracking: 0.06em,
-              top-edge: "cap-height",
-              bottom-edge: "bounds",
-            )[DERIVATION STEPPER]
-          ),
+          badge("DERIVATION STEPPER", fill: floe-navy, text-color: white),
           if badge-label != none [
             #badge(badge-label, variant: "info")
           ] else [],
@@ -595,21 +489,7 @@
         columns: (auto, 1fr, auto),
         gutter: 8pt,
         align: (horizon, horizon, horizon),
-        box(
-          fill: floe-navy,
-          inset: (x: 5.5pt, y: 3pt),
-          radius: radii.sm,
-          baseline: 0pt,
-          text(
-            font: fonts.sans,
-            size: 7.5pt,
-            weight: "bold",
-            fill: white,
-            tracking: 0.06em,
-            top-edge: "cap-height",
-            bottom-edge: "bounds",
-          )[DERIVATION STEPPER]
-        ),
+        badge("DERIVATION STEPPER", fill: floe-navy, text-color: white),
         text(font: fonts.sans, size: 9pt, weight: "bold", fill: floe-navy)[#title],
         if badge-label != none [
           #badge(badge-label, variant: "info")

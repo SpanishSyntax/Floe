@@ -26,3 +26,8 @@ jobs:
           typst compile --root . examples/slides_example.typ /tmp/slides.pdf
           typst compile --root . examples/cheatsheet_example.typ /tmp/cheatsheet.pdf
           typst compile --root . examples/memo_example.typ /tmp/memo.pdf
+
+      - name: Verify Schema Sync (floe.json)
+        run: |
+          python3 scripts/generate_schema.py
+          git diff --exit-code floe.json

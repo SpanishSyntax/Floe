@@ -36,15 +36,19 @@
   neutral: (bg: slate-50,       border: slate-300,  text: slate-800),
 )
 
-// 4. Universal Equation & Term Dissection Palette (Domain-Agnostic)
-#let c-term-1  = rgb("#0284C7")  // Term 1 (Sky Blue)
-#let c-term-2  = rgb("#7C3AED")  // Term 2 (Royal Purple)
-#let c-term-3  = rgb("#D97706")  // Term 3 (Warm Amber)
-#let c-term-4  = rgb("#059669")  // Term 4 (Emerald Green)
-#let c-term-5  = rgb("#DC2626")  // Term 5 (Crimson Red)
-#let c-term-6  = rgb("#DB2777")  // Term 6 (Deep Rose)
+// 4. Universal Equation & Term Dissection Palette (Decoupled from Brand UI Chrome)
+// Dedicated high-contrast mathematical inks tuned for equation legibility on light/pedestal surfaces.
+// Completely independent of `floe-*` UI chrome tokens; pass `palette: brand-term-palette`
+// (or a custom color tuple) to `#formula-breakdown` / `#eq-legend` to couple on demand.
+#let c-term-1  = rgb("#0369A1")  // Term 1 — Cerulean Ink
+#let c-term-2  = rgb("#7E22CE")  // Term 2 — Violet Ink
+#let c-term-3  = rgb("#C2410C")  // Term 3 — Terracotta Ochre Ink
+#let c-term-4  = rgb("#0F766E")  // Term 4 — Viridian Teal Ink
+#let c-term-5  = rgb("#BE123C")  // Term 5 — Carmine Rose Ink
+#let c-term-6  = rgb("#4338CA")  // Term 6 — Ultramarine Indigo Ink
 
-#let term-palette = (c-term-1, c-term-2, c-term-3, c-term-4, c-term-5, c-term-6)
+#let term-palette       = (c-term-1, c-term-2, c-term-3, c-term-4, c-term-5, c-term-6)
+#let brand-term-palette = (floe-cyan, floe-purple, floe-amber, floe-green, floe-red, floe-navy)
 
 // 5. Cross-Platform Typography Stacks
 #let fonts = (

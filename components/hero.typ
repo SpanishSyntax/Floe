@@ -35,21 +35,11 @@
         gutter: 8pt,
         align: (top + left, top + right),
         if eyebrow != none [
-          #box(
+          #badge(
+            upper(eyebrow),
             fill: accent.transparentize(82%),
+            text-color: accent,
             stroke: strokes.hairline + accent.transparentize(40%),
-            inset: (x: 6.5pt, y: 3.5pt),
-            radius: radii.sm,
-            baseline: 0pt,
-            text(
-              font: fonts.sans,
-              size: 7.8pt,
-              weight: "bold",
-              fill: accent,
-              tracking: 0.08em,
-              top-edge: "cap-height",
-              bottom-edge: "bounds",
-            )[#upper(eyebrow)]
           )
         ] else [],
         if badge-label != none [
@@ -130,21 +120,11 @@
         columns: (1fr, auto),
         gutter: 8pt,
         align: (top + left, top + right),
-        box(
+        badge(
+          if eyebrow != "" [#upper(eyebrow) #num] else [CHAPTER #num],
           fill: floe-cyan.lighten(86%),
+          text-color: floe-navy,
           stroke: strokes.hairline + floe-cyan.lighten(40%),
-          inset: (x: 6pt, y: 3pt),
-          radius: radii.sm,
-          baseline: 0pt,
-          text(
-            font: fonts.sans,
-            size: 7.8pt,
-            weight: "bold",
-            fill: floe-navy,
-            tracking: 0.08em,
-            top-edge: "cap-height",
-            bottom-edge: "bounds",
-          )[#if eyebrow != "" [#upper(eyebrow) #num] else [CHAPTER #num]]
         ),
         if badge-label != none [
           #badge(badge-label, variant: badge-variant)
@@ -219,21 +199,11 @@
         columns: (1fr, auto),
         gutter: 8pt,
         align: (top + left, top + right),
-        box(
+        badge(
+          [#if num != none [MODULE #num • ]#upper(eyebrow)],
           fill: floe-cyan.lighten(85%),
+          text-color: floe-navy,
           stroke: strokes.hairline + floe-cyan.lighten(40%),
-          inset: (x: 6pt, y: 3pt),
-          radius: radii.sm,
-          baseline: 0pt,
-          text(
-            font: fonts.sans,
-            size: 7.5pt,
-            weight: "bold",
-            fill: floe-navy,
-            tracking: 0.06em,
-            top-edge: "cap-height",
-            bottom-edge: "bounds",
-          )[#if num != none [MODULE #num • ]#upper(eyebrow)]
         ),
         if read-time != none [
           #badge(read-time, variant: "neutral")
@@ -305,21 +275,11 @@
         gutter: 8pt,
         align: (top + left, top + right),
         if tag != none [
-          #box(
+          #badge(
+            upper(tag),
             fill: floe-cyan.transparentize(80%),
+            text-color: floe-cyan,
             stroke: strokes.hairline + floe-cyan.transparentize(40%),
-            inset: (x: 5.5pt, y: 3pt),
-            radius: radii.sm,
-            baseline: 0pt,
-            text(
-              font: fonts.sans,
-              size: 7.5pt,
-              weight: "bold",
-              fill: floe-cyan,
-              tracking: 0.08em,
-              top-edge: "cap-height",
-              bottom-edge: "bounds",
-            )[#upper(tag)]
           )
         ] else [],
         if badge-label != none [
@@ -375,21 +335,11 @@
           gutter: 6pt,
           align: (top + left, top + right),
           if tag != none [
-            #box(
+            #badge(
+              upper(tag),
               fill: floe-cyan.transparentize(80%),
+              text-color: floe-cyan,
               stroke: strokes.hairline + floe-cyan.transparentize(40%),
-              inset: (x: 5.5pt, y: 3pt),
-              radius: radii.sm,
-              baseline: 0pt,
-              text(
-                font: fonts.sans,
-                size: 7.2pt,
-                weight: "bold",
-                fill: floe-cyan,
-                tracking: 0.06em,
-                top-edge: "cap-height",
-                bottom-edge: "bounds",
-              )[#upper(tag)]
             )
           ] else [],
           if badge-label != none [
@@ -444,6 +394,7 @@
   tag: "SYSTEM SPECIFICATION",
   badge-label: none,
   stats: (),
+  palette: brand-term-palette,
   above: 8pt,
   below: 8pt,
 ) = block(
@@ -472,25 +423,16 @@
           gutter: 8pt,
           align: (top + left, top + right),
           if tag != none [
-            #box(
+            #badge(
+              tag,
               fill: floe-cyan.transparentize(80%),
+              text-color: floe-cyan,
               stroke: strokes.hairline + floe-cyan.transparentize(40%),
-              inset: (x: 5.5pt, y: 3pt),
-              radius: radii.sm,
               baseline: 0pt,
-              text(
-                font: fonts.sans,
-                size: 7.2pt,
-                weight: "bold",
-                fill: floe-cyan,
-                tracking: 0.06em,
-                top-edge: "cap-height",
-                bottom-edge: "bounds",
-              )[#upper(tag)]
             )
           ] else [],
           if badge-label != none [
-            #badge(badge-label, fill: white.transparentize(86%), text-color: white)
+            #badge(badge-label, fill: white.transparentize(86%), text-color: white, baseline: 0pt)
           ] else [],
         )
       ]
@@ -520,7 +462,7 @@
         above: 0pt,
         below: 0pt,
         ..stats.enumerate().map(((idx, st)) => {
-          let col = term-palette.at(calc.rem(idx, term-palette.len()))
+          let col = palette.at(calc.rem(idx, palette.len()))
           block(
             width: 100%,
             fill: white,
@@ -530,13 +472,12 @@
           )[
             #set par(justify: false, leading: 0.45em)
             #block(width: 100%, above: 0pt, below: 0pt)[
-              #box(
+              #badge(
+                st.at(0),
                 fill: col.lighten(88%),
+                text-color: col,
                 stroke: strokes.hairline + col.lighten(35%),
-                inset: (x: 5pt, y: 2.5pt),
-                radius: radii.sm,
                 baseline: 0pt,
-                text(font: fonts.sans, size: 7.2pt, weight: "bold", fill: col, top-edge: "cap-height", bottom-edge: "bounds")[#upper(st.at(0))]
               )
             ]
             #block(width: 100%, above: 5pt, below: 0pt)[
@@ -581,24 +522,10 @@
           gutter: 8pt,
           align: (top + left, top + right),
           if resolved-tag != none [
-            #box(
-              fill: floe-navy,
-              inset: (x: 5.5pt, y: 3pt),
-              radius: radii.sm,
-              baseline: 0pt,
-              text(
-                font: fonts.sans,
-                size: 7.2pt,
-                weight: "bold",
-                fill: white,
-                tracking: 0.06em,
-                top-edge: "cap-height",
-                bottom-edge: "bounds",
-              )[#upper(resolved-tag)]
-            )
+            #badge(resolved-tag, variant: "dark", baseline: 0pt)
           ] else [],
           if badge-label != none [
-            #badge(badge-label, variant: badge-variant)
+            #badge(badge-label, variant: badge-variant, baseline: 0pt)
           ] else [],
         )
       ]
@@ -658,24 +585,10 @@
           gutter: 8pt,
           align: (top + left, top + right),
           if tag != none [
-            #box(
-              fill: accent,
-              inset: (x: 5.5pt, y: 3pt),
-              radius: radii.sm,
-              baseline: 0pt,
-              text(
-                font: fonts.sans,
-                size: 7.2pt,
-                weight: "bold",
-                fill: white,
-                tracking: 0.06em,
-                top-edge: "cap-height",
-                bottom-edge: "bounds",
-              )[#upper(tag)]
-            )
+            #badge(tag, fill: accent, text-color: white, stroke: none, baseline: 0pt)
           ] else [],
           if badge-label != none [
-            #badge(badge-label, variant: badge-variant)
+            #badge(badge-label, variant: badge-variant, baseline: 0pt)
           ] else [],
         )
       ]
@@ -727,7 +640,7 @@
           )[#breadcrumbs.map(b => upper(b)).join("  /  ")]
         ] else [],
         if date != none [
-          #badge(date, variant: "neutral")
+          #badge(date, variant: "neutral", baseline: 0pt)
         ] else [],
       )
     ]
@@ -782,10 +695,10 @@
           gutter: 8pt,
           align: (top + left, top + right),
           if tag != none [
-            #badge(tag, variant: "dark")
+            #badge(tag, variant: "dark", baseline: 0pt)
           ] else [],
           if badge-label != none [
-            #badge(badge-label, variant: badge-variant)
+            #badge(badge-label, variant: badge-variant, baseline: 0pt)
           ] else [],
         )
       ]
@@ -849,24 +762,9 @@
         columns: (1fr, auto),
         gutter: 8pt,
         align: (top + left, top + right),
-        box(
-          fill: floe-purple.lighten(88%),
-          stroke: strokes.hairline + floe-purple.lighten(40%),
-          inset: (x: 6pt, y: 3pt),
-          radius: radii.sm,
-          baseline: 0pt,
-          text(
-            font: fonts.sans,
-            size: 7.8pt,
-            weight: "bold",
-            fill: floe-purple,
-            tracking: 0.08em,
-            top-edge: "cap-height",
-            bottom-edge: "bounds",
-          )[APPENDIX #upper(letter)]
-        ),
+        badge("APPENDIX " + upper(letter), variant: "purple", baseline: 0pt),
         if badge-label != none [
-          #badge(badge-label, variant: "purple")
+          #badge(badge-label, variant: "purple", baseline: 0pt)
         ] else [],
       )
     ]
@@ -929,25 +827,16 @@
         gutter: 8pt,
         align: (top + left, top + right),
         if tag != none [
-          #box(
+          #badge(
+            tag,
             fill: floe-cyan.transparentize(80%),
+            text-color: floe-cyan,
             stroke: strokes.hairline + floe-cyan.transparentize(40%),
-            inset: (x: 6pt, y: 3pt),
-            radius: radii.sm,
             baseline: 0pt,
-            text(
-              font: fonts.sans,
-              size: 7.8pt,
-              weight: "bold",
-              fill: floe-cyan,
-              tracking: 0.08em,
-              top-edge: "cap-height",
-              bottom-edge: "bounds",
-            )[#upper(tag)]
           )
         ] else [],
         if badge-label != none [
-          #badge(badge-label, fill: white.transparentize(86%), text-color: white)
+          #badge(badge-label, fill: white.transparentize(86%), text-color: white, baseline: 0pt)
         ] else [],
       )
     ]

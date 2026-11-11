@@ -62,16 +62,18 @@ The `semantic` dictionary maps status names (`info`, `success`, `warning`, `dang
 
 ### Universal Equation Term Palette
 
-Floe provides six domain-agnostic color tokens (`c-term-1` through `c-term-6`) and the ordered tuple `term-palette` for splitting and color-coding any mathematical, physical, chemical, or algorithmic equation (`#formula-breakdown`, `#eq-legend`, `#math-hl`, and `#t1`..`#t6`):
+Floe provides six domain-agnostic mathematical ink tokens (`c-term-1` through `c-term-6`) and the ordered tuple `term-palette` for splitting and color-coding any mathematical, physical, chemical, or algorithmic equation (`#formula-breakdown`, `#eq-legend`, `#math-hl`, and `#t1`..`#t6`).
+
+By default, `c-term-1`..`c-term-6` are **decoupled** from the UI chrome palette (`floe-cyan`, `floe-purple`, etc.) so re-theming document banners or callouts never alters equation ink contrast. To intentionally couple equation terms to the UI brand palette, pass `palette: brand-term-palette` (or any custom color array) to `#formula-breakdown` or `#eq-legend`:
 
 | Token | Short Macro | Hex Value | Color Name | Typical Usage |
 | :--- | :--- | :--- | :--- | :--- |
-| `c-term-1` | `#t1(expr)` | `#0284C7` | Sky Blue | Primary left-hand side or Term 1 in any dissected equation |
-| `c-term-2` | `#t2(expr)` | `#7C3AED` | Royal Purple | Second highlighted sub-expression or operator term |
-| `c-term-3` | `#t3(expr)` | `#D97706` | Warm Amber | Third highlighted sub-expression, coupling, or gain term |
-| `c-term-4` | `#t4(expr)` | `#059669` | Emerald Green | Fourth highlighted sub-expression, boundary, or source term |
-| `c-term-5` | `#t5(expr)` | `#DC2626` | Crimson Red | Fifth highlighted sub-expression, constraint, or dissipative term |
-| `c-term-6` | `#t6(expr)` | `#DB2777` | Deep Rose | Sixth highlighted sub-expression or auxiliary residual |
+| `c-term-1` | `#t1(expr)` | `#0369A1` | Deep Cerulean | Primary left-hand side or Term 1 in any dissected equation |
+| `c-term-2` | `#t2(expr)` | `#7E22CE` | Violet Ink | Second highlighted sub-expression or operator term |
+| `c-term-3` | `#t3(expr)` | `#C2410C` | Rust Ochre | Third highlighted sub-expression, coupling, or gain term |
+| `c-term-4` | `#t4(expr)` | `#0F766E` | Deep Teal | Fourth highlighted sub-expression, boundary, or source term |
+| `c-term-5` | `#t5(expr)` | `#BE123C` | Carmine Rose | Fifth highlighted sub-expression, constraint, or dissipative term |
+| `c-term-6` | `#t6(expr)` | `#4338CA` | Indigo Ink | Sixth highlighted sub-expression or auxiliary residual |
 
 ---
 
@@ -136,7 +138,7 @@ Consistent corner radii (`radii`), border weights (`strokes`), and vertical spac
 
 **Source:** `core/packages.typ`
 
-Importing Floe (`#import "@local/floe:0.2.0": *`) automatically re-exports a curated suite of third-party Typst packages so you never have to manage versioned preamble imports across individual chapters:
+Importing Floe (`#import "@local/floe:0.2.1": *`) automatically re-exports a curated suite of third-party Typst packages so you never have to manage versioned preamble imports across individual chapters:
 
 | Package | Version | Exported Symbols | Purpose |
 | :--- | :--- | :--- | :--- |
@@ -174,7 +176,7 @@ Floe ships with `#ce(spec)`, a zero-dependency pure-Typst parser for chemical fo
 `#ce` pairs naturally with `unify` (`#qty`, `#unit`) for thermodynamics and `physica` (`$pdv(...)$`, `$dd(...)$`) for chemical kinetics:
 
 ```typst
-#import "@local/floe:0.2.0": *
+#import "@local/floe:0.2.1": *
 
 // Standalone formulas and redox stoichiometry
 #ce("H2SO4(aq)")

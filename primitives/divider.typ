@@ -3,6 +3,7 @@
 // Subtle Themed Separators, Pill Chips, Dotted, Dashed, Faded & Icon Breakers
 // ============================================================================
 #import "../core/lib.typ": *
+#import "badge.typ": badge
 
 /// 1. Subtle horizontal hairline rule
 #let divider(
@@ -35,7 +36,7 @@
     gutter: 10pt,
     align: (horizon, horizon, horizon),
     line(length: 100%, stroke: thickness + color),
-    text(font: fonts.sans, size: text-scale.xs, weight: "bold", fill: text-color, tracking: 0.08em)[#label],
+    text(font: fonts.sans, size: text-scale.xs, weight: "bold", fill: text-color, tracking: 0.08em, top-edge: "cap-height", bottom-edge: "baseline")[#label],
     line(length: 100%, stroke: thickness + color),
   )
 ]
@@ -59,13 +60,7 @@
     gutter: 10pt,
     align: (horizon, horizon, horizon),
     line(length: 100%, stroke: thickness + color),
-    box(
-      fill: badge-fill,
-      stroke: strokes.border + color,
-      radius: radii.full,
-      inset: (x: 8pt, y: 2.8pt),
-      text(font: fonts.sans, size: text-scale.xs, weight: "bold", fill: text-color, tracking: 0.04em)[#label]
-    ),
+    badge(label, fill: badge-fill, text-color: text-color, stroke: strokes.border + color, radius: radii.full, inset: (x: 8pt, y: 3.2pt)),
     line(length: 100%, stroke: thickness + color),
   )
 ]
