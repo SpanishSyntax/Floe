@@ -11,7 +11,7 @@
 Import Floe directly in any Typst document from Typst Universe:
 
 ```typst
-#import "@preview/floe:0.2.1": *
+#import "@preview/floe:0.2.2": *
 ```
 
 ### Local Development
@@ -20,13 +20,13 @@ To link Floe into your local Typst package store for offline development or cust
 
 ```bash
 mkdir -p ~/.local/share/typst/packages/local/floe
-ln -s /path/to/Floe ~/.local/share/typst/packages/local/floe/0.2.1
+ln -s /path/to/Floe ~/.local/share/typst/packages/local/floe/0.2.2
 ```
 
 Then import the local package in your `.typ` files:
 
 ```typst
-#import "@local/floe:0.2.1": *
+#import "@local/floe:0.2.2": *
 ```
 
 ---
@@ -36,7 +36,7 @@ Then import the local package in your `.typ` files:
 Create a `main.typ` document with a textbook layout, chapter opener, theorem plaque, and exam pitfall:
 
 ```typst
-#import "@local/floe:0.2.1": *
+#import "@local/floe:0.2.2": *
 
 #show: textbook.with(
   title: "Optimal Control & Dynamic Programming",
@@ -138,12 +138,12 @@ Every directory exposes a `lib.typ` entrypoint, allowing either whole-library or
 
 ```typst
 // Import the entire Floe design system
-#import "@local/floe:0.2.1": *
+#import "@local/floe:0.2.2": *
 
 // Or import only specific layers into an existing template:
-#import "@local/floe:0.2.1/core/lib.typ": floe-cyan, floe-navy, ce
-#import "@local/floe:0.2.1/primitives/lib.typ": card, badge, stepper, equal-row
-#import "@local/floe:0.2.1/mixins/lib.typ": with-heading-theme, with-code-theme
-#import "@local/floe:0.2.1/components/lib.typ": theorem, definition, pitfall, formula-breakdown
-#import "@local/floe:0.2.1/presets/lib.typ": textbook, report, slides
+#import "@local/floe:0.2.2/core/lib.typ": floe-cyan, floe-navy, ce
+#import "@local/floe:0.2.2/primitives/lib.typ": card, badge, stepper, equal-row
+#import "@local/floe:0.2.2/mixins/lib.typ": with-heading-theme, with-code-theme
+#import "@local/floe:0.2.2/components/lib.typ": theorem, definition, pitfall, formula-breakdown
+#import "@local/floe:0.2.2/presets/lib.typ": textbook, report, slides
 ```

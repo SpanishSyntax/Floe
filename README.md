@@ -196,7 +196,7 @@ A primary design goal of Floe is **first-class, drop-in compatibility with GitHu
 Import the package directly in any Typst document:
 
 ```typst
-#import "@preview/floe:0.2.1": *
+#import "@preview/floe:0.2.2": *
 ```
 
 ### Local Development
@@ -205,13 +205,13 @@ To use the local development build or contribute to Floe:
 
 ```bash
 mkdir -p ~/.local/share/typst/packages/local/floe
-ln -s /path/to/Floe ~/.local/share/typst/packages/local/floe/0.2.1
+ln -s /path/to/Floe ~/.local/share/typst/packages/local/floe/0.2.2
 ```
 
 Then import the local package:
 
 ```typst
-#import "@preview/floe:0.2.1": *
+#import "@preview/floe:0.2.2": *
 ```
 
 ---
@@ -219,7 +219,7 @@ Then import the local package:
 ## Quick Start
 
 ```typst
-#import "@preview/floe:0.2.1": *
+#import "@preview/floe:0.2.2": *
 
 #show: textbook.with(
   title: "Optimal Control & Dynamic Programming",
@@ -287,12 +287,12 @@ Floe/
 Every module exposes a `lib.typ` entrypoint, allowing either whole-library or layer-specific imports:
 
 ```typst
-#import "@preview/floe:0.2.1": *                // Import everything
-#import "@preview/floe:0.2.1/core": *           // Import Layer 0 tokens & scientific backends
-#import "@preview/floe:0.2.1/primitives": *     // Import Layer 1 atomic primitives
-#import "@preview/floe:0.2.1/mixins": *         // Import Layer 2 show rules
-#import "@preview/floe:0.2.1/components": *     // Import Layer 3 high-level components
-#import "@preview/floe:0.2.1/presets": *        // Import Layer 4 document presets
+#import "@preview/floe:0.2.2": *                // Import everything
+#import "@preview/floe:0.2.2/core": *           // Import Layer 0 tokens & scientific backends
+#import "@preview/floe:0.2.2/primitives": *     // Import Layer 1 atomic primitives
+#import "@preview/floe:0.2.2/mixins": *         // Import Layer 2 show rules
+#import "@preview/floe:0.2.2/components": *     // Import Layer 3 high-level components
+#import "@preview/floe:0.2.2/presets": *        // Import Layer 4 document presets
 ```
 
 ---
