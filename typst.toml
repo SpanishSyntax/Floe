@@ -8,7 +8,7 @@ description = "Universal 5-layer design system: tokenized primitives, equal-heig
 repository = "https://github.com/SpanishSyntax/Floe"
 keywords = ["ui", "components", "design-system", "layout", "textbook", "callout", "tokens"]
 categories = ["components", "layout", "book"]
-compiler = "0.14.1"
+compiler = "0.15.0"
 exclude = [
   ".git",
   ".github",

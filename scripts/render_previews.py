@@ -534,9 +534,9 @@ SNIPPETS: dict[str, str] = {
   above: 0pt,
   below: 0pt,
   items: (
-    ("Package Identifier", "@local/floe:0.2.0 (Universal Typst Package)"),
+    ("Package Identifier", "@local/floe:0.2.2 (Universal Typst Package)"),
     ("Row Layout Engine", "#equal-grid with floe-footer slack distribution"),
-    ("Diagram Backends", "CeTZ 0.5.2 • Fletcher 0.5.8 • Merman 0.1.0 • Zap 0.5.0"),
+    ("Diagram Backends", "CeTZ 0.5.3 • Fletcher 0.5.8 • Merman 0.5.0 • Zap 0.6.0"),
   ),
 )
 """,
