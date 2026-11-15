@@ -142,15 +142,14 @@ Importing Floe (`#import "@local/floe:0.2.2": *`) automatically re-exports a cur
 
 | Package | Version | Exported Symbols | Purpose |
 | :--- | :--- | :--- | :--- |
-| `cetz` | `0.5.2` | `cetz` | 2D vector canvas drawing, plots, and coordinate geometry |
+| `cetz` | `0.5.3` | `cetz` | 2D vector canvas drawing, plots, and coordinate geometry |
 | `fletcher` | `0.5.8` | `fletcher`, `diagram`, `node`, `edge` | Commutative diagrams, block diagrams, and state machines |
 | `physica` | `0.9.8` | `*` (`dv`, `pdv`, `grad`, `curl`, `dd`, `ket`, `bra`, ...) | Physics derivatives, vector calculus, Dirac brakets, and matrices |
-| `merman` | `0.1.0` | `mermaid` | Native Typst rendering of Mermaid flowcharts and sequence diagrams |
-| `tablex` | `0.0.9` | `tablex`, `cellx`, `hlinex`, `vlinex` | Legacy/advanced grid layout helpers |
-| `lovelace` | `0.3.0` | `*` (`pseudocode-list`, `line-label`, ...) | Publication-grade algorithmic pseudocode listings |
-| `unify` | `0.7.0` | `*` (`qty`, `num`, `unit`, `qtyrange`, ...) | SI units, scientific uncertainties, and engineering notation |
-| `hydra` | `0.6.1` | `hydra` | Context-aware running header breadcrumbs |
-| `zap` | `0.5.0` | `zap` | Electrical schematics and control circuit diagrams |
+| `merman` | `0.5.0` | `mermaid` | Native Typst rendering of Mermaid flowcharts and sequence diagrams |
+| `lovelace` | `0.3.1` | `*` (`pseudocode-list`, `line-label`, ...) | Publication-grade algorithmic pseudocode listings |
+| `unify` | `0.8.1` | `*` (`qty`, `num`, `unit`, `qtyrange`, ...) | SI units, scientific uncertainties, and engineering notation |
+| `hydra` | `0.6.3` | `hydra` | Context-aware running header breadcrumbs |
+| `zap` | `0.6.0` | `zap` | Electrical schematics and control circuit diagrams |
 
 ---
 
