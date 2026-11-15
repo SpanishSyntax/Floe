@@ -13,7 +13,7 @@
 #import "@preview/physica:0.9.8": *
 
 // 4. Flowcharts & Mermaid Diagrams (Merman)
-#import "@preview/merman:0.5.0": mermaid
+#import "@preview/merman:0.6.0": mermaid
 
 // 5. Algorithmic Pseudocode (Lovelace)
 #import "@preview/lovelace:0.3.1": *
