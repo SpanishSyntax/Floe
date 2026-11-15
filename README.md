@@ -310,7 +310,7 @@ Located in `core/tokens.typ`, `core/packages.typ`, and `core/chemistry.typ`. Lay
 | `@preview/physica:0.9.8` | `core/packages.typ` | Re-exported for Dirac bra-ket notation (`ket`, `bra`, `braket`), derivatives (`dv`, `pdv`), and vector calculus (`grad`, `div`, `curl`). |
 | `@preview/unify:0.8.1` | `core/packages.typ` | Re-exported for SI units and physical quantities (`qty`, `num`, `unit`, `qtyrange`). |
 | `@preview/cetz:0.5.3` & `@preview/fletcher:0.5.8` | `core/packages.typ` | Re-exported for vector canvas graphics (`cetz`) and commutative/block diagrams (`diagram`, `node`, `edge`). |
-| `@preview/merman:0.5.0` & `@preview/zap:0.6.0` | `core/packages.typ` | Re-exported for native Mermaid flowcharts (`mermaid`) and electrical circuit schematics (`zap.circuit`). |
+| `@preview/merman:0.6.0` & `@preview/zap:0.6.0` | `core/packages.typ` | Re-exported for native Mermaid flowcharts (`mermaid`) and electrical circuit schematics (`zap.circuit`). |
 
 ### Layer 1: Atomic Primitives
 
