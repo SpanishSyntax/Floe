@@ -15,128 +15,22 @@ Floe provides modular structural primitives, equal-height row engines, composabl
 > **Tip**
 > **Complete Component & API Reference:** This showcase highlights selected components across all five architectural layers. Every primitive, mixin, component, and preset is documented in depth with live Typst code, parameter tables, and visual previews on the **[Documentation Site](https://spanishsyntax.github.io/Floe)**.
 
-<table>
-  <thead>
-    <tr>
-      <th width="22%">Component</th>
-      <th width="78%">Visual Preview</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#theorem(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/theorem.png" alt="Theorem Plaque" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#pitfall(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/pitfall.png" alt="Exam Pitfall Callout" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#formula-breakdown(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/formula_breakdown.png" alt="Formula Breakdown Canvas" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#derivation-stepper(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/derivation_stepper.png" alt="Derivation Stepper" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#plot-2d(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/plot_2d.png" alt="Native 2D Function and Scatter Plotter" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#reaction(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/reaction.png" alt="Chemical Reaction and Thermodynamic Data Block" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/primitives"><code>#figure-grid(...)</code><br><br><code>#figure-card(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/figure_card.png" alt="Framed Figure Grid and Cards" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/primitives"><code>#equal-grid(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/equal_grid.png" alt="Parent-Driven Equal-Height Row Engine" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#duality-grid(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/duality_grid.png" alt="Primal-Dual Duality Grid" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#pro-con(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/pro_con.png" alt="Pro-Con Tradeoffs" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#data-table(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/tables.png" alt="Adaptive Data Table" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/components"><code>#comparison-table(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/comparison_table.png" alt="Feature Comparison Matrix" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/primitives"><code>#divider(...)</code><br><br><code>#chip-divider(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/divider.png" alt="Horizontal Dividers" width="100%" />
-      </td>
-    </tr>
-    <tr>
-      <td valign="middle">
-        <a href="https://spanishsyntax.github.io/Floe/#/presets"><code>#adr(...)</code></a>
-      </td>
-      <td valign="middle" align="center">
-        <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/preset_adr_doc.png" alt="Architecture Decision Record Preset" width="100%" />
-      </td>
-    </tr>
-  </tbody>
-</table>
+| Component | Visual Preview |
+| :--- | :--- |
+| [`#theorem(...)`](https://spanishsyntax.github.io/Floe/#/components) | ![Theorem Plaque](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/theorem.png) |
+| [`#pitfall(...)`](https://spanishsyntax.github.io/Floe/#/components) | ![Exam Pitfall Callout](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/pitfall.png) |
+| [`#formula-breakdown(...)`](https://spanishsyntax.github.io/Floe/#/components) | ![Formula Breakdown Canvas](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/formula_breakdown.png) |
+| [`#derivation-stepper(...)`](https://spanishsyntax.github.io/Floe/#/components) | ![Derivation Stepper](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/derivation_stepper.png) |
+| [`#plot-2d(...)`](https://spanishsyntax.github.io/Floe/#/components) | ![Native 2D Function and Scatter Plotter](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/plot_2d.png) |
+| [`#reaction(...)`](https://spanishsyntax.github.io/Floe/#/components) | ![Chemical Reaction and Thermodynamic Data Block](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/reaction.png) |
+| [`#figure-grid(...)` / `#figure-card(...)`](https://spanishsyntax.github.io/Floe/#/primitives) | ![Framed Figure Grid and Cards](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/figure_card.png) |
+| [`#equal-grid(...)`](https://spanishsyntax.github.io/Floe/#/primitives) | ![Parent-Driven Equal-Height Row Engine](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/equal_grid.png) |
+| [`#duality-grid(...)`](https://spanishsyntax.github.io/Floe/#/components) | ![Primal-Dual Duality Grid](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/duality_grid.png) |
+| [`#pro-con(...)`](https://spanishsyntax.github.io/Floe/#/components) | ![Pro-Con Tradeoffs](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/pro_con.png) |
+| [`#data-table(...)`](https://spanishsyntax.github.io/Floe/#/components) | ![Adaptive Data Table](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/tables.png) |
+| [`#comparison-table(...)`](https://spanishsyntax.github.io/Floe/#/components) | ![Feature Comparison Matrix](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/comparison_table.png) |
+| [`#divider(...)` / `#chip-divider(...)`](https://spanishsyntax.github.io/Floe/#/primitives) | ![Horizontal Dividers](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/divider.png) |
+| [`#adr(...)`](https://spanishsyntax.github.io/Floe/#/presets) | ![Architecture Decision Record Preset](https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/examples/preset_adr_doc.png) |
 
 ---
 
