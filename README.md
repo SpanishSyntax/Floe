@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/banner.png" alt="Polar bear resting on an ice floe amidst arctic waters" width="100%" />
-</p>
+<img src="https://raw.githubusercontent.com/SpanishSyntax/Floe/v0.2.2/assets/banner.png" alt="Polar bear resting on an ice floe amidst arctic waters" width="100%" />
 
 # Floe ❄️
 
