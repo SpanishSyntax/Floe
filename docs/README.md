@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="assets/banner.png" alt="Polar bear resting on an ice floe amidst arctic waters" width="100%" />
-</p>
+<img src="assets/banner.png" alt="Polar bear resting on an ice floe amidst arctic waters" width="100%" />
 
 # Floe
 
